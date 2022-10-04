@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             weldingwire::class,
             opration::class,
             rollingnames::class,
-            ]);
+        ]);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

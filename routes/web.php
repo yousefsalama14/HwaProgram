@@ -24,33 +24,31 @@ Route::get('/', function () {
 
 
 Route::controller(AuthController::class)->group(function () {
-    Route::get('/login','login')->name('login');
-    Route::Post('/user/login','Submitlogin')->name('user.login');
+    Route::get('/login', 'login')->name('login');
+    Route::Post('/user/login', 'Submitlogin')->name('user.login');
+
+    Route::get('/logout', 'logout')->name('logout');
 });
-Route::middleware('auth')->group(function(){
+Route::middleware('auth')->group(function () {
     Route::controller(HomeController::class)->group(function () {
-        Route::get('/user/home','index')->name('user.home');
+        Route::get('/user/home', 'index')->name('user.home');
     });
 
     Route::controller(weldingController::class)->group(function () {
-        Route::get('/user/welding','index')->name('user.welding');
-        Route::post('/user/welding','weldingorder')->name('welding.order');
-        Route::get('/user/orderdetailes/delete/{id}','deleteOrderDetailes')->name('user.deleteOrderDetailes');
+        Route::get('/user/welding', 'index')->name('user.welding');
+        Route::post('/user/welding', 'weldingorder')->name('welding.order');
+        Route::get('/user/orderdetailes/delete/{id}', 'deleteOrderDetailes')->name('user.deleteOrderDetailes');
     });
 
 
     Route::controller(CartController::class)->group(function () {
-        Route::get('/user/cart','index')->name('user.cart');
-        Route::post('/user/paied','paied')->name('user.paied');
+        Route::get('/user/cart', 'index')->name('user.cart');
+        Route::post('/user/paied', 'paied')->name('user.paied');
     });
 
 
     Route::controller(rollingController::class)->group(function () {
-        Route::get('/user/rolling','index')->name('user.rolling');
-        Route::post('/user/rolling','rollingorder')->name('rolling.order');
+        Route::get('/user/rolling', 'index')->name('user.rolling');
+        Route::post('/user/rolling', 'rollingorder')->name('rolling.order');
     });
-
-
-
 });
-

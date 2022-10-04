@@ -19,7 +19,7 @@ use App\Http\Controllers\Admin\rollingController;
 |
 */
 Route::controller(AuthController::class)->group(function () {
-    Route::get('/Admin/login','login');
+    Route::get('/Admin/login','login')->name('adminLogin');
     Route::Post('/Admin/login','Submitlogin')->name('Admin.login');
 });
 Route::middleware('AdminAuth')->group(function(){

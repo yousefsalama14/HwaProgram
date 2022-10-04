@@ -62,6 +62,10 @@
                                     class="ti ti-chart-bubble menu-icon"></i><span>الدهان</span></a>
                         </li>
                         <!--end nav-item-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('logout')}}"><i
+                                class="ti ti-chart-bubble menu-icon"></i><span>تسجيل الخروج</span></a>
+                        </li>
                     </ul>
                 </div>
                 <!--end sidebarCollapse-->

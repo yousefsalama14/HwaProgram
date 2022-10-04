@@ -16,20 +16,21 @@ class weldingwire extends Seeder
     public function run()
     {
         //
-        DB::table('weldingwires')->insert([
+        DB::table('weldingwires')->insert(
             [
-            'size' => 2.5,
-            'price' => 50,
-            ],
-            [
-            'size' => 3,
-            'price' => 100,
-            ],
-            [
-            'size' => 4,
-            'price' => 150,
-            ],
-              ]
+                [
+                    'size' => 2.5,
+                    'price' => 50,
+                ],
+                [
+                    'size' => 3,
+                    'price' => 100,
+                ],
+                [
+                    'size' => 4,
+                    'price' => 150,
+                ],
+            ]
         );
     }
 }

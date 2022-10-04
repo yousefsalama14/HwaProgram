@@ -18,9 +18,9 @@ class rollingnames extends Seeder
     {
         //
         DB::table('rollingnames')->insert([
-            ['name' => 'الدرفلة فقط','operation_id'=>2,'price'=>5 ,'smallweight'=>25, 'lesspriceweight'=>30],
-            ['name' => 'الدرفلة + لحام باسات','operation_id'=>2,'price'=>5 ,'smallweight'=>25, 'lesspriceweight'=>30],
-            ['name' => 'الدرفلة + لحام كامل','operation_id'=>2,'price'=>5 ,'smallweight'=>25, 'lesspriceweight'=>30],
+            ['name' => 'الدرفلة فقط', 'operation_id' => 2, 'price' => 5, 'smallweight' => 25, 'lesspriceweight' => 30],
+            ['name' => 'الدرفلة + لحام باسات', 'operation_id' => 2, 'price' => 5, 'smallweight' => 25, 'lesspriceweight' => 30],
+            ['name' => 'الدرفلة + لحام كامل', 'operation_id' => 2, 'price' => 5, 'smallweight' => 25, 'lesspriceweight' => 30],
         ]);
     }
 }

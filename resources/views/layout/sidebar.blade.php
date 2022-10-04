@@ -78,6 +78,9 @@
                                     <a class="nav-link" href="#">الدهان</a>
                                 </li>
                                 <!--end nav-item-->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('logout')}}">تسجيل الخروج</a>
+                                </li>
                             </ul>
                             <!--end nav-->
                         </div>

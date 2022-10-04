@@ -19,8 +19,8 @@ class opration extends Seeder
     {
         //
         DB::table('operations')->insert([
-            ['name' => 'اللحام' ],
-            ['name' =>'الدرفله'],
+            ['name' => 'اللحام'],
+            ['name' => 'الدرفله'],
         ]);
     }
 }
