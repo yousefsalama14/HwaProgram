@@ -152,13 +152,7 @@
                 </div>
                 <!--end col-->
             </div>
-
-
         </div><!-- container -->
-
-
-
-
     </div>
     <!-- end page content -->
 </div>

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\weldingwireController;
 use App\Http\Controllers\Admin\dashboardController;
 use App\Http\Controllers\Admin\rollingController;
+use App\Http\Controllers\Admin\cuttingController;
 
 
 
@@ -27,6 +28,7 @@ Route::middleware('AdminAuth')->group(function(){
     Route::controller(dashboardController::class)->group(function () {
         Route::get('/Admin/dashboard','index')->name('Admin.dashboard');
     });
-    Route::resource('rollings', rollingController::class);
+      Route::resource('rollings', rollingController::class);
+      Route::resource('cuttings', cuttingController::class);
 });
 
