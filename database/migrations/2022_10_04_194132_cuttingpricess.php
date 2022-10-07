@@ -18,6 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->float('price');
+            $table->integer('value')->nullable();
             $table->unsignedBigInteger('cuttingname_id');
             $table->foreign('cuttingname_id')->references('id')->on('cuttingnames')->onDelete('cascade');
             $table->timestamps();

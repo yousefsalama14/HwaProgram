@@ -6,6 +6,7 @@ use App\Http\Controllers\User\Home\HomeController;
 use App\Http\Controllers\User\welding\weldingController;
 use App\Http\Controllers\User\Cart\CartController;
 use App\Http\Controllers\User\rolling\rollingController;
+use App\Http\Controllers\User\Cutting\cuttingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,4 +52,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/user/rolling', 'index')->name('user.rolling');
         Route::post('/user/rolling', 'rollingorder')->name('rolling.order');
     });
+
+    Route::controller(cuttingController::class)->group(function () {
+        Route::get('/user/cutting/boards', 'indexboards')->name('user.cutting.boards');
+        Route::post('/user/cutting/boardsorder', 'cuttingboardorder')->name('user.cuttingboard.order');
+        Route::get('/user/cutting/bulbs', 'indexbulbs')->name('user.cutting.bulbs');
+        Route::post('/user/cutting/bulbs', 'cuttingbulbsorder')->name('user.cuttingbulbs.order');
+
+        Route::get('/user/cutting/pallet', 'indexpallet')->name('user.cutting.pallet');
+        Route::post('/user/cutting/pallet', 'cuttingpallet')->name('user.cuttinpallet.order');
+    });
+
 });

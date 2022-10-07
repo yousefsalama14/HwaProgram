@@ -1,6 +1,5 @@
 @extends('admin_temp')
 @section('content')
-
 {{--start modal--}}
 <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -45,11 +44,7 @@
         </div>
     </div>
 </div>
-
 {{--end modal--}}
-
-
-
 <div class="page-wrapper">
     <!-- Page Content-->
     <div class="page-content-tab">
@@ -157,8 +152,6 @@
     <!-- end page content -->
 </div>
 @endsection
-
-
 @section('scripts')
 <script>
 let rollingdata =(id,name,less,more,lessweight)=>{

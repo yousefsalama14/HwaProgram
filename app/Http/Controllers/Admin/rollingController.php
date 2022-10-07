@@ -16,7 +16,7 @@ class rollingController extends Controller
         return view('Admin.rolling.index',compact('rolleingnames'));
     }
     public function update(Request $request){
-     
+
         $validated = $request->validate([
             'smallweight' => 'required',
             'lesspriceweight' => 'required',
@@ -29,7 +29,6 @@ class rollingController extends Controller
              'lesspriceweight'=>$request->lesspriceweight,
              'smallweight'=>$request->smallweight,
         ]);
-
        return redirect()->back();
     }
 }

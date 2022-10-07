@@ -23,6 +23,7 @@ return new class extends Migration
             $table->float('width')->nullable();
             $table->float('weight')->nullable();
             $table->integer('passes')->nullable();
+            $table->integer('cuttingqnty')->nullable();
             $table->integer('quantity')->nullable();
             $table->timestamps();
         });

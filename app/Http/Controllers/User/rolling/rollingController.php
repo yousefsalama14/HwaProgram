@@ -44,14 +44,17 @@ class rollingController extends Controller
 
             if($request->rollingname==1){
              $price= $this->widthprice(1,$request->thickness,$request->length,$request->width,$request->quantity);
+             $opreationname='الدرفله فقط';
             }
             elseif($request->rollingname==2)
              {
                 $price= $this->widthprice(2,$request->thickness,$request->length,$request->width,$request->quantity);
-             }
+                $opreationname='الدرفله +لحام باصات';
+            }
              else{
                 $price=  $this->widthprice(3,$request->thickness,$request->length,$request->width,$request->quantity);
-             }
+                $opreationname='الدرفله + لحام كامل';
+            }
              $weight=$this->weight($request->thickness,$request->length,$request->width);
             // check if there are order or not if not order create new order
             $order=Order::with('orderdetailes')->where('user_id',Auth::user()->id)->where('status','=','unpaid')->first();
@@ -61,7 +64,6 @@ class rollingController extends Controller
                      'user_id'=>Auth::user()->id
                   ]);
              }
-
              $Operationdetailes=Operationdetailes::create([
                 'operation_id'=>2,
                 'thickness'=>$request->thickness,
@@ -69,13 +71,15 @@ class rollingController extends Controller
                 'width'=>$request->width,
                 'weight'=>$weight,
                 'quantity'=>$request->quantity,
+
             ]);
             $Orderdetailes=Orderdetailes::create([
                 'order_id'=>$order->id,
                 'operation_id'=>2,
                 'quantity'=>$request->quantity,
                 'operationdetailes_id'=>$Operationdetailes->id,
-                'price'=>$price
+                'price'=>$price,
+                'opreationname'=>$opreationname,
               ]);
               return redirect()->back();
        }

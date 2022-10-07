@@ -33,8 +33,26 @@
                         </li>
                         <!--end nav-item-->
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i
-                                    class="ti ti-chart-bubble menu-icon"></i><span>التقطيع</span></a>
+                            <a class="nav-link" href="#cutting" data-bs-toggle="collapse" role="button"
+                                aria-expanded="false" aria-controls="processSetup"><i
+                                    class="ti ti-box-multiple menu-icon"></i><span>التقطيع</span></a>
+                            <div class="collapse " id="cutting">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{route('user.cutting.boards')}}">تقطيع ألواح</a>
+                                    </li>
+                                    <!--end nav-item-->
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{route('user.cutting.bulbs')}}">تقطيع لمبة</a>
+                                    </li>
+                                    <!--end nav-item-->
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{route('user.cutting.pallet')}}">تقطيع بلتات</a>
+                                    </li>
+                                    <!--end nav-item-->
+                                </ul>
+                                <!--end nav-->
+                            </div>
                         </li>
                         <!--end nav-item-->
                         <li class="nav-item">
