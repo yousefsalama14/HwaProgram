@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\weldingwireController;
 use App\Http\Controllers\Admin\dashboardController;
 use App\Http\Controllers\Admin\rollingController;
 use App\Http\Controllers\Admin\cuttingController;
+use App\Http\Controllers\Admin\foldcontroller;
 
 
 
@@ -30,5 +31,6 @@ Route::middleware('AdminAuth')->group(function(){
     });
       Route::resource('rollings', rollingController::class);
       Route::resource('cuttings', cuttingController::class);
+      Route::resource('folds', foldcontroller::class);
 });
 

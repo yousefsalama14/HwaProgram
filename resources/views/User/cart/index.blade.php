@@ -47,7 +47,7 @@
                                         @foreach ($order->orderdetailes as $detailes)
                                             <tr>
                                                 <td>
-                                                    <h5 class="mt-0 mb-1 font-14">{{$detailes->operation->name}}</h5>
+                                                    <h5 class="mt-0 mb-1 font-14">{{$detailes->opreationname}}</h5>
                                                 </td>
 
                                                 <td>

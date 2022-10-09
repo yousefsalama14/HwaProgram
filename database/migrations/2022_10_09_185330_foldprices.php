@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         //
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('foldprices', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->enum('status',['paied','unpaid']);
-            $table->integer('quantity')->nullable();
-            $table->integer('totalprice')->nullable();
+            $table->string('name');
+            $table->float('price');
+            $table->integer('value')->nullable();
+            $table->unsignedBigInteger('foldname_id');
+            $table->foreign('foldname_id')->references('id')->on('foldnames')->onDelete('cascade');
             $table->timestamps();
         });
     }

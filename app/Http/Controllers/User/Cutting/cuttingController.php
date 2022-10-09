@@ -9,13 +9,14 @@ use App\Models\Order;
 use App\Models\Orderdetailes;
 use App\Models\Operationdetailes;
 use Auth;
-
+use Session;
+use Alert;
 class cuttingController extends Controller
 {
     //
     public function indexboards(){
         $order=Order::with(['orderdetailes.operationdetailes','orderdetailes'=>function($q){
-            $q->where('operation_id','=',3);
+            $q->where('operation_id','=',3)->where('opreationname','تقطيع الواح');
         }])->where('user_id',Auth::user()->id)->where('status','=','unpaid')->first();
         return view('User.cutting.cuttingboard',compact('order'));
     }
@@ -26,7 +27,7 @@ class cuttingController extends Controller
     public function cuttingboardorder(Request $request){
         $request->validate([
             'length'=>'required',
-            'weidth'=>'required',
+            'width'=>'required',
             'thickness'=>'required',
         ]);
          $length=$request->length;
@@ -42,12 +43,19 @@ class cuttingController extends Controller
             return redirect()->back();
          }
          $order=Order::with('orderdetailes')->where('user_id',Auth::user()->id)->where('status','=','unpaid')->first();
+         if($order!=null){
+            $order->update([
+                'quantity'=>$order->quantity+1,
+             ]);
+        }
          if($order==null){
               $order=Order::create([
                   'status'=>'unpaid',
-                  'user_id'=>Auth::user()->id
+                  'user_id'=>Auth::user()->id,
+                  'quantity'=>1,
                ]);
           }
+          Session::put('orderqnty',$order->quantity);
           $Operationdetailes=Operationdetailes::create([
             'operation_id'=>3,
             'thickness'=>$request->thickness,
@@ -66,34 +74,35 @@ class cuttingController extends Controller
             'price'=>$price,
             'opreationname'=>'تقطيع الواح'
           ]);
+          Alert::success('Success', 'تم اجاء العمليه بنجاح');
           return redirect()->back();
     }
     public function indexbulbs(){
         $order=Order::with(['orderdetailes.operationdetailes','orderdetailes'=>function($q){
-            $q->where('operation_id','=',3);
+            $q->where('operation_id','=',3)->where('opreationname','تقطيع لمبه');
         }])->where('user_id',Auth::user()->id)->where('status','=','unpaid')->first();
         return view('User.cutting.cuttingbulbs',compact('order'));
     }
     public function cuttingbulbsorder(Request $request){
         $request->validate([
             'length'=>'required',
-            'weidth'=>'required',
+            'width'=>'required',
             'thickness'=>'required',
             'cuttinglength'=>'required',
         ]);
-       $length=$request->length;
+       $thickness=$request->thickness;
        $weight=$this->weight($request->thickness,$request->length,$request->width);
        $cuttinglength=$request->cuttinglength;
-       if($length>=13 && $length<=15){
+       if($thickness>=13 && $thickness<=15){
           $time=$cuttinglength/1.5;
-       }elseif($length>=16 && $length<=17){
+       }elseif($thickness>=16 && $thickness<=17){
         $time=$cuttinglength*2;
-       }elseif($length>=18 && $length<=20){
+       }elseif($thickness>=18 && $thickness<=20){
         $time=$cuttinglength*3;
        }
-       elseif($length>=21 && $length<=25){
+       elseif($thickness>=21 && $thickness<=25){
         $time=$cuttinglength*3.5;
-       } elseif($length>=26 && $length<=30){
+       } elseif($thickness>=26 && $thickness<=30){
         $time=$cuttinglength*4.5;
         }else{
             return redirect()->back();
@@ -101,12 +110,19 @@ class cuttingController extends Controller
         $cuttingprice=cuttingprice::find(7);
         $price=$cuttingprice->price*$time*$request->quantity;
         $order=Order::with('orderdetailes')->where('user_id',Auth::user()->id)->where('status','=','unpaid')->first();
-        if($order==null){
-             $order=Order::create([
-                 'status'=>'unpaid',
-                 'user_id'=>Auth::user()->id
-              ]);
-         }
+        if($order!=null){
+            $order->update([
+                'quantity'=>$order->quantity+1,
+             ]);
+        }
+         if($order==null){
+              $order=Order::create([
+                  'status'=>'unpaid',
+                  'user_id'=>Auth::user()->id,
+                  'quantity'=>1,
+               ]);
+          }
+          Session::put('orderqnty',$order->quantity);
          $Operationdetailes=Operationdetailes::create([
            'operation_id'=>3,
            'thickness'=>$request->thickness,
@@ -125,11 +141,12 @@ class cuttingController extends Controller
            'price'=>$price,
            'opreationname'=>'تقطيع لمبه'
          ]);
+         Alert::success('Success Title', 'تم اجاء العمليه بنجاح');
          return redirect()->back();
     }
     public function indexpallet(){
         $order=Order::with(['orderdetailes.operationdetailes','orderdetailes'=>function($q){
-            $q->where('operation_id','=',3);
+            $q->where('operation_id','=',3)->where('opreationname','تقطيع بلتات');
         }])->where('user_id',Auth::user()->id)->where('status','=','unpaid')->first();
         return view('User.cutting.cuttingpallets',compact('order'));
     }
@@ -188,12 +205,19 @@ class cuttingController extends Controller
         }
 
         $order=Order::with('orderdetailes')->where('user_id',Auth::user()->id)->where('status','=','unpaid')->first();
-        if($order==null){
-             $order=Order::create([
-                 'status'=>'unpaid',
-                 'user_id'=>Auth::user()->id
-              ]);
-         }
+        if($order!=null){
+            $order->update([
+                'quantity'=>$order->quantity+1,
+             ]);
+        }
+         if($order==null){
+              $order=Order::create([
+                  'status'=>'unpaid',
+                  'user_id'=>Auth::user()->id,
+                  'quantity'=>1,
+               ]);
+          }
+          Session::put('orderqnty',$order->quantity);
          $Operationdetailes=Operationdetailes::create([
            'operation_id'=>3,
            'thickness'=>$request->thickness,
@@ -212,6 +236,7 @@ class cuttingController extends Controller
            'price'=>$price,
            'opreationname'=>'تقطيع بلتات'
          ]);
+         Alert::success('Success Title', 'تم اجاء العمليه بنجاح');
          return redirect()->back();
     }
 }

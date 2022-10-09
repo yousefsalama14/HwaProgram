@@ -9,7 +9,7 @@ use App\Models\rolleingdetaile;
 use App\Models\Order;
 use App\Models\Orderdetailes;
 use App\Models\Operationdetailes;
-
+use Session;
 use Auth;
 
 
@@ -58,12 +58,19 @@ class rollingController extends Controller
              $weight=$this->weight($request->thickness,$request->length,$request->width);
             // check if there are order or not if not order create new order
             $order=Order::with('orderdetailes')->where('user_id',Auth::user()->id)->where('status','=','unpaid')->first();
-            if($order==null){
-                 $order=Order::create([
-                     'status'=>'unpaid',
-                     'user_id'=>Auth::user()->id
-                  ]);
-             }
+            if($order!=null){
+                $order->update([
+                    'quantity'=>$order->quantity+1,
+                 ]);
+            }
+             if($order==null){
+                  $order=Order::create([
+                      'status'=>'unpaid',
+                      'user_id'=>Auth::user()->id,
+                      'quantity'=>1,
+                   ]);
+              }
+              Session::put('orderqnty',$order->quantity);
              $Operationdetailes=Operationdetailes::create([
                 'operation_id'=>2,
                 'thickness'=>$request->thickness,

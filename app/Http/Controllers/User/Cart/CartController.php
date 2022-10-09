@@ -9,7 +9,7 @@ use App\Models\Orderdetailes;
 use App\Models\Operation;
 use App\Models\Operationdetailes;
 use Auth;
-
+use Session;
 
 class CartController extends Controller
 {
@@ -30,6 +30,7 @@ class CartController extends Controller
         $order->update([
           'status'=>'paied'
         ]);
+        Session::put('orderqnty',0);
         return redirect()->back();
     }
 }

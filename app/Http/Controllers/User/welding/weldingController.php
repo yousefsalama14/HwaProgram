@@ -10,9 +10,7 @@ use App\Models\Orderdetailes;
 use App\Models\Operation;
 use App\Models\Operationdetailes;
 use Auth;
-
-
-
+use Session;
 class weldingController extends Controller
 {
     //
@@ -75,12 +73,19 @@ class weldingController extends Controller
                 $price=(($amount*$weldingwire->price)*$request->passes)*$request->quantity;
         }
        $order=Order::with('orderdetailes')->where('user_id',Auth::user()->id)->where('status','=','unpaid')->first();
-       if($order==null){
-            $order=Order::create([
-                'status'=>'unpaid',
-                'user_id'=>Auth::user()->id
+        if($order!=null){
+            $order->update([
+                'quantity'=>$order->quantity+1,
              ]);
         }
+        if($order==null){
+            $order=Order::create([
+                'status'=>'unpaid',
+                'user_id'=>Auth::user()->id,
+                'quantity'=>1,
+            ]);
+        }
+      Session::put('orderqnty',$order->quantity);
         $Operationdetailes=Operationdetailes::create([
             'operation_id'=>1,
             'thickness'=>$request->thickness,
@@ -93,13 +98,19 @@ class weldingController extends Controller
           'operation_id'=>1,
           'quantity'=>$request->quantity,
           'operationdetailes_id'=>$Operationdetailes->id,
-          'price'=>$price
+          'price'=>$price,
+          'opreationname'=>'لحام',
         ]);
         return redirect()->back();
     }
     public function deleteOrderDetailes($id){
-          $Operationdetailes=Operationdetailes::find($id);
-          $Operationdetailes->delete();
+          $Orderdetailes=Orderdetailes::with('operationdetailes')->find($id);
+          $Operationdetailes=Operationdetailes::find($Orderdetailes->operationdetailes_id )->delete();
+          $order=Order::find($Orderdetailes->order_id);
+          $order->update([
+            'quantity'=>$order->quantity-1,
+         ]);
+          Session::put('orderqnty',$order->quantity);
           return redirect()->back();
     }
 }

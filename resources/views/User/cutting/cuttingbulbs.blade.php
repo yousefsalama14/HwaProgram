@@ -63,7 +63,7 @@
                                         <label for="example-number-input" class="col-form-label">عرض اللوح
                                             :</label>
                                         <div class="d-flex align-items-center w-100">
-                                            <input class="form-control" type="number" name="weidth" placeholder="مثال : 1234"
+                                            <input class="form-control" type="number" name="width" placeholder="مثال : 1234"
                                                 id="example-number-input">
                                             <p class="mb-0 fw-semibold d-none">120 مم</p>
                                         </div>
@@ -123,6 +123,7 @@
                 <div class="col-lg-12 " id="orderDetailsCol">
                    <div class="card">
                        <div class="card-header">
+                        <h4>{{$detailes->opreationname}}</h4>
                            <h4 class="card-title">تفاصيل الطلب</h4>
                        </div>
                        <!--end card-header-->
@@ -153,7 +154,7 @@
                            <div class="row">
                                <div class="col-12 d-flex">
                                    <div class="btn-group ms-auto">
-                                       <a type="submit" class="btn btn-primary" href="{{route('user.deleteOrderDetailes',$detailes->operationdetailes->id)}}"
+                                       <a type="submit" class="btn btn-primary" href="{{route('user.deleteOrderDetailes',$detailes->id)}}"
                                           >الغاء</a>
                                        {{-- <a href="#" class="btn btn-secondary ms-1"> <i
                                                class="mdi mdi-cart-plus me-1"></i> اضافة الي السلة</a> --}}

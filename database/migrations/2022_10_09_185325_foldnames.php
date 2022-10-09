@@ -14,13 +14,9 @@ return new class extends Migration
     public function up()
     {
         //
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('foldnames', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->enum('status',['paied','unpaid']);
-            $table->integer('quantity')->nullable();
-            $table->integer('totalprice')->nullable();
+            $table->string('name');
             $table->timestamps();
         });
     }

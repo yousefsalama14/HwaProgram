@@ -222,7 +222,7 @@
                             <div class="row">
                                 <div class="col-12 d-flex">
                                     <div class="btn-group ms-auto">
-                                        <a type="submit" class="btn btn-primary" href="{{route('user.deleteOrderDetailes',$detailes->operationdetailes->id)}}" data-bs-toggle="modal"
+                                        <a type="submit" class="btn btn-primary" href="{{route('user.deleteOrderDetailes',$detailes->id)}}" data-bs-toggle="modal"
                                             data-bs-target="#paymentModal">الغاء</a>
                                         <a href="#" class="btn btn-secondary ms-1">اضافة الي السلة</a>
                                     </div>

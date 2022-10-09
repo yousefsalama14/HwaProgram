@@ -56,8 +56,26 @@
                         </li>
                         <!--end nav-item-->
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i
-                                    class="ti ti-chart-bubble menu-icon"></i><span>التناية</span></a>
+                            <a class="nav-link" href="#fold" data-bs-toggle="collapse" role="button"
+                                aria-expanded="false" aria-controls="processSetup"><i
+                                    class="ti ti-currency-leu menu-icon"></i><span>التناية</span></a>
+                            <div class="collapse " id="fold">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{route('user.folding.boards')}}">تناية ألواح</a>
+                                    </li>
+                                    <!--end nav-item-->
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="fold-ornaments.html">تناية حليات</a>
+                                    </li>
+                                    <!--end nav-item-->
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="fold-pallets.html">تناية بلتات</a>
+                                    </li>
+                                    <!--end nav-item-->
+                                </ul>
+                                <!--end nav-->
+                            </div>
                         </li>
                         <!--end nav-item-->
                         <li class="nav-item">

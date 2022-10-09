@@ -21,6 +21,7 @@
     <link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/css/app-rtl.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/css/style-rtl.css')}}" rel="stylesheet" type="text/css" />
+    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
 
 </head>
 <body id="body" class="dark-sidebar">

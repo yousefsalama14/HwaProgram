@@ -125,6 +125,7 @@
                 <div class="col-lg-12 " id="orderDetailsCol">
                    <div class="card">
                        <div class="card-header">
+                           <h4>{{$detailes->opreationname}}</h4>
                            <h4 class="card-title">تفاصيل الطلب</h4>
                        </div>
                        <!--end card-header-->
@@ -155,7 +156,7 @@
                            <div class="row">
                                <div class="col-12 d-flex">
                                    <div class="btn-group ms-auto">
-                                       <a type="submit" class="btn btn-primary" href="{{route('user.deleteOrderDetailes',$detailes->operationdetailes->id)}}"
+                                       <a type="submit" class="btn btn-primary" href="{{route('user.deleteOrderDetailes',$detailes->id)}}"
                                           >الغاء</a>
                                        {{-- <a href="#" class="btn btn-secondary ms-1"> <i
                                                class="mdi mdi-cart-plus me-1"></i> اضافة الي السلة</a> --}}

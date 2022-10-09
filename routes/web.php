@@ -7,6 +7,7 @@ use App\Http\Controllers\User\welding\weldingController;
 use App\Http\Controllers\User\Cart\CartController;
 use App\Http\Controllers\User\rolling\rollingController;
 use App\Http\Controllers\User\Cutting\cuttingController;
+use App\Http\Controllers\user\foldcontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,9 +59,13 @@ Route::middleware('auth')->group(function () {
         Route::post('/user/cutting/boardsorder', 'cuttingboardorder')->name('user.cuttingboard.order');
         Route::get('/user/cutting/bulbs', 'indexbulbs')->name('user.cutting.bulbs');
         Route::post('/user/cutting/bulbs', 'cuttingbulbsorder')->name('user.cuttingbulbs.order');
-
         Route::get('/user/cutting/pallet', 'indexpallet')->name('user.cutting.pallet');
         Route::post('/user/cutting/pallet', 'cuttingpallet')->name('user.cuttinpallet.order');
     });
 
+
+    Route::controller(foldcontroller::class)->group(function () {
+        Route::get('/user/folding/boards', 'indexboards')->name('user.folding.boards');
+        Route::post('/user/folding/boardsorder', 'foldingboardorder')->name('user.foldingboard.order');
+    });
 });

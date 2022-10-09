@@ -32,7 +32,11 @@
                     <a href="{{route('user.cart')}}" class="nav-link nav-icon position-relative">
                         <i class="mdi mdi-medical-bag"></i>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            3
+                            @if (Session::get('orderqnty'))
+                               {{Session::get('orderqnty')}}
+                            @else
+                                0
+                            @endif
                             <span class="visually-hidden">uncompleted products</span>
                         </span>
                     </a>
