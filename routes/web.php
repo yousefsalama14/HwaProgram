@@ -67,5 +67,8 @@ Route::middleware('auth')->group(function () {
     Route::controller(foldcontroller::class)->group(function () {
         Route::get('/user/folding/boards', 'indexboards')->name('user.folding.boards');
         Route::post('/user/folding/boardsorder', 'foldingboardorder')->name('user.foldingboard.order');
+
+        Route::get('/user/folding/pallet', 'indexpallet')->name('user.folding.pallet');
+        Route::post('/user/folding/palletorder', 'foldingpalletorder')->name('user.foldingpallet.order');
     });
 });

@@ -70,7 +70,7 @@
                                     </li>
                                     <!--end nav-item-->
                                     <li class="nav-item">
-                                        <a class="nav-link" href="fold-pallets.html">تناية بلتات</a>
+                                        <a class="nav-link" href="{{route('user.folding.pallet')}}">تناية بلتات</a>
                                     </li>
                                     <!--end nav-item-->
                                 </ul>
