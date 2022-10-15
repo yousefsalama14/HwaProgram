@@ -41,7 +41,7 @@
                                         <label for="example-number-input" class="col-form-label">سمك
                                             اللوح :</label>
                                         <div class="d-flex align-items-center w-100">
-                                            <input class="form-control" type="number" name="thickness" placeholder="مثال : 120 مم"
+                                            <input class="form-control" type="number" name="thickness" id="thickness" placeholder="مثال : 120 مم"
                                                 id="example-number-input">
                                             <p class="mb-0 fw-semibold d-none">120 مم</p>
                                         </div>
@@ -53,7 +53,7 @@
                                             بالمتر
                                             :</label>
                                         <div class="d-flex align-items-center w-100">
-                                            <input class="form-control" type="number" name="length" placeholder="مثال : 4 متر"
+                                            <input class="form-control" type="number" name="length" id="length" placeholder="مثال : 4 متر"
                                                 id="example-number-input">
                                             <p class="mb-0 fw-semibold d-none">4 متر</p>
                                         </div>
@@ -65,7 +65,7 @@
                                             بالمتر
                                             :</label>
                                         <div class="d-flex align-items-center w-100">
-                                            <input class="form-control" type="number" name="width" placeholder="مثال : 4 متر"
+                                            <input class="form-control" type="number" name="width" id="width" placeholder="مثال : 4 متر"
                                                 id="example-number-input">
                                             <p class="mb-0 fw-semibold d-none">4 متر</p>
                                         </div>
@@ -113,7 +113,7 @@
                                         <label for="example-number-input" class="col-form-label">الوزن
                                             :</label>
                                         <div class="d-flex align-items-center w-100">
-                                            <input class="form-control" id="example-number-input" disabled="">
+                                            <input class="form-control" id="weight" disabled="">
                                             <p class="mb-0 fw-semibold d-none">120 كجم</p>
                                         </div>
                                     </div>
@@ -273,4 +273,8 @@
     </div>
 </div> --}}
 
+@endsection
+@section('scripts')
+<script src="{{asset('assets/js/jquery.min.js')}}"></script>
+<script src="{{asset('assets/js/weight.js')}}"></script>
 @endsection

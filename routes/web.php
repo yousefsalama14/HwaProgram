@@ -70,5 +70,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/user/folding/pallet', 'indexpallet')->name('user.folding.pallet');
         Route::post('/user/folding/palletorder', 'foldingpalletorder')->name('user.foldingpallet.order');
+
+        Route::get('/user/folding/ornaments', 'indexornaments')->name('user.folding.ornaments');
+        Route::post('/user/folding/ornaments', 'foldingornamentsorder')->name('user.foldingornaments.order');
     });
 });

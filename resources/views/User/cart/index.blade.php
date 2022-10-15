@@ -56,7 +56,7 @@
                                                 </td>
                                                 <td>EGP {{$detailes->price}}</td>
                                                 <td>
-                                                    <a href="{{route('user.deleteOrderDetailes',$detailes->operationdetailes->id)}}" class="text-dark"><i
+                                                    <a href="{{route('user.deleteOrderDetailes',$detailes->id)}}" class="text-dark"><i
                                                             class="mdi mdi-close-circle-outline font-18"></i></a>
                                                 </td>
                                             </tr>

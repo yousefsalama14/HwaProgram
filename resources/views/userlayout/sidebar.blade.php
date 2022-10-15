@@ -66,7 +66,7 @@
                                     </li>
                                     <!--end nav-item-->
                                     <li class="nav-item">
-                                        <a class="nav-link" href="fold-ornaments.html">تناية حليات</a>
+                                        <a class="nav-link" href="{{route('user.folding.ornaments')}}">تناية حليات</a>
                                     </li>
                                     <!--end nav-item-->
                                     <li class="nav-item">

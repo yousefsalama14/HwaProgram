@@ -183,5 +183,19 @@ class foldcontroller extends Controller
                 ]);
                 Alert::success('Success Title', 'تم اجاء العمليه بنجاح');
                 return redirect()->back();
-      }
-}
+
+
+            }
+
+
+
+            public function indexornaments(){
+                $order=Order::with(['orderdetailes.operationdetailes','orderdetailes'=>function($q){
+                    $q->where('operation_id','=',4)->where('opreationname','تنايه حليات');
+                }])->where('user_id',Auth::user()->id)->where('status','=','unpaid')->first();
+               // dd($order);
+                return view('User.follding.foldornaments',compact('order'));
+            }
+
+ }
+

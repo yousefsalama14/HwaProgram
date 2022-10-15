@@ -92,6 +92,7 @@ class weldingController extends Controller
             'length'=>$request->length,
             'passes'=>$request->passes,
             'quantity'=>$request->quantity,
+            'width'=>$request->width,
         ]);
         $Orderdetailes=Orderdetailes::create([
           'order_id'=>$order->id,
@@ -105,7 +106,7 @@ class weldingController extends Controller
     }
     public function deleteOrderDetailes($id){
           $Orderdetailes=Orderdetailes::with('operationdetailes')->find($id);
-          $Operationdetailes=Operationdetailes::find($Orderdetailes->operationdetailes_id )->delete();
+          $Operationdetailes=Operationdetailes::find($Orderdetailes->operationdetailes_id)->delete();
           $order=Order::find($Orderdetailes->order_id);
           $order->update([
             'quantity'=>$order->quantity-1,

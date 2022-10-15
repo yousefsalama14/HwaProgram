@@ -39,7 +39,7 @@
                                     <div class="mb-3 row">
                                         <label for="example-number-input"
                                             class="col-sm-4 col-form-label text-end">سمك
-                                            اللوح :</label>
+                                            اللوح مم:</label>
                                         <div class="col-sm-8 d-flex align-items-center">
                                             <input class="form-control" name="thickness" type="number"
                                                 placeholder="مثال : 1234" id="example-number-input">
@@ -52,7 +52,7 @@
                                     <div class="mb-3 row">
                                         <label for="example-number-input"
                                             class="col-sm-4 col-form-label text-end">طول
-                                            اللحام :</label>
+                                            اللحام بالسنتي:</label>
                                         <div class="col-sm-8 d-flex align-items-center">
                                             <input class="form-control" name="length" type="number" placeholder="مثال : 1234"
                                                 id="example-number-input">
@@ -72,6 +72,21 @@
                                         </div>
                                     </div>
                                 </div>
+
+
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="mb-3 row">
+                                        <label for="example-number-input"
+                                            class="col-sm-4 col-form-label text-end">عرض اللوح بالسنتي:</label>
+                                        <div class="col-sm-8 d-flex align-items-center">
+                                            <input class="form-control" name="width" id="width" type="number" placeholder="مثال : 1234"
+                                                id="example-number-input">
+                                            <p class="mb-0 fw-semibold d-none">120 مم</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                                 <div class="col-sm-6 col-lg-4">
                                     <div class="mb-3 row">
                                         <label for="example-number-input"
@@ -128,7 +143,7 @@
                                 <div class="mb-3 row">
                                     <label for="example-number-input"
                                         class="col-sm-4 col-form-label text-end">سمك
-                                        اللوح :</label>
+                                        اللوح مم:</label>
                                     <div class="col-sm-8 d-flex align-items-center">
                                         <input class="form-control" name="thickness" type="number"
                                             placeholder="مثال : 1234" id="example-number-input" value="{{$detailes->operationdetailes->thickness}}" disabled>
@@ -137,11 +152,24 @@
                                 </div>
                             </div>
 
+
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="mb-3 row">
+                                    <label for="example-number-input"
+                                        class="col-sm-4 col-form-label text-end">عرض اللوح بالسنتي:</label>
+                                    <div class="col-sm-8 d-flex align-items-center">
+                                        <input class="form-control" name="width" id="width" type="number" placeholder="مثال : 1234"
+                                            id="example-number-input" value="{{$detailes->operationdetailes->width}}">
+                                        <p class="mb-0 fw-semibold d-none">120 مم</p>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-sm-6 col-lg-4">
                                 <div class="mb-3 row">
                                     <label for="example-number-input"
                                         class="col-sm-4 col-form-label text-end">طول
-                                        اللحام :</label>
+                                        اللحام بالسنتي:</label>
                                     <div class="col-sm-8 d-flex align-items-center">
                                         <input class="form-control" name="length" type="number" placeholder="مثال : 1234" value="{{$detailes->operationdetailes->length}}" disabled
                                             id="example-number-input">

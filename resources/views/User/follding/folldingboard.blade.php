@@ -44,7 +44,7 @@
                                             class="col-form-label text-end fw-bold">سمك
                                             اللوح :</label>
                                         <div class="d-flex align-items-center">
-                                            <input class="form-control" type="number"  name="thickness" placeholder="مثال : 120 مم"
+                                            <input class="form-control" type="number"  name="thickness" id="thickness" placeholder="مثال : 120 مم"
                                                 id="example-number-input">
                                             <p class="mb-0 fw-semibold d-none">120 مم</p>
                                         </div>
@@ -56,7 +56,7 @@
                                             class="col-form-label text-end fw-bold">طول
                                             اللوح :</label>
                                         <div class="d-flex align-items-center">
-                                            <input class="form-control" type="number"  name="length" placeholder="مثال : 1234"
+                                            <input class="form-control" type="number"  name="length" id="length" placeholder="مثال : 1234"
                                                 id="example-number-input">
                                             <p class="mb-0 fw-semibold d-none">120 مم</p>
                                         </div>
@@ -68,7 +68,7 @@
                                             class="col-form-label text-end fw-bold">عرض اللوح
                                             :</label>
                                         <div class="d-flex align-items-center">
-                                            <input class="form-control" type="number" name="width" placeholder="مثال : 1234"
+                                            <input class="form-control" type="number" name="width" id="width" placeholder="مثال : 1234"
                                                 id="example-number-input">
                                             <p class="mb-0 fw-semibold d-none">120 مم</p>
                                         </div>
@@ -80,7 +80,7 @@
                                             class="col-form-label text-end fw-bold">الوزن
                                             :</label>
                                         <div class="d-flex align-items-center">
-                                            <input class="form-control" id="example-number-input" name="weight" disabled="">
+                                            <input class="form-control" id="example-number-input" name="weight" id="weight" disabled="">
                                             <p class="mb-0 fw-semibold d-none">120 كجم</p>
                                         </div>
                                     </div>
@@ -276,4 +276,8 @@ me-1                                                "></i> تأكيد</button>
         </div>
     </div>
 </div>
+@endsection
+@section('scripts')
+<script src="{{asset('assets/js/jquery.min.js')}}"></script>
+<script src="{{asset('assets/js/weight.js')}}"></script>
 @endsection

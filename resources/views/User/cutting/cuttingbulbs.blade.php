@@ -39,9 +39,9 @@
                                 <div class="col-sm-6 col-lg-4">
                                     <div class="mb-3 d-flex">
                                         <label for="example-number-input" class="col-form-label">سمك
-                                            اللوح :</label>
+                                            اللوح بالسنتي:</label>
                                         <div class="d-flex align-items-center w-100">
-                                            <input class="form-control" type="number" name="thickness" placeholder="مثال : 120 مم"
+                                            <input class="form-control" type="number" name="thickness" id="thickness" placeholder="مثال : 120 مم"
                                                 id="example-number-input">
                                             <p class="mb-0 fw-semibold d-none">120 مم</p>
                                         </div>
@@ -50,9 +50,9 @@
                                 <div class="col-sm-6 col-lg-4">
                                     <div class="mb-3 d-flex">
                                         <label for="example-number-input" class="col-form-label">طول
-                                            اللوح :</label>
+                                            اللوح بالسنتي:</label>
                                         <div class="d-flex align-items-center w-100">
-                                            <input class="form-control" type="number" name="length" placeholder="مثال : 1234"
+                                            <input class="form-control" type="number" name="length" id="length" placeholder="مثال : 1234"
                                                 id="example-number-input">
                                             <p class="mb-0 fw-semibold d-none">120 مم</p>
                                         </div>
@@ -60,10 +60,10 @@
                                 </div>
                                 <div class="col-sm-6 col-lg-4">
                                     <div class="mb-3 d-flex">
-                                        <label for="example-number-input" class="col-form-label">عرض اللوح
+                                        <label for="example-number-input" class="col-form-label">عرض اللوح بالسنتي
                                             :</label>
                                         <div class="d-flex align-items-center w-100">
-                                            <input class="form-control" type="number" name="width" placeholder="مثال : 1234"
+                                            <input class="form-control" type="number" name="width" id="width" placeholder="مثال : 1234"
                                                 id="example-number-input">
                                             <p class="mb-0 fw-semibold d-none">120 مم</p>
                                         </div>
@@ -74,7 +74,7 @@
                                         <label for="example-number-input" class="col-form-label">الوزن
                                             :</label>
                                         <div class="d-flex align-items-center w-100">
-                                            <input class="form-control" name="weight" id="example-number-input" disabled="">
+                                            <input class="form-control" name="weight" id="weight" disabled="">
                                             <p class="mb-0 fw-semibold d-none">120 كجم</p>
                                         </div>
                                     </div>
@@ -189,4 +189,8 @@
     </div>
     <!-- end page content -->
 </div>
+@endsection
+@section('scripts')
+<script src="{{asset('assets/js/jquery.min.js')}}"></script>
+<script src="{{asset('assets/js/weight.js')}}"></script>
 @endsection
