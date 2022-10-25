@@ -39,7 +39,7 @@
                                 <div class="col-sm-6 col-lg-4">
                                     <div class="mb-3 d-flex">
                                         <label for="example-number-input" class="col-form-label">سمك
-                                            اللوح بالسنتي:</label>
+                                            اللوح بالمم:</label>
                                         <div class="d-flex align-items-center w-100">
                                             <input class="form-control" type="number" name="thickness" id="thickness" placeholder="مثال : 120 مم"
                                                 id="example-number-input">

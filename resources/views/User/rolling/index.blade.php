@@ -95,6 +95,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-sm-6 col-lg-4">
                                     <div class="mb-3 row">
                                         <label for="example-number-input"
@@ -219,6 +220,16 @@
                                                     </td>
                                                     <td>
                                                         <p class="mb-0">{{$detailes->price}} جنيه</p>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><label for="example-number-input"
+                                                            class="col-12 col-form-label d-flex">الوزن
+                                                            :</label>
+                                                    </td>
+                                                    <td>
+                                                        <p class="mb-0">{{$detailes->weight}} كيلو</p>
                                                     </td>
                                                 </tr>
 

@@ -13,11 +13,14 @@ class foldcontroller extends Controller
         //dd($foldpanelsprices);
         // $cuttingpulpsprices=cuttingprice::where('cuttingname_id',2)->get();
         $foldpeltsprices=Foldprice::where('foldname_id',3)->get();
+
+        $foldheliatsprices=Foldprice::where('foldname_id',2)->get();
+        $foldheliatothersprices=Foldprice::where('foldname_id',4)->get();
        // dd($cuttingprices);
-        return view('Admin.fold.index',compact('foldpanelsprices','foldpeltsprices'));
+        return view('Admin.fold.index',compact('foldpanelsprices','foldpeltsprices','foldheliatsprices','foldheliatothersprices'));
     }
     public function update(Request $request){
-        //dd($request->all());
+       // dd($request->all());
         if($request->type==1){
             foreach($request->price as $key=>$price){
                 $cuttingprice= Foldprice::where('foldname_id',1)->where('id',$key+1)->first();
@@ -32,6 +35,13 @@ class foldcontroller extends Controller
                     'price'=>$price
                 ]);
                }
+          }elseif($request->type==2){
+            $cuttingprice= Foldprice::where('foldname_id',2)->where('id',21)->first()->update([
+                'price'=>$request->tan
+            ]);
+            $cuttingprice= Foldprice::where('foldname_id',4)->where('id',22)->first()->update([
+                'price'=>$request->meter
+            ]);;
           }
           return redirect()->back();
     }

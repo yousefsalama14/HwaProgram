@@ -86,6 +86,10 @@
                             </button>
                         </div>
                         <!--end card-header-->
+                        <form action="{{route('folds.update',0)}}" method="post">
+                            @csrf
+                            @method('put')
+                            <input type="hidden" name="type" value="2">
                         <div class="card-body">
                             <div class="row mb-3 g-3">
                                 <div class="col-sm-6 col-lg-4">
@@ -93,8 +97,8 @@
                                         <label for="example-number-input" class="col-form-label me-2">سعر المواسير
                                             المجلفنة بالطن
                                             :</label>
-                                        <input class="form-control" type="number" placeholder="مثال : 10000 جنيه"
-                                            id="example-number-input">
+                                        <input class="form-control" type="number" name="tan" placeholder="مثال : 10000 جنيه"
+                                            id="example-number-input" value="{{$foldheliatsprices->first()->price}}">
                                         <p class="mb-0 fw-semibold d-none">10000 جنيه</p>
                                     </div>
                                 </div>
@@ -103,9 +107,9 @@
                                         <label for="example-number-input" class="col-form-label me-2">سعر المتر
                                             الطولي
                                             :</label>
-                                        <input class="form-control" type="number" placeholder="مثال : 100 جنيه"
-                                            id="example-number-input">
-                                        <p class="mb-0 fw-semibold d-none">100 جنيه</p>
+                                        <input class="form-control" type="number" name="meter" placeholder="مثال : 100 جنيه"
+                                            id="example-number-input" value="{{$foldheliatothersprices->first()->price}}">
+                                        <p class="mb-0 fw-semibold d-none"> جنيه</p>
                                     </div>
                                 </div>
                             </div>
@@ -117,6 +121,7 @@
                                 </div>
                             </div>
                         </div>
+                        </form>
                         <!--end card-body-->
                     </div>
                     <!--end card-->

@@ -14,6 +14,10 @@ use Session;
 class weldingController extends Controller
 {
     //
+    function weight($thickness,$length,$width){
+        $weight=(7.85/10000)*($thickness*$length*$width);
+        return $weight;
+    }
     public function index(){
         $order=Order::with(['orderdetailes.operationdetailes','orderdetailes'=>function($q){
             $q->where('operation_id','=',1);
@@ -72,6 +76,7 @@ class weldingController extends Controller
                 }
                 $price=(($amount*$weldingwire->price)*$request->passes)*$request->quantity;
         }
+        $weight=$this->weight($request->thickness,$request->length,$request->width);
        $order=Order::with('orderdetailes')->where('user_id',Auth::user()->id)->where('status','=','unpaid')->first();
         if($order!=null){
             $order->update([
@@ -100,6 +105,7 @@ class weldingController extends Controller
           'quantity'=>$request->quantity,
           'operationdetailes_id'=>$Operationdetailes->id,
           'price'=>$price,
+          'weight'=>$weight,
           'opreationname'=>'لحام',
         ]);
         return redirect()->back();

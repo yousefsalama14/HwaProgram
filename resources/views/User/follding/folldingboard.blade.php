@@ -80,7 +80,7 @@
                                             class="col-form-label text-end fw-bold">الوزن
                                             :</label>
                                         <div class="d-flex align-items-center">
-                                            <input class="form-control" id="example-number-input" name="weight" id="weight" disabled="">
+                                            <input class="form-control" id="weight" disabled="">
                                             <p class="mb-0 fw-semibold d-none">120 كجم</p>
                                         </div>
                                     </div>
@@ -165,6 +165,17 @@ me-1                                                "></i> تأكيد</button>
                                                        <p class="mb-0">{{$detailes->price}} جنيه</p>
                                                    </td>
                                                </tr>
+
+                                               <tr>
+                                                <td><label for="example-number-input"
+                                                        class="col-12 col-form-label d-flex">الوزن
+                                                        :</label>
+                                                </td>
+                                                <td>
+                                                    <p class="mb-0">{{$detailes->weight}} كيلو</p>
+                                                </td>
+                                               </tr>
+
 
                                            </tbody>
                                        </table>

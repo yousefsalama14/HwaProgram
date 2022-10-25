@@ -73,6 +73,7 @@ class foldcontroller extends Controller
             'operation_id'=>4,
             'quantity'=>$request->quantity,
             'operationdetailes_id'=>$Operationdetailes->id,
+            'weight'=>$weight,
             'price'=>$price,
             'opreationname'=>'تنايه الواح'
           ]);
@@ -178,6 +179,7 @@ class foldcontroller extends Controller
                 'operation_id'=>4,
                 'quantity'=>$request->quantity,
                 'operationdetailes_id'=>$Operationdetailes->id,
+                'weight'=>$weight,
                 'price'=>$price,
                 'opreationname'=>'تنايه بلتات'
                 ]);
@@ -191,11 +193,95 @@ class foldcontroller extends Controller
 
             public function indexornaments(){
                 $order=Order::with(['orderdetailes.operationdetailes','orderdetailes'=>function($q){
-                    $q->where('operation_id','=',4)->where('opreationname','تنايه حليات');
+                    $q->where('operation_id','=',4)->where('opreationname','مجرة المطر المجلفنة');
+                }])->where('user_id',Auth::user()->id)->where('status','=','unpaid')->first();
+
+
+                $orderother=Order::with(['orderdetailes.operationdetailes','orderdetailes'=>function($q){
+                    $q->where('operation_id','=',4)->where('opreationname','الحليات الأخري');
                 }])->where('user_id',Auth::user()->id)->where('status','=','unpaid')->first();
                // dd($order);
-                return view('User.follding.foldornaments',compact('order'));
+                return view('User.follding.foldornaments',compact('order','orderother'));
             }
+
+
+           public function foldingornamentsorder(Request $request){
+            //  dd($request->all());
+               $foldprice= Foldprice::where('foldname_id',2)->where('id',21)->first();
+               $weight=$this->weight($request->thickness,$request->length,$request->width);
+               $foldprice=($foldprice->price+1000)/1000;
+               $price=$foldprice*$weight;
+               $order=Order::with('orderdetailes')->where('user_id',Auth::user()->id)->where('status','=','unpaid')->first();
+               if($order!=null){
+                   $order->update([
+                       'quantity'=>$order->quantity+1,
+                    ]);
+               }
+                if($order==null){
+                     $order=Order::create([
+                         'status'=>'unpaid',
+                         'user_id'=>Auth::user()->id,
+                         'quantity'=>1,
+                      ]);
+                 }
+                 Session::put('orderqnty',$order->quantity);
+                $Operationdetailes=Operationdetailes::create([
+                  'operation_id'=>4,
+                  'thickness'=>$request->thickness,
+                  'length'=>$request->length,
+                  'width'=>$request->width,
+                  'weight'=>$weight,
+                  'foldqnty'=>$request->foldqnty,
+                 ]);
+                $Orderdetailes=Orderdetailes::create([
+                'order_id'=>$order->id,
+                'operation_id'=>4,
+                'quantity'=>$request->quantity,
+                'operationdetailes_id'=>$Operationdetailes->id,
+                'weight'=>$weight,
+                'price'=>$price,
+                'opreationname'=>'مجرة المطر المجلفنة'
+                ]);
+                Alert::success('Success Title', 'تم اجاء العمليه بنجاح');
+                return redirect()->back();
+           }
+
+
+           public function foldingotherornamentsorder(Request $request){
+           // dd($request->all());
+            $foldprice= Foldprice::where('foldname_id',4)->where('id',22)->first();
+           $price=$foldprice->price*$request->foldqnty*$request->length*$request->quantity;
+           $order=Order::with('orderdetailes')->where('user_id',Auth::user()->id)->where('status','=','unpaid')->first();
+           if($order!=null){
+               $order->update([
+                   'quantity'=>$order->quantity+1,
+                ]);
+           }
+            if($order==null){
+                 $order=Order::create([
+                     'status'=>'unpaid',
+                     'user_id'=>Auth::user()->id,
+                     'quantity'=>1,
+                  ]);
+             }
+             Session::put('orderqnty',$order->quantity);
+            $Operationdetailes=Operationdetailes::create([
+              'operation_id'=>4,
+              'length'=>$request->length,
+              'foldqnty'=>$request->foldqnty,
+             ]);
+            $Orderdetailes=Orderdetailes::create([
+            'order_id'=>$order->id,
+            'operation_id'=>4,
+            'quantity'=>$request->foldqnty,
+            'operationdetailes_id'=>$Operationdetailes->id,
+            'price'=>$price,
+            'opreationname'=>'الحليات الأخري'
+            ]);
+            Alert::success('Success Title', 'تم اجاء العمليه بنجاح');
+            return redirect()->back();
+
+           }
 
  }
 
