@@ -17,7 +17,7 @@ class foldcontroller extends Controller
         $foldheliatsprices=Foldprice::where('foldname_id',2)->get();
         $foldheliatothersprices=Foldprice::where('foldname_id',4)->get();
        // dd($cuttingprices);
-        return view('Admin.fold.index',compact('foldpanelsprices','foldpeltsprices','foldheliatsprices','foldheliatothersprices'));
+        return view('Admin.Fold.index',compact('foldpanelsprices','foldpeltsprices','foldheliatsprices','foldheliatothersprices'));
     }
     public function update(Request $request){
        // dd($request->all());
