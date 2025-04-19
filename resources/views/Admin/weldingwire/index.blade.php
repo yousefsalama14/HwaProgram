@@ -19,7 +19,7 @@
                         </div>
                         <div class="form-group">
                             <label>price</label>
-                          <input  class="form-control" type="number" name="price" id="price">
+                          <input  class="form-control" type="text" name="price" id="price">
                         </div>
 
                          <input  class="btn btn-primary" type="submit" value="update">
@@ -62,7 +62,7 @@
                 @foreach ($weldingwires as $key=>$weldingwire)
                 <tr>
                     <td>{{$key+1}}</td>
-                    <td>{{$weldingwire->size}} مم</td>
+                    <td>{{$weldingwire->name}} مم</td>
                     <td class="text-center p-0">
                         {{$weldingwire->price}}
                     </td>

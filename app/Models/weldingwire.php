@@ -12,6 +12,7 @@ class weldingwire extends Model
         'size',
         'price',
         'id',
+        'name'
     ];
     public $timestamps = false;
 

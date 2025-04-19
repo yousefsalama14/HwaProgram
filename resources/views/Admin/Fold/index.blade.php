@@ -25,79 +25,77 @@
             </div>
             <!-- end page title end breadcrumb -->
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">سعر تناية الألواح</h4>
-                            <button class="btn p-0">
-                                <i class="ti ti-pencil"></i>
-                            </button>
-                        </div>
-                        <!--end card-header-->
-                        <form action="{{route('folds.update',0)}}" method="post">
-                            @csrf
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">سعر تناية الألواح</h4>
+                                <button class="btn p-0">
+                                    <i class="ti ti-pencil"></i>
+                                </button>
+                            </div>
+                            <!--end card-header-->
+                            <form action="{{route('folds.update',0)}}" method="post">
+                                @csrf
                             @method('put')
                             <input type="hidden" name="type" value="1">
-                                <div class="card-body">
-                                    <div class="row mb-3 g-3">
-                                        <div class="col-12">
-                                            <label for="example-number-input" class="col-form-label">سعر
-                                                النزلة :</label>
-                                        </div>
-                                        @foreach ($foldpanelsprices as $foldpanelsprice)
-                                            <div class="col-sm-6 col-lg-4">
-                                                <div class="input-group align-items-center">
-                                                    <label for="example-number-input" class="col-form-label me-2">{{$foldpanelsprice->name}}
-                                                        :</label>
-                                                    <input class="form-control" type="number"  name='price[]' value='{{$foldpanelsprice->price}}' placeholder="مثال : 10 جنيه"
-                                                        >
-                                                    {{-- <p class="mb-0 fw-semibold d-none">10 جنيه</p> --}}
-                                                </div>
-                                            </div>
-                                        @endforeach
-
-
-
-
-
+                            <div class="card-body">
+                                <div class="row mb-3 g-3">
+                                    <div class="col-12">
+                                        <label for="example-number-input" class="col-form-label">سعر
+                                            النزلة :</label>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-12 d-flex">
-                                            <div class="btn-group ms-auto">
-                                                <button type="submit" class="btn btn-primary">تأكيد</button>
+                                    @foreach ($foldpanelsprices as $foldpanelsprice)
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="row">
+                                            <label for="example-number-input" class="col-sm-4 col-form-label text-end">{{$foldpanelsprice->name}}
+                                                مم
+                                                </label>
+                                            <div class="col-sm-8 d-flex align-items-center">
+                                                <input class="form-control" type="text" name='price[]' value='{{$foldpanelsprice->price}}' placeholder="مثال : 10 جنيه"
+                                                    id="example-number-input">
+                                                <p class="mb-0 fw-semibold d-none">10 جنيه</p>
                                             </div>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 d-flex">
+                                        <div class="btn-group ms-auto">
+                                            <button type="submit" class="btn btn-primary">تأكيد</button>
                                         </div>
                                     </div>
                                 </div>
-                        </form>
-                        <!--end card-body-->
-                    </div>
-                    <!--end card-->
-                </div>
-                <!--end col-->
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">سعر تناية الحليات</h4>
-                            <button class="btn p-0">
-                                <i class="ti ti-pencil"></i>
-                            </button>
+                            </div>
+                            </form>
+                            <!--end card-body-->
                         </div>
-                        <!--end card-header-->
-                        <form action="{{route('folds.update',0)}}" method="post">
+                        <!--end card-->
+                    </div>
+                    <!--end col-->
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">سعر تناية الحليات</h4>
+                                <button class="btn p-0">
+                                    <i class="ti ti-pencil"></i>
+                                </button>
+                            </div>
+                            <!--end card-header-->
+                            <form action="{{route('folds.update',0)}}" method="post">
                             @csrf
                             @method('put')
                             <input type="hidden" name="type" value="2">
-                        <div class="card-body">
+                            <div class="card-body">
                             <div class="row mb-3 g-3">
                                 <div class="col-sm-6 col-lg-4">
                                     <div class="input-group align-items-center">
-                                        <label for="example-number-input" class="col-form-label me-2">سعر المواسير
-                                            المجلفنة بالطن
+                                        <label for="example-number-input" class="col-form-label me-2">سعر مصنعية
+                                             الكيلو
                                             :</label>
-                                        <input class="form-control" type="number" name="tan" placeholder="مثال : 10000 جنيه"
+                                        <input class="form-control" type="text" name="tan" placeholder="مثال : 10000 جنيه"
                                             id="example-number-input" value="{{$foldheliatsprices->first()->price}}">
                                         <p class="mb-0 fw-semibold d-none">10000 جنيه</p>
                                     </div>
@@ -105,9 +103,9 @@
                                 <div class="col-sm-6 col-lg-4">
                                     <div class="input-group align-items-center">
                                         <label for="example-number-input" class="col-form-label me-2">سعر المتر
-                                            الطولي
+                                             الطولى لكل نزلة
                                             :</label>
-                                        <input class="form-control" type="number" name="meter" placeholder="مثال : 100 جنيه"
+                                        <input class="form-control" type="text" name="meter" placeholder="مثال : 100 جنيه"
                                             id="example-number-input" value="{{$foldheliatothersprices->first()->price}}">
                                         <p class="mb-0 fw-semibold d-none"> جنيه</p>
                                     </div>
@@ -121,56 +119,72 @@
                                 </div>
                             </div>
                         </div>
-                        </form>
-                        <!--end card-body-->
-                    </div>
-                    <!--end card-->
-                </div>
-                <!--end col-->
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">سعر تناية البلتات</h4>
-                            <button class="btn p-0">
-                                <i class="ti ti-pencil"></i>
-                            </button>
+
+                            </form>
+                            <!--end card-body-->
                         </div>
-                        <!--end card-header-->
-                        <div class="card-body">
-                        <form action="{{route('folds.update',0)}}" method="post">
+                        <!--end card-->
+                    </div>
+                    <!--end col-->
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">سعر تناية البلتات</h4>
+                                <button class="btn p-0">
+                                    <i class="ti ti-pencil"></i>
+                                </button>
+                            </div>
+                            <!--end card-header-->
+                            <div class="card-body">
+                                <form action="{{route('folds.update',0)}}" method="post">
                             @csrf
                             @method('put')
                             <input type="hidden" name="type" value="3">
-                            <div class="row mb-3 g-3">
-                                 @foreach ($foldpeltsprices as $foldpeltsprice)
-                                 <div class="col-sm-6 col-lg-3">
-                                    <div class="input-group align-items-center">
-                                        <label for="example-number-input" class="col-form-label me-2">{{$foldpeltsprice->name}}
-                                            :</label>
-                                        <input class="form-control" name='price[]' value='{{$foldpeltsprice->price}}'  type="number" placeholder="مثال : 10 جنيه"
-                                            id="example-number-input">
-                                        <p class="mb-0 fw-semibold d-none">10 جنيه</p>
+                                <div class="row mb-3 g-3">
+                                    @foreach ($foldpeltsprices as $foldpeltsprice)
+                                    <div class="col-12 col-md-6">
+                                        <div class="border rounded-3 p-3">
+                                            <div class="row">
+                                                <div class="col-12 mb-3">
+                                                    <h5 class="fw-bold">سمك {{$foldpeltsprice->name}}</h5>
+                                                </div>
+                                                @foreach ($foldpeltsprice->foldLength as $foldlength)
+                                                <div class="col-12 col-md-6 mb-2">
+                                                    <div class="row">
+                                                        <label for="example-number-input"
+                                                            class="col-sm-4 col-form-label text-end">≥
+                                                            {{$foldlength->length}} متر
+                                                            :</label>
+                                                        <div class="col-sm-8 d-flex align-items-center">
+                                                            <input class="form-control" name='price_length[]' type="text" value='{{$foldlength->price}}'
+                                                                placeholder="مثال : 10 جنيه" id="example-number-input">
+                                                            <p class="mb-0 fw-semibold d-none">10 جنيه</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 d-flex">
+                                        <div class="btn-group ms-auto">
+                                            <button type="submit" class="btn btn-primary">تأكيد</button>
+                                        </div>
                                     </div>
                                 </div>
-                                 @endforeach
                             </div>
-                            <div class="row">
-                                <div class="col-12 d-flex">
-                                    <div class="btn-group ms-auto">
-                                        <button type="submit" class="btn btn-primary">تأكيد</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                            <!--end card-body-->
                         </div>
-                        <!--end card-body-->
+                        <!--end card-->
                     </div>
-                    <!--end card-->
+                    <!--end col-->
                 </div>
-                <!--end col-->
-            </div>
 
 
         </div><!-- container -->

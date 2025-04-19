@@ -23,19 +23,16 @@
                         </li>
                         <!--end nav-item-->
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('user.welding')}}"><i
-                                    class="ti ti-chart-bubble menu-icon"></i><span>اللحام</span></a>
+                            <a class="nav-link" href="{{route('user.welding')}}"><i class="ti ti-flare menu-icon"></i><span>اللحام</span></a>
                         </li>
                         <!--end nav-item-->
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('user.rolling')}}"><i
-                                    class="ti ti-chart-bubble menu-icon"></i><span>الدرفلة</span></a>
+                            <a class="nav-link" href="{{route('user.rolling')}}"><i class="ti ti-circle menu-icon"></i><span>الدرفلة</span></a>
                         </li>
                         <!--end nav-item-->
                         <li class="nav-item">
                             <a class="nav-link" href="#cutting" data-bs-toggle="collapse" role="button"
-                                aria-expanded="false" aria-controls="processSetup"><i
-                                    class="ti ti-box-multiple menu-icon"></i><span>التقطيع</span></a>
+                                aria-expanded="false" aria-controls="processSetup"><i class="ti ti-box-multiple menu-icon"></i><span>التقطيع</span></a>
                             <div class="collapse " id="cutting">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
@@ -57,8 +54,7 @@
                         <!--end nav-item-->
                         <li class="nav-item">
                             <a class="nav-link" href="#fold" data-bs-toggle="collapse" role="button"
-                                aria-expanded="false" aria-controls="processSetup"><i
-                                    class="ti ti-currency-leu menu-icon"></i><span>التناية</span></a>
+                                aria-expanded="false" aria-controls="processSetup"><i class="ti ti-currency-leu menu-icon"></i><span>التناية</span></a>
                             <div class="collapse " id="fold">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
@@ -79,8 +75,7 @@
                         </li>
                         <!--end nav-item-->
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i
-                                    class="ti ti-chart-bubble menu-icon"></i><span>التخريم</span></a>
+                            <a class="nav-link" href="{{route('user.perforation')}}"><i class="ti ti-chart-circles menu-icon"></i><span>التخريم</span></a>
                         </li>
                         <!--end nav-item-->
                         <li class="nav-item">
@@ -89,18 +84,18 @@
                         </li>
                         <!--end nav-item-->
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i
-                                    class="ti ti-chart-bubble menu-icon"></i><span>البناطة</span></a>
+                            <a class="nav-link" href="#"><i class="ti ti-test-pipe menu-icon"></i><span>البناطة</span></a>
                         </li>
                         <!--end nav-item-->
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i
-                                    class="ti ti-chart-bubble menu-icon"></i><span>الدهان</span></a>
+                            <a class="nav-link" href="#"><i class="ti ti-paint menu-icon"></i><span>الدهان</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('user.materials')}}"><i class="ti ti-box menu-icon"></i><span>الخامات</span></a>
                         </li>
                         <!--end nav-item-->
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('logout')}}"><i
-                                class="ti ti-chart-bubble menu-icon"></i><span>تسجيل الخروج</span></a>
+                            <a class="nav-link" href="{{route('logout')}}"><i class="ti ti-logout menu-icon"></i><span>تسجيل الخروج</span></a>
                         </li>
                     </ul>
                 </div>

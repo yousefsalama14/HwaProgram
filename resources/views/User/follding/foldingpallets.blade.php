@@ -14,11 +14,12 @@
                         <div class="float-end">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.html">الرئيسية</a></li>
-                                <li class="breadcrumb-item"><a href="#">التقطيع</a></li>
-                                <li class="breadcrumb-item active">تقطيع بلتات</li>
+                                <li class="breadcrumb-item"><a href="#">التناية</a></li>
+                                <li class="breadcrumb-item active">تناية بلتات</li>
                             </ol>
                         </div>
-                        <h4 class="page-title">تقطيع بلتات</h4>
+                        <h4 class="page-title">تنايه بلتات</h4>
+                        <h4 class="page-title">تنايه بلتات</h4>
                     </div>
                     <!--end page-title-box-->
                 </div>
@@ -41,7 +42,7 @@
                                         <label for="example-number-input" class="col-form-label">سمك
                                             اللوح :</label>
                                         <div class="d-flex align-items-center w-100">
-                                            <input class="form-control" type="number" name="thickness" id="thickness" placeholder="مثال : 120 مم"
+                                            <input class="form-control" type="text" name="thickness" id="thickness" placeholder="مثال : 120 مم"
                                                 id="example-number-input">
                                             <p class="mb-0 fw-semibold d-none">120 مم</p>
                                         </div>
@@ -50,70 +51,131 @@
                                 <div class="col-sm-6 col-lg-4">
                                     <div class="mb-3 d-flex">
                                         <label for="example-number-input" class="col-form-label">طول البلته
-                                            بالمتر
+                                            بالسنتي
                                             :</label>
                                         <div class="d-flex align-items-center w-100">
-                                            <input class="form-control" type="number" name="length" id="length" placeholder="مثال : 4 متر"
+                                            <input class="form-control" type="text" name="length" id="length" placeholder="مثال : 4 سم"
                                                 id="example-number-input">
-                                            <p class="mb-0 fw-semibold d-none">4 متر</p>
+                                            <p class="mb-0 fw-semibold d-none">4 سم</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-lg-4">
                                     <div class="mb-3 d-flex">
                                         <label for="example-number-input" class="col-form-label">عرض البلته
-                                            بالمتر
+                                            بالسنتي
                                             :</label>
                                         <div class="d-flex align-items-center w-100">
-                                            <input class="form-control" type="number" name="width" id="width" placeholder="مثال : 4 متر"
+                                            <input class="form-control" type="text" name="width" id="width" placeholder="مثال : 4 سم"
                                                 id="example-number-input">
-                                            <p class="mb-0 fw-semibold d-none">4 متر</p>
+                                            <p class="mb-0 fw-semibold d-none">4 سم</p>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-sm-6 col-lg-4">
-                                    <div class="mb-3 d-flex">
-                                        <label for="example-number-input" class="col-form-label text-end">عدد
-                                            النزلات لكل لوح :</label>
-                                        <div class="d-flex align-items-center">
-                                            <input class="form-control" type="number" name='foldqnty' placeholder="مثال : 5 نزلات"
-                                                id="example-number-input">
-                                            <p class="mb-0 fw-semibold d-none">5 نزلات</p>
+                                <div class="col-sm-6">
+                                        <div class="mb-3 row">
+                                            <label for="example-number-input" class="col-sm-4 col-form-label text-end" style="white-space: unset;">عدد
+                                                النزلات للبعد الأول :</label>
+                                            <div class="col-sm-8 d-flex align-items-center">
+                                                <input class="form-control" type="number" id="count1" name="count1" placeholder="مثال : 5 نزلات"
+                                                    id="example-number-input">
+                                                <p class="mb-0 fw-semibold d-none">5 نزلات</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="col-sm-6">
+                                        <div class="mb-3 row">
+                                            <label for="example-number-input" class="col-sm-4 col-form-label text-end">الطول المطلوب ثنيه :</label>
+                                            <div class="col-sm-8 d-flex align-items-center">
+                                                <input class="form-control" type="text" id="length1" name="length1" placeholder="مثال : 14 سم"
+                                                    id="example-number-input">
+                                                <p class="mb-0 fw-semibold d-none">5 نزلات</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="mb-3 row">
+                                            <label for="example-number-input" class="col-sm-4 col-form-label text-end" style="white-space: unset;">عدد
+                                                النزلات للبعد الثاني :</label>
+                                            <div class="col-sm-8 d-flex align-items-center">
+                                                <input class="form-control" type="number" id="count2" name="count2" placeholder="مثال : 5 نزلات"
+                                                    id="example-number-input">
+                                                <p class="mb-0 fw-semibold d-none">5 نزلات</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="mb-3 row">
+                                            <label for="example-number-input" class="col-sm-4 col-form-label text-end">الطول المطلوب ثنيه :</label>
+                                            <div class="col-sm-8 d-flex align-items-center">
+                                                <input class="form-control" type="text" id="length2" name="length2" placeholder="مثال : 14 سم"
+                                                    id="example-number-input">
+                                                <p class="mb-0 fw-semibold d-none">5 نزلات</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="mb-3 row">
+                                            <label for="example-number-input" class="col-sm-4 col-form-label text-end" style="white-space: unset;">عدد
+                                                النزلات للبعد الثالت :</label>
+                                            <div class="col-sm-8 d-flex align-items-center">
+                                                <input class="form-control" type="number" id="count3" name="count3" placeholder="مثال : 5 نزلات"
+                                                    id="example-number-input">
+                                                <p class="mb-0 fw-semibold d-none">5 نزلات</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="mb-3 row">
+                                            <label for="example-number-input" class="col-sm-4 col-form-label text-end">الطول المطلوب ثنيه :</label>
+                                            <div class="col-sm-8 d-flex align-items-center">
+                                                <input class="form-control" type="text" id="length3" name="length3" placeholder="مثال : 14 سم"
+                                                    id="example-number-input">
+                                                <p class="mb-0 fw-semibold d-none">5 نزلات</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="mb-3 row">
+                                            <label for="example-number-input" class="col-sm-4 col-form-label text-end" style="white-space: unset;">عدد
+                                                النزلات للبعد الرابع :</label>
+                                            <div class="col-sm-8 d-flex align-items-center">
+                                                <input class="form-control" type="number" id="count4" name="count4" placeholder="مثال : 5 نزلات"
+                                                    id="example-number-input">
+                                                <p class="mb-0 fw-semibold d-none">5 نزلات</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="mb-3 row">
+                                            <label for="example-number-input" class="col-sm-4 col-form-label text-end">الطول المطلوب ثنيه :</label>
+                                            <div class="col-sm-8 d-flex align-items-center">
+                                                <input class="form-control" type="text" id="length4" name="length4" placeholder="مثال : 14 سم"
+                                                    id="example-number-input">
+                                                <p class="mb-0 fw-semibold d-none">5 نزلات</p>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                <div class="col-sm-6 col-lg-3">
-                                    <div class="mb-3 d-flex">
-                                        <label for="example-number-input" class="col-form-label text-end">عدد
+
+                                <div class="col-sm-6">
+                                    <div class="mb-3 row">
+                                        <label for="example-number-input" class="col-sm-4 col-form-label text-end">عدد
                                             الألواح :</label>
-                                        <div class="d-flex align-items-center">
-                                            <input class="form-control" type="number" name="quantity" placeholder="مثال : 12 لوح"
+                                        <div class="col-sm-8 d-flex align-items-center">
+                                            <input class="form-control" type="number" id="quantity" name="quantity" placeholder="مثال : 12 لوح"
                                                 id="example-number-input">
                                             <p class="mb-0 fw-semibold d-none">12 لوح</p>
                                         </div>
                                     </div>
                                 </div>
 
-
-
-                                <div class="col-sm-6 col-lg-4">
-                                    <div class="mb-3 d-flex">
-                                        <label for="example-number-input" class="col-form-label">محيط البلته
-                                            :</label>
-                                        <div class="d-flex align-items-center w-100">
-                                            <input class="form-control" id="example-number-input" disabled="">
-                                            <p class="mb-0 fw-semibold d-none">120 كجم</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-lg-3">
-                                    <div class="mb-3 d-flex">
+                                <div class="col-sm-6">
+                                    <div class="mb-3 row">
                                         <label for="example-number-input"
-                                            class="col-form-label text-end fw-bold">الوزن
+                                            class="col-sm-4 col-form-label text-end">الوزن
                                             :</label>
-                                        <div class="d-flex align-items-center">
+                                        <div class="col-sm-8 d-flex align-items-center">
                                             <input class="form-control" id="weight" disabled="">
                                             <p class="mb-0 fw-semibold d-none">120 كجم</p>
                                         </div>
@@ -142,11 +204,64 @@
                 <div class="col-lg-12 " id="orderDetailsCol">
                    <div class="card">
                        <div class="card-header">
-                           <h4>{{$detailes->opreationname}}</h4>
+                           <!--<h4>{{$detailes->opreationname}}</h4>-->
                            <h4 class="card-title">تفاصيل الطلب</h4>
                        </div>
                        <!--end card-header-->
+
                        <div class="card-body">
+                           <div class="row" >
+                       <div class="col-sm-6 col-lg-4">
+                                <div class="mb-3 row">
+                                    <label for="example-number-input"
+                                        class="col-sm-4 col-form-label text-end">سمك
+                                        اللوح مم:</label>
+                                    <div class="col-sm-8 d-flex align-items-center">
+                                        <input class="form-control" name="thickness" type="text"
+                                            placeholder="مثال : 1234" id="example-number-input" value="{{$detailes->operationdetailes->thickness}}" disabled>
+                                        {{-- <p class="mb-0 fw-semibold">120 مم</p> --}}
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="mb-3 row">
+                                    <label for="example-number-input"
+                                        class="col-sm-4 col-form-label text-end">عرض اللوح بالسنتي:</label>
+                                    <div class="col-sm-8 d-flex align-items-center">
+                                        <input class="form-control" name="width" id="width" type="text" placeholder="مثال : 1234"
+                                            id="example-number-input" value="{{$detailes->operationdetailes->width}}">
+                                        <p class="mb-0 fw-semibold d-none">120 مم</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="mb-3 row">
+                                    <label for="example-number-input"
+                                        class="col-sm-4 col-form-label text-end">طول
+                                        اللوح بالسنتي:</label>
+                                    <div class="col-sm-8 d-flex align-items-center">
+                                        <input class="form-control" name="length" type="text" placeholder="مثال : 1234" value="{{$detailes->operationdetailes->length}}" disabled
+                                            id="example-number-input">
+                                        <p class="mb-0 fw-semibold d-none">120 مم</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="mb-3 row">
+                                    <label for="example-number-input"
+                                        class="col-sm-4 col-form-label text-end">
+                                        عدد الألواح:</label>
+                                    <div class="col-sm-8 d-flex align-items-center">
+                                        <input class="form-control" name="length" type="text" placeholder="مثال : 1234" value="{{$detailes->operationdetailes->quantity}}" disabled
+                                            id="example-number-input">
+                                        <p class="mb-0 fw-semibold d-none">120 مم</p>
+                                    </div>
+                                </div>
+                            </div>
+                       </div>
                            <div class="row">
                                <div class="col-sm-4">
                                    <div class="mb-3 row">

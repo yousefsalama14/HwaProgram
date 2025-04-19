@@ -11,8 +11,8 @@
                             <img src="{{asset('assets/images/users/user.jpg')}}" alt="profile-user"
                                 class="rounded-circle me-2 thumb-sm" />
                             <div>
-                                <small class="d-none d-md-block font-11">الأدمن</small>
-                                <span class="d-none d-md-block fw-semibold font-12">أحمد علي</span>
+                                <small class="d-none d-md-block font-11">المستخدم</small>
+                                <span class="d-none d-md-block fw-semibold font-12">{{Auth::user()->name}}</span>
                                 <!-- <i class="mdi mdi-chevron-down"></i></span> -->
                             </div>
                         </div>

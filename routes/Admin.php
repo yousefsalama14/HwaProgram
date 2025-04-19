@@ -7,7 +7,8 @@ use App\Http\Controllers\Admin\dashboardController;
 use App\Http\Controllers\Admin\rollingController;
 use App\Http\Controllers\Admin\cuttingController;
 use App\Http\Controllers\Admin\foldcontroller;
-
+use App\Http\Controllers\Admin\materialsController;
+use App\Http\Controllers\Admin\perforationController;
 
 
 /*
@@ -26,11 +27,21 @@ Route::controller(AuthController::class)->group(function () {
 });
 Route::middleware('AdminAuth')->group(function(){
     Route::resource('weldingwires', weldingwireController::class);
+    Route::resource('materials', materialsController::class);
+    Route::get('/upload-file', [materialsController::class, 'createForm']);
+    Route::post('/upload-file', [materialsController::class, 'fileUpload'])->name('fileUpload');
     Route::controller(dashboardController::class)->group(function () {
         Route::get('/Admin/dashboard','index')->name('Admin.dashboard');
     });
       Route::resource('rollings', rollingController::class);
       Route::resource('cuttings', cuttingController::class);
       Route::resource('folds', foldcontroller::class);
+      Route::controller(perforationController::class)->group(function () {
+        Route::get('/perforation', 'index')->name('perforation.index');
+        Route::post('/getThickness','getThickness');
+        Route::post('/getDiameter','getDiameter');
+        Route::post('/getPrice','getPrice');
+        Route::post('/updatePrice','updatePrice')->name('perforation.updatePrice');
+    });
 });
 

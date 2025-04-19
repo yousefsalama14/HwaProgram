@@ -63,7 +63,7 @@
                                 </li>
                                 <!--end nav-item-->
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">التخريم</a>
+                                    <a class="nav-link" href="{{route('perforation.index')}}">التخريم</a>
                                 </li>
                                 <!--end nav-item-->
                                 <li class="nav-item">
@@ -76,6 +76,9 @@
                                 <!--end nav-item-->
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">الدهان</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('materials.index')}}">الخامات</a>
                                 </li>
                                 <!--end nav-item-->
                                 <li class="nav-item">

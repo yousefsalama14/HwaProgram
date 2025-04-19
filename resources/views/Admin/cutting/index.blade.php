@@ -49,7 +49,7 @@
                                         <div class="input-group align-items-center">
                                             <label for="example-number-input" class="col-form-label me-2">{{ $cuttingprice->name}}
                                                 :</label>
-                                            <input class="form-control" name='price[]' type="number" placeholder="مثال : 10 جنيه"
+                                            <input class="form-control" name='price[]' type="text" placeholder="مثال : 10 جنيه"
                                                 id="example-number-input" value="{{$cuttingprice->price}}">
                                             {{-- <p class="mb-0 fw-semibold d-none">{{}} جنيه</p> --}}
                                         </div>
@@ -92,7 +92,7 @@
                                         <div class="input-group align-items-center">
                                             <label for="example-number-input" class="col-form-label me-2">{{$cuttingpulpsprice->name}}
                                                 :</label>
-                                            <input class="form-control" type="number" name="price[]" value="{{$cuttingpulpsprice->price}}" placeholder="مثال : 10 جنيه"
+                                            <input class="form-control" type="text" name="price[]" value="{{$cuttingpulpsprice->price}}" placeholder="مثال : 10 جنيه"
                                                 id="example-number-input">
                                             {{-- <p class="mb-0 fw-semibold d-none">10 جنيه</p> --}}
                                         </div>
@@ -135,7 +135,7 @@
                                         <div class="input-group align-items-center">
                                             <label for="example-number-input" class="col-form-label me-2">{{$cuttingpeltsprice->name}}
                                                 :</label>
-                                            <input class="form-control" name='price[]' type="number" placeholder="مثال : 10 جنيه"
+                                            <input class="form-control" name='price[]' type="text" placeholder="مثال : 10 جنيه"
                                                 id="example-number-input" value="{{$cuttingpeltsprice->price}}">
                                             {{-- <p class="mb-0 fw-semibold d-none">10 جنيه</p> --}}
                                         </div>

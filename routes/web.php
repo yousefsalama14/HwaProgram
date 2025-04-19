@@ -8,7 +8,8 @@ use App\Http\Controllers\User\Cart\CartController;
 use App\Http\Controllers\User\rolling\rollingController;
 use App\Http\Controllers\User\Cutting\cuttingController;
 use App\Http\Controllers\User\foldcontroller;
-
+use App\Http\Controllers\User\materials\materialsController;
+use App\Http\Controllers\User\perforation\perforationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,10 +43,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/user/orderdetailes/delete/{id}', 'deleteOrderDetailes')->name('user.deleteOrderDetailes');
     });
 
+Route::controller(materialsController::class)->group(function () {
+        Route::get('/user/materials', 'index')->name('user.materials');
+        Route::post('/user/materials', 'materialsorder')->name('materials.order');
+        Route::post('/getSize','getSize');
+    });
 
     Route::controller(CartController::class)->group(function () {
         Route::get('/user/cart', 'index')->name('user.cart');
         Route::post('/user/paied', 'paied')->name('user.paied');
+        Route::get('/user/print', 'print')->name('user.print');
     });
 
 
@@ -62,7 +69,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/user/cutting/pallet', 'indexpallet')->name('user.cutting.pallet');
         Route::post('/user/cutting/pallet', 'cuttingpallet')->name('user.cuttinpallet.order');
     });
-
+    Route::controller(perforationController::class)->group(function () {
+            Route::get('/user/perforation', 'index')->name('user.perforation');
+             Route::post('/user/perforation', 'perforationorder')->name('perforation.order');
+            // Route::post('/getSize','getSize');
+        });
 
     Route::controller(foldcontroller::class)->group(function () {
         Route::get('/user/folding/boards', 'indexboards')->name('user.folding.boards');
@@ -70,6 +81,12 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/user/folding/pallet', 'indexpallet')->name('user.folding.pallet');
         Route::post('/user/folding/palletorder', 'foldingpalletorder')->name('user.foldingpallet.order');
+
+        Route::get('/user/folding/ornaments', 'indexornaments')->name('user.folding.ornaments');
+        Route::post('/user/folding/ornaments', 'foldingornamentsorder')->name('user.foldingornaments.order');
+
+
+        Route::post('/user/folding/otherornaments', 'foldingotherornamentsorder')->name('user.foldingotherornaments.order');
 
         Route::get('/user/folding/ornaments', 'indexornaments')->name('user.folding.ornaments');
         Route::post('/user/folding/ornaments', 'foldingornamentsorder')->name('user.foldingornaments.order');

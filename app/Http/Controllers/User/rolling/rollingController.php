@@ -25,18 +25,20 @@ class rollingController extends Controller
     }
     #Reigon[rolling opreation]
         // this function sum the price of rolling
-        function weight($thickness,$length,$width){
+        function weight($thickness,$length,$width,$quntity){
             $weight=(7.85/10000)*($thickness*$length*$width);
-            return $weight;
+            return $weight*$quntity;
         }
-
+       public function weightCalc($num, $decimals) {
+            return round($num * pow(10, $decimals)) / pow(10, $decimals);
+    }
        function widthprice($rolling_id,$thickness,$length,$width,$quntity){
-          $weight=$this->weight($thickness,$length,$width);
+          $weight=$this->weight($thickness,$length,$width,$quntity);
           $rolleingname=rolleingname::find($rolling_id);
-          if($weight>$rolleingname->smallweight){
+          if($weight<$rolleingname->smallweight){
             $price=$rolleingname->lesspriceweight;
         }else{
-            $price=($rolleingname->price*$weight)*$quntity;
+            $price=($rolleingname->price*$weight);
         }
         return $price;
        }
@@ -55,7 +57,7 @@ class rollingController extends Controller
                 $price=  $this->widthprice(3,$request->thickness,$request->length,$request->width,$request->quantity);
                 $opreationname='الدرفله + لحام كامل';
             }
-             $weight=$this->weight($request->thickness,$request->length,$request->width);
+             $weight=$this->weight($request->thickness,$request->length,$request->width,$request->quantity);
             // check if there are order or not if not order create new order
             $order=Order::with('orderdetailes')->where('user_id',Auth::user()->id)->where('status','=','unpaid')->first();
             if($order!=null){
@@ -77,8 +79,7 @@ class rollingController extends Controller
                 'length'=>$request->length,
                 'width'=>$request->width,
                 'weight'=>$weight,
-                'quantity'=>$request->quantity,
-
+                'quantity'=>$request->quantity,  
             ]);
             $Orderdetailes=Orderdetailes::create([
                 'order_id'=>$order->id,
@@ -86,6 +87,7 @@ class rollingController extends Controller
                 'quantity'=>$request->quantity,
                 'operationdetailes_id'=>$Operationdetailes->id,
                 'price'=>$price,
+                'weight'=>$weight,
                 'opreationname'=>$opreationname,
               ]);
               return redirect()->back();

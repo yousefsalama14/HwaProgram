@@ -38,9 +38,9 @@
                                 <div class="col-sm-6 col-lg-3">
                                     <div class="mb-3 d-flex">
                                         <label for="example-number-input" class="col-form-label">سمك
-                                            اللوح :</label>
+                                            الصاج :</label>
                                         <div class="d-flex align-items-center w-100">
-                                            <input class="form-control" type="number" name="thickness" id="thickness" placeholder="مثال : 120 مم"
+                                            <input class="form-control" type="text" name="thickness" id="thickness" placeholder="مثال : 120 مم"
                                                 id="example-number-input">
                                             <p class="mb-0 fw-semibold d-none">120 مم</p>
                                         </div>
@@ -49,9 +49,9 @@
                                 <div class="col-sm-6 col-lg-3">
                                     <div class="mb-3 d-flex">
                                         <label for="example-number-input" class="col-form-label">طول
-                                            اللوح :</label>
+                                            مجري المطر بالسم:</label>
                                         <div class="d-flex align-items-center w-100">
-                                            <input class="form-control" type="number" name="length" id="length" placeholder="مثال : 120 مم"
+                                            <input class="form-control" type="text" name="length" id="length" placeholder="مثال : 120 مم"
                                                 id="example-number-input">
                                             <p class="mb-0 fw-semibold d-none">120 مم</p>
                                         </div>
@@ -59,12 +59,23 @@
                                 </div>
                                 <div class="col-sm-6 col-lg-3">
                                     <div class="mb-3 d-flex">
-                                        <label for="example-number-input" class="col-form-label">عرض اللوح
+                                        <label for="example-number-input" class="col-form-label">عرض مجري المطر بالسم
                                             :</label>
                                         <div class="d-flex align-items-center w-100">
-                                            <input class="form-control" type="number" name="width" id="width" placeholder="مثال : 120 مم"
+                                            <input class="form-control" type="text" name="width" id="width" placeholder="مثال : 120 مم"
                                                 id="example-number-input">
                                             <p class="mb-0 fw-semibold d-none">120 مم</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-3">
+                                    <div class="mb-3 d-flex">
+                                        <label for="example-number-input" class="col-form-label">العدد الكلي
+                                            :</label>
+                                        <div class="d-flex align-items-center w-100">
+                                            <input class="form-control" type="number" id="quantity" name="quantity" placeholder="مثال : 120 "
+                                                id="example-number-input">
+                                            <p class="mb-0 fw-semibold d-none">120</p>
                                         </div>
                                     </div>
                                 </div>
@@ -97,7 +108,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">الحليات الأخري</h4>
+                            <h4 class="card-title"> حليات الايكون</h4>
                         </div>
 
                         <!--end card-header-->
@@ -105,23 +116,12 @@
                             @csrf
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-sm-6 col-lg-3">
+                            <div class="col-sm-6 col-lg-3">
                                     <div class="mb-3 d-flex">
-                                        <label for="example-number-input" class="col-form-label">عدد النزلات
-                                            :</label>
+                                        <label for="example-number-input" class="col-form-label">سمك
+                                            الصاج :</label>
                                         <div class="d-flex align-items-center w-100">
-                                            <input class="form-control" type="number" name='foldqnty'  placeholder="مثال : 10 نزلات"
-                                                id="example-number-input">
-                                            <p class="mb-0 fw-semibold d-none">10 نزلات</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-lg-3">
-                                    <div class="mb-3 d-flex">
-                                        <label for="example-number-input" class="col-form-label">طول
-                                            اللوح :</label>
-                                        <div class="d-flex align-items-center w-100">
-                                            <input class="form-control" type="number" name="length" placeholder="مثال : 120 مم"
+                                            <input class="form-control" type="text" name="foldThickness" id="foldThickness" placeholder="مثال : 120 مم"
                                                 id="example-number-input">
                                             <p class="mb-0 fw-semibold d-none">120 مم</p>
                                         </div>
@@ -129,16 +129,50 @@
                                 </div>
                                 <div class="col-sm-6 col-lg-3">
                                     <div class="mb-3 d-flex">
-                                        <label for="example-number-input" class="col-form-label">العدد الكلي
+                                        <label for="example-number-input" class="col-form-label">عرض الحليه بالسم
                                             :</label>
                                         <div class="d-flex align-items-center w-100">
-                                            <input class="form-control" type="number" name="quantity" placeholder="مثال : 120 "
+                                            <input class="form-control" type="text" name="foldWidth" id="foldWidth" placeholder="مثال : 120 مم"
                                                 id="example-number-input">
-                                            <p class="mb-0 fw-semibold d-none">120</p>
+                                            <p class="mb-0 fw-semibold d-none">120 مم</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-3">
+                                    <div class="mb-3 d-flex">
+                                        <label for="example-number-input" class="col-form-label">طول
+                                            الحليه بالمتر:</label>
+                                        <div class="d-flex align-items-center w-100">
+                                            <input class="form-control" type="text" name="foldLength" placeholder="مثال : 120 مم"
+                                                id="foldLength">
+                                            <p class="mb-0 fw-semibold d-none">120 مم</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-3">
+                                    <div class="mb-3 d-flex">
+                                        <label for="example-number-input" class="col-form-label">عدد النزلات
+                                            :</label>
+                                        <div class="d-flex align-items-center w-100">
+                                            <input class="form-control" type="number" name='foldQnty'  placeholder="مثال : 10 نزلات"
+                                                id="foldQnty">
+                                            <p class="mb-0 fw-semibold d-none">10 نزلات</p>
                                         </div>
                                     </div>
                                 </div>
 
+
+                                <div class="col-sm-6 col-lg-3">
+                                    <div class="mb-3 d-flex">
+                                        <label for="example-number-input"
+                                            class="col-form-label text-end fw-bold">الوزن
+                                            :</label>
+                                        <div class="d-flex align-items-center">
+                                            <input class="form-control" id="foldWeight" name="foldWeight" disabled="">
+                                            <p class="mb-0 fw-semibold d-none">120 كجم</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-12 d-flex">
@@ -161,6 +195,59 @@
                        <div class="card-header">
                            <h4>{{$detailes->opreationname}}</h4>
                            <h4 class="card-title">تفاصيل الطلب</h4>
+                       </div>
+                       <div class="row" >
+                       <div class="col-sm-6 col-lg-4">
+                                <div class="mb-3 row">
+                                    <label for="example-number-input"
+                                        class="col-sm-4 col-form-label text-end">سمك
+                                        الصاج مم:</label>
+                                    <div class="col-sm-8 d-flex align-items-center">
+                                        <input class="form-control" name="thickness" type="text"
+                                            placeholder="مثال : 1234" id="example-number-input" value="{{$detailes->operationdetailes->thickness}}" disabled>
+                                        {{-- <p class="mb-0 fw-semibold">120 مم</p> --}}
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="mb-3 row">
+                                    <label for="example-number-input" style="font-size: 11px;"
+                                        class="col-sm-4 col-form-label text-end">عرض مجري المطر  بالسنتي:</label>
+                                    <div class="col-sm-8 d-flex align-items-center">
+                                        <input class="form-control" name="width" id="width" type="text" placeholder="مثال : 1234"
+                                            id="example-number-input" value="{{$detailes->operationdetailes->width}}">
+                                        <p class="mb-0 fw-semibold d-none">120 مم</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="mb-3 row">
+                                    <label for="example-number-input" style="font-size: 11px;"
+                                        class="col-sm-4 col-form-label text-end">طول مجري المطر
+                                         بالسنتي:</label>
+                                    <div class="col-sm-8 d-flex align-items-center">
+                                        <input class="form-control" name="length" type="text" placeholder="مثال : 1234" value="{{$detailes->operationdetailes->length}}" disabled
+                                            id="example-number-input">
+                                        <p class="mb-0 fw-semibold d-none">120 مم</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="mb-3 row">
+                                    <label for="example-number-input"
+                                        class="col-sm-4 col-form-label text-end">
+                                        العدد الكلي :</label>
+                                    <div class="col-sm-8 d-flex align-items-center">
+                                        <input class="form-control" name="length" type="text" placeholder="مثال : 1234" value="{{$detailes->operationdetailes->quantity}}" disabled
+                                            id="example-number-input">
+                                        <p class="mb-0 fw-semibold d-none">120 مم</p>
+                                    </div>
+                                </div>
+                            </div>
+                       </div>
                        </div>
                        <!--end card-header-->
                        <div class="card-body">
@@ -217,7 +304,7 @@
 
 
 
-                @if ($orderother)  orderother
+                @if ($orderother)
                 @foreach ($orderother->orderdetailes as $detailes)
                 <div class="col-lg-12 " id="orderDetailsCol">
                    <div class="card">
@@ -226,12 +313,66 @@
                            <h4 class="card-title">تفاصيل الطلب</h4>
                        </div>
                        <!--end card-header-->
+                       <div class="row" >
+                       <div class="col-sm-6 col-lg-4">
+                                <div class="mb-3 row">
+                                    <label for="example-number-input"
+                                        class="col-sm-4 col-form-label text-end">سمك
+                                        الصاج مم:</label>
+                                    <div class="col-sm-8 d-flex align-items-center">
+                                        <input class="form-control" name="thickness" type="text"
+                                            placeholder="مثال : 1234" id="example-number-input" value="{{$detailes->operationdetailes->thickness}}" disabled>
+                                        {{-- <p class="mb-0 fw-semibold">120 مم</p> --}}
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="mb-3 row">
+                                    <label for="example-number-input"
+                                        class="col-sm-4 col-form-label text-end">عرض الحليه  بالسنتي:</label>
+                                    <div class="col-sm-8 d-flex align-items-center">
+                                        <input class="form-control" name="width" id="width" type="text" placeholder="مثال : 1234"
+                                            id="example-number-input" value="{{$detailes->operationdetailes->width}}">
+                                        <p class="mb-0 fw-semibold d-none">120 مم</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="mb-3 row">
+                                    <label for="example-number-input"
+                                        class="col-sm-4 col-form-label text-end">طول الحليه
+                                         بالسنتي:</label>
+                                    <div class="col-sm-8 d-flex align-items-center">
+                                        <input class="form-control" name="length" type="text" placeholder="مثال : 1234" value="{{$detailes->operationdetailes->length}}" disabled
+                                            id="example-number-input">
+                                        <p class="mb-0 fw-semibold d-none">120 مم</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="mb-3 row">
+                                    <label for="example-number-input"
+                                        class="col-sm-4 col-form-label text-end">
+                                        عدد النزلات :</label>
+                                    <div class="col-sm-8 d-flex align-items-center">
+                                        <input class="form-control" name="length" type="text" placeholder="مثال : 1234" value="{{$detailes->operationdetailes->foldqnty}}" disabled
+                                            id="example-number-input">
+                                        <p class="mb-0 fw-semibold d-none">120 مم</p>
+                                    </div>
+                                </div>
+                            </div>
+                       </div>
+                       </div>
                        <div class="card-body">
                            <div class="row">
                                <div class="col-sm-4">
                                    <div class="mb-3 row">
                                        <table>
                                            <tbody class="table table-primary">
+
 
                                                <tr>
                                                    <td><label for="example-number-input"
@@ -242,6 +383,15 @@
                                                        <p class="mb-0">{{$detailes->price}} جنيه</p>
                                                    </td>
                                                </tr>
+                                               <tr>
+                                                <td><label for="example-number-input"
+                                                        class="col-12 col-form-label d-flex">الوزن
+                                                        :</label>
+                                                </td>
+                                                <td>
+                                                    <p class="mb-0">{{$detailes->weight}} كيلو</p>
+                                                </td>
+                                            </tr>
                                            </tbody>
                                        </table>
 
@@ -354,6 +504,7 @@
 </div>
 @endsection
 @section('scripts')
+
 <script src="{{asset('assets/js/jquery.min.js')}}"></script>
 <script src="{{asset('assets/js/weight.js')}}"></script>
 @endsection

@@ -16,7 +16,7 @@
                                 class="rounded-circle me-2 thumb-sm" />
                             <div>
                                 <small class="d-none d-md-block font-11">الأدمن</small>
-                                <span class="d-none d-md-block fw-semibold font-12">أحمد علي
+                                <span class="d-none d-md-block fw-semibold font-12">
                                     <!-- <i class="mdi mdi-chevron-down"></i> -->
                                 </span>
                             </div>

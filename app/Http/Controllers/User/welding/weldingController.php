@@ -14,9 +14,9 @@ use Session;
 class weldingController extends Controller
 {
     //
-    function weight($thickness,$length,$width){
+    function weight($thickness,$length,$width,$qty){
         $weight=(7.85/10000)*($thickness*$length*$width);
-        return $weight;
+        return $weight*$qty;
     }
     public function index(){
         $order=Order::with(['orderdetailes.operationdetailes','orderdetailes'=>function($q){
@@ -30,53 +30,66 @@ class weldingController extends Controller
             'length' => 'required',
             'passes' => 'required',
             'quantity' => 'required',
+            'total_length' =>'required'
         ]);
-        if($request->thickness>12){
-          return redirect()->back();
-        }
-        if($request->thickness<=5){
+        // if($request->thickness>12){
+        //   return redirect()->back();
+        // }
+        if($request->thickness<=2 && $request->thickness > 0){
                 // if thickness <=5 use weilding wire 2.5
                  $weldingwire=weldingwire::find(1);
-                if($request->thickness==1||$request->thickness==2){
-                     $amount=$request->length/25;
+                if($request->thickness<=2 && $request->thickness>0){
+                     $amount=$request->total_length/(25);
                 }
-                if($request->thickness==3||$request->thickness==4){
-                    $amount=$request->length/20;
-                }
-                if($request->thickness==5){
-                    $amount=$request->length/17;
-                }
+                // else if($request->thickness>=2 && $request->thickness<=4){
+                //     $amount=$request->total_length/(20);
+                // }
+                // else if($request->thickness<=5){
+                //     $amount=$request->total_length/(17);
+                // }
+                // error_log('ammount='.$amount.'price'.$weldingwire->price.'passes'.$request->passes.'qty'.$request->quantity);
                $price=(($amount*$weldingwire->price)*$request->passes)*$request->quantity;
-        }elseif($request->thickness>5 && $request->thickness<=8){
+        }else if($request->thickness>2 && $request->thickness<=8){
 
                  $weldingwire=weldingwire::find(2);
-                 if($request->thickness==6){
-                    $amount=$request->length/15;
+                 if($request->thickness>=2 && $request->thickness<=4){
+                    $amount=$request->total_length/(20);
+                }
+                else if($request->thickness<=5){
+                    $amount=$request->total_length/(17);
+                }
+                 else if($request->thickness<=6){
+                    $amount=$request->total_length/(15);
                   }
-                  if($request->thickness==7){
-                    $amount=$request->length/14;
+                  else if($request->thickness<=7){
+                    $amount=$request->total_length/(14);
                  }
-                if($request->thickness==8){
-                    $amount=$request->length/12;
+                else if($request->thickness<=8){
+                    $amount=$request->total_length/(12);
                 }
                 $price=(($amount*$weldingwire->price)*$request->passes)*$request->quantity;
-        }elseif($request->thickness>8 && $request->thickness<=12){
+        }else if($request->thickness>8 && $request->thickness<=12){
                 $weldingwire=weldingwire::find(3);
-                if($request->thickness==9){
-                    $amount=$request->length/11;
+                if($request->thickness<=9){
+                    $amount=$request->total_length/(11);
                 }
-                if($request->thickness==10){
-                    $amount=$request->length/10;
+                else if($request->thickness<=10){
+                    $amount=$request->total_length/(10);
                 }
-                if($request->thickness==11){
-                    $amount=$request->length/9;
+                else if($request->thickness<=11){
+                    $amount=$request->total_length/(9);
                 }
-                if($request->thickness==12){
-                    $amount=$request->length/8;
+                else if($request->thickness<=12){
+                    $amount=$request->total_length/(8);
                 }
                 $price=(($amount*$weldingwire->price)*$request->passes)*$request->quantity;
+        }else if($request->thickness > 12){
+            $weldingwire=weldingwire::find(4);
+            $amount=$request->total_length/100;
+            $price=(($amount*$weldingwire->price)*$request->passes)*$request->quantity;
         }
-        $weight=$this->weight($request->thickness,$request->length,$request->width);
+        error_log('ammount='.$amount.'price'.$weldingwire->price.'passes'.$request->passes.'qty'.$request->quantity);
+        $weight=$this->weight($request->thickness,$request->length,$request->width,$request->quantity);
        $order=Order::with('orderdetailes')->where('user_id',Auth::user()->id)->where('status','=','unpaid')->first();
         if($order!=null){
             $order->update([
@@ -94,10 +107,11 @@ class weldingController extends Controller
         $Operationdetailes=Operationdetailes::create([
             'operation_id'=>1,
             'thickness'=>$request->thickness,
-            'length'=>$request->length,
+            'length'=>$request->total_length,
             'passes'=>$request->passes,
             'quantity'=>$request->quantity,
             'width'=>$request->width,
+            'total_length'=>$request->length
         ]);
         $Orderdetailes=Orderdetailes::create([
           'order_id'=>$order->id,

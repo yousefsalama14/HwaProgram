@@ -27,14 +27,14 @@ class cuttingController extends Controller
                }
           }elseif($request->type==2){
             foreach($request->price as $key=>$price){
-                $cuttingprice= cuttingprice::where('cuttingname_id',2)->where('id',$key+7)->first();
+                $cuttingprice= cuttingprice::where('cuttingname_id',2)->where('id',$key+8)->first();
                 $cuttingprice->update([
                     'price'=>$price
                 ]);
                }
           }elseif($request->type==3){
             foreach($request->price as $key=>$price){
-                $cuttingprice= cuttingprice::where('cuttingname_id',3)->where('id',$key+8)->first();
+                $cuttingprice= cuttingprice::where('cuttingname_id',3)->where('id',$key+9)->first();
                 $cuttingprice->update([
                     'price'=>$price
                 ]);

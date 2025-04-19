@@ -124,7 +124,11 @@
             <!--end row-->
 
         </div><!-- container -->
-
+<div class="btn-group ms-auto">
+                    <a type="submit" class="btn btn-info" href="{{route('user.print')}}"> <i
+                            class="mdi mdi-printer me-1"></i> طباعة
+                        الإيصال</a>
+                </div>
 
 
         <!--Start Footer-->

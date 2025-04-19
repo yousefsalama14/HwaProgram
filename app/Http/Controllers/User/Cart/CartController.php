@@ -33,4 +33,14 @@ class CartController extends Controller
         Session::put('orderqnty',0);
         return redirect()->back();
     }
+    public function print(){
+        $order=Order::with(['orderdetailes.operation','orderdetailes.operationdetailes'])->where('user_id',Auth::user()->id)->where('status','unpaid')->first();
+        $totalprcie=0;
+        if($order!=null){
+            foreach($order->orderdetailes as $detailes){
+                $totalprcie+=$detailes->price;
+            }
+        }
+        return view('User.cart.print',compact('order','totalprcie'));
+    }
 }

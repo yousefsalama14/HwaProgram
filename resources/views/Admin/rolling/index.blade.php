@@ -19,7 +19,7 @@
                                     الوزن أقل من
                                     <span id="span_less_price"></span>
                                 </span>
-                                <input type="number" name="smallweight" id="lessweight" class="form-control" aria-label=""
+                                <input type="text" name="smallweight" id="lessweight" class="form-control" aria-label=""
                                     value="" >
                                     <p class="mb-0 fw-semibold input-group-text d-none">25</p>
                                 <span class="input-group-text">كجم :</span>
@@ -112,7 +112,7 @@
                                         <span for="example-number-input" class="input-group-text">سعر مصنعية
                                             الكيلو
                                             :</span>
-                                        <input class="form-control" type="number"
+                                        <input class="form-control" type="text"
                                             placeholder="مثال : 10 جنيه" id="example-number-input" disabled value="{{$rollingname->rolleingdetailes->first()->price}}">
                                         <p class="mb-0 fw-semibold ms-2"> جنيه</p>
                                     </div>
