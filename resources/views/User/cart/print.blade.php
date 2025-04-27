@@ -30,7 +30,7 @@
                                 <address>
                                     <strong style="margin-right: 78px;">Hwa</strong>
                                     <br>
-                                    
+
                                  العنوان: المحمدية ( الفرع الرئيسي) <br>
                                  ش. مجدي حسنين- مركز بدر- البحيرة
                                     <br>
@@ -43,7 +43,7 @@
                                 <address>
                                     <strong style="margin-right: 78px;">Hwa</strong>
                                     <br>
-                                    
+
                                  العنوان: المحمدية ( فرع السادات) <br>
                                  منطقة المخازن - المنطقة الصناعية الثانية - السادات - المنوفية
                                     <br>
@@ -53,7 +53,10 @@
                             @endif
                             <div class="col-xs-6 col-sm-6 col-md-6 text-right">
                                 <p>
-                                    <em>التاريخ: <?php echo date('Y/m/d H:i:s', strtotime($order->created_at)); ?></em>
+                                    <em>التاريخ: <?php
+                                        $now = new DateTime();
+                                        echo $now->format('Y/m/d h:i A');
+                                    ?></em>
                                 </p>
                                 <p>
                                     <em>اسم المستخدم: {{$order->user->name}}</em>
@@ -61,8 +64,8 @@
                                 <p>
                                     <em class="text-success">رقم الفاتورة : <?php echo $order->id; ?></em>
                                 </p>
-                                
-                               
+
+
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6 text-right">
                                      <p >
@@ -77,7 +80,7 @@
                             <div class="text-center">
                                 <h2>فاتورة </h2>
                             </div>
-                        
+
                             </span>
                             <table class="table mb-0">
                                 <thead>
@@ -101,7 +104,7 @@
                                         <td >EGP {{$detailes->price}}</td>
                                     </tr>
                                     @endforeach
-                
+
                                     <tr>
                                         <td>   </td>
                                         <td>   </td>
