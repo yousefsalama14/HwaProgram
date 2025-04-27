@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class perforation_diameter_price extends Model
 {
     use HasFactory;
-    protected $guarded=[];
-    
+    protected $guarded = [];
+    protected $table = 'perforation_diameter_prices';
+
 }

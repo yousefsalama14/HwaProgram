@@ -28,13 +28,13 @@ class perforationController extends Controller
     }
     public function perforationorder(Request $request){
         $validated = $request->validate([
-            'thickness' => 'required',
+            'thickness' => 'required|numeric',
             'length' => 'required',
-            'punchDiameter' => 'required',
+            'punchDiameter' => 'required|exists:perforation_diameter_prices,diameter',
             'quantity' => 'required',
             'perforationCount' =>'required'
         ]);
-    
+
         if($request->thickness!=null && $request->punchDiameter!=null){
             $thikId=0;
             if($request->thickness >=.22 && $request->thickness <=4){
@@ -53,67 +53,81 @@ class perforationController extends Controller
                 $thikId=7;
             }else if($request->thickness >=20.1 && $request->thickness <=22){
                 $thikId=8;
-            }else if($request->thickness >=25.1 && $request->thickness <=25){
+            }else if($request->thickness >=22.1 && $request->thickness <=25){
                 $thikId=9;
-            }else if($request->thickness >=30.1 && $request->thickness <=30){
+            }else if($request->thickness >=25.1 && $request->thickness <=30){
                 $thikId=10;
-            }else if($request->thickness >=35.1 && $request->thickness <=35){
+            }else if($request->thickness >=30.1 && $request->thickness <=35){
                 $thikId=11;
             }else if($request->thickness >35 ){
                 $thikId=12;
             }
-            $obj=perforation_diameter_price::where('perforation_id',$thikId)->where('diameter',$request->punchDiameter)->first();
-            error_log('price='.$obj->price);
-            $price=$obj->price * $request->perforationCount * $request->quantity;       
-    }
-    //     if($request->thickness<=2 && $request->thickness > 0){
-    //             // if thickness <=5 use weilding wire 2.5
-    //              $weldingwire=weldingwire::find(1);
-    //             if($request->thickness<=2 && $request->thickness>0){
-    //                  $amount=$request->total_length/(25);
-    //             }
-    //             // error_log('ammount='.$amount.'price'.$weldingwire->price.'passes'.$request->passes.'qty'.$request->quantity);
-    //            $price=(($amount*$weldingwire->price)*$request->passes)*$request->quantity;
-    //     }else if($request->thickness>2 && $request->thickness<=8){
+            $obj = perforation_diameter_price::where('perforation_id', $thikId)
+                                            ->where('diameter', $request->punchDiameter)
+                                            ->first();
 
-    //              $weldingwire=weldingwire::find(2);
-    //              if($request->thickness>=2 && $request->thickness<=4){
-    //                 $amount=$request->total_length/(20);
-    //             }
-    //             else if($request->thickness<=5){
-    //                 $amount=$request->total_length/(17);
-    //             }
-    //              else if($request->thickness<=6){
-    //                 $amount=$request->total_length/(15);
-    //               }
-    //               else if($request->thickness<=7){
-    //                 $amount=$request->total_length/(14);
-    //              }
-    //             else if($request->thickness<=8){
-    //                 $amount=$request->total_length/(12);
-    //             }
-    //             $price=(($amount*$weldingwire->price)*$request->passes)*$request->quantity;
-    //     }else if($request->thickness>8 && $request->thickness<=12){
-    //             $weldingwire=weldingwire::find(3);
-    //             if($request->thickness<=9){
-    //                 $amount=$request->total_length/(11);
-    //             }
-    //             else if($request->thickness<=10){
-    //                 $amount=$request->total_length/(10);
-    //             }
-    //             else if($request->thickness<=11){
-    //                 $amount=$request->total_length/(9);
-    //             }
-    //             else if($request->thickness<=12){
-    //                 $amount=$request->total_length/(8);
-    //             }
-    //             $price=(($amount*$weldingwire->price)*$request->passes)*$request->quantity;
-    //     }else if($request->thickness > 12){
-    //         $weldingwire=weldingwire::find(4);
-    //         $amount=$request->total_length/100;
-    //         $price=(($amount*$weldingwire->price)*$request->passes)*$request->quantity;
-    //     }
-    //     error_log('ammount='.$amount.'price'.$weldingwire->price.'passes'.$request->passes.'qty'.$request->quantity);
+            if (!$obj) {
+                \Log::error('No price found for:', [
+                    'thickness_id' => $thikId,
+                    'diameter' => $request->punchDiameter,
+                    'original_thickness' => $request->thickness
+                ]);
+                return redirect()->back()
+                    ->with('error', 'لا يوجد سعر محدد لهذا السمك وقطر البنطة');
+            }
+
+            // Only proceed if we found a valid price
+            error_log('price=' . $obj->price);
+            $price = $obj->price * $request->perforationCount * $request->quantity;
+        }
+        //     if($request->thickness<=2 && $request->thickness > 0){
+        //             // if thickness <=5 use weilding wire 2.5
+        //              $weldingwire=weldingwire::find(1);
+        //             if($request->thickness<=2 && $request->thickness>0){
+        //                  $amount=$request->total_length/(25);
+        //             }
+        //             // error_log('ammount='.$amount.'price'.$weldingwire->price.'passes'.$request->passes.'qty'.$request->quantity);
+        //            $price=(($amount*$weldingwire->price)*$request->passes)*$request->quantity;
+        //     }else if($request->thickness>2 && $request->thickness<=8){
+
+        //              $weldingwire=weldingwire::find(2);
+        //              if($request->thickness>=2 && $request->thickness<=4){
+        //                 $amount=$request->total_length/(20);
+        //             }
+        //             else if($request->thickness<=5){
+        //                 $amount=$request->total_length/(17);
+        //             }
+        //              else if($request->thickness<=6){
+        //                 $amount=$request->total_length/(15);
+        //               }
+        //               else if($request->thickness<=7){
+        //                 $amount=$request->total_length/(14);
+        //              }
+        //             else if($request->thickness<=8){
+        //                 $amount=$request->total_length/(12);
+        //             }
+        //             $price=(($amount*$weldingwire->price)*$request->passes)*$request->quantity;
+        //     }else if($request->thickness>8 && $request->thickness<=12){
+        //             $weldingwire=weldingwire::find(3);
+        //             if($request->thickness<=9){
+        //                 $amount=$request->total_length/(11);
+        //             }
+        //             else if($request->thickness<=10){
+        //                 $amount=$request->total_length/(10);
+        //             }
+        //             else if($request->thickness<=11){
+        //                 $amount=$request->total_length/(9);
+        //             }
+        //             else if($request->thickness<=12){
+        //                 $amount=$request->total_length/(8);
+        //             }
+        //             $price=(($amount*$weldingwire->price)*$request->passes)*$request->quantity;
+        //     }else if($request->thickness > 12){
+        //         $weldingwire=weldingwire::find(4);
+        //         $amount=$request->total_length/100;
+        //         $price=(($amount*$weldingwire->price)*$request->passes)*$request->quantity;
+        //     }
+        //     error_log('ammount='.$amount.'price'.$weldingwire->price.'passes'.$request->passes.'qty'.$request->quantity);
         $weight=$this->weight($request->thickness,$request->length,$request->width,$request->quantity);
        $order=Order::with('orderdetailes')->where('user_id',Auth::user()->id)->where('status','=','unpaid')->first();
         if($order!=null){
@@ -135,7 +149,9 @@ class perforationController extends Controller
             'length'=>$request->length,
             'quantity'=>$request->quantity,
             'width'=>$request->width,
-            'total_length'=>$request->length
+            'total_length'=>$request->length,
+            'perforationCount' => $request->perforationCount,
+            'punchDiameter' => $request->punchDiameter,
         ]);
         $Orderdetailes=Orderdetailes::create([
           'order_id'=>$order->id,
