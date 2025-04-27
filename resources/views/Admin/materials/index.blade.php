@@ -24,14 +24,14 @@
                 <!--end col-->
             </div>
             <!-- end page title end breadcrumb -->
-            <div class="container mt-5">
-                <form action="{{route('fileUpload')}}" method="post" enctype="multipart/form-data">
-                    <h3 class="text-center mb-5">رفع عرض الاسعار</h3>
+            <div class="row">
+                <form class="border-top pt-3 mb-3" action="{{route('fileUpload')}}" method="post" enctype="multipart/form-data">
+                    <h3 class="text-center mb-3 mt-0">رفع عرض الاسعار</h3>
                     @csrf
                     @if ($message = Session::get('success'))
                     <div class="alert alert-success">
                         <strong>{{ $message }}</strong>
-                        
+
                     </div>
                     @endif
                     @if (count($errors) > 0)
@@ -43,17 +43,66 @@
                         </ul>
                     </div>
                     @endif
+                    <div class="alert alert-info">
+                        <strong>ملاحظة:</strong> يجب أن يكون الملف بصيغة Excel (.xlsx, .xls)
+                    </div>
                     <div class="custom-file">
-                        <input type="file" name="file" class="custom-file-input" id="chooseFile">
-                        <label class="custom-file-label" for="chooseFile">اختر الملف</label>
+                        <input type="file" name="file" class="custom-file-input border p-3" id="chooseFile">
+                        <!-- <label class="custom-file-label" for="chooseFile">اختر الملف</label> -->
                     </div>
                     <button type="submit" name="submit" class="btn btn-primary btn-block mt-4">
                         رفع الملف
                     </button>
                 </form>
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">قائمة أسعار الخامات الحالية</h4>
+                    </div>
+                    <div class="card-body" style="height: 500px;overflow: auto;">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>نوع الخامة</th>
+                                        <th>المقاس</th>
+                                        <th>سعر الجملة</th>
+                                        <th>سعر التجزئة</th>
+                                        <th>آخر تحديث</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if($materials && count($materials) > 0)
+                                        @foreach($materials as $material)
+                                        <tr>
+                                            <td>{{ $material->name }}</td>
+                                            <td>{{ $material->size }}</td>
+                                            <td>{{ number_format($material->wholesale_price, 2) }}</td>
+                                            <td>{{ number_format($material->retail_price, 2) }}</td>
+                                            <td>{{ $material->updated_at ? $material->updated_at->format('Y-m-d H:i') : 'N/A' }}</td>
+                                        </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td colspan="5" class="text-center">لا توجد بيانات متاحة</td>
+                                        </tr>
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="mb-3">
+                    <div class="btn-group">
+                        <a href="{{ route('materials.sample-download.excel') }}" class="btn btn-info">
+                            <i class="mdi mdi-download me-1"></i> تحميل نموذج Excel
+                        </a>
+                        <a href="{{ route('materials.sample-download.csv') }}" class="btn btn-info">
+                            <i class="mdi mdi-download me-1"></i> تحميل نموذج CSV
+                        </a>
+                    </div>
+                </div> -->
             </div>
             <!--end row-->
-
         </div><!-- container -->
 
 

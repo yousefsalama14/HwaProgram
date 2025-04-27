@@ -13,6 +13,10 @@ use App\Models\File;
 use Illuminate\Support\Facades\Storage;
 use Auth;
 use Session;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\SteelPricesImport;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class materialsController extends Controller {
 
@@ -23,11 +27,12 @@ class materialsController extends Controller {
     }
 
     public function index() {
+        $materials = materials::orderBy('id', 'asc')->get();
         $materials_type = materials::select('name')->groupBy('name')->get();
         $materials_size = materials::select('size')->groupBy('size')->get();
         $order = null;
-        error_log($order);
-        return view('Admin.materials.index', compact('materials_type', 'materials_size', 'order'));
+
+        return view('Admin.materials.index', compact('materials', 'materials_type', 'materials_size', 'order'));
     }
 
     public function getSize() {
@@ -40,90 +45,44 @@ class materialsController extends Controller {
 
     public function fileUpload(Request $req) {
         $req->validate([
-            'file' => 'required|mimes:csv|max:4048'
+            'file' => 'required|mimes:xlsx,xls,csv|max:4048'
         ]);
 
-//        $fileModel = new File;
         if ($req->file()) {
-            $fileName = $req->file->getClientOriginalName();
-            $filePath = $req->file('file')->storeAs('uploads', $fileName, 'public');
-            $path = Storage::disk('public')->path($filePath);
+            try {
+                // Clear existing data
+                materials::truncate();
 
-            if (($open = fopen($path, "r")) !== FALSE) {
+                $file = $req->file('file');
+                $extension = $file->getClientOriginalExtension();
 
-                while (($data = fgetcsv($open, 1000, ",")) !== FALSE) {
-                    $users[] = $data;
-                }
+                if ($extension === 'csv') {
+                    // Handle CSV file
+                    $path = $file->getRealPath();
+                    $data = array_map('str_getcsv', file($path));
 
-                // error_log($users[0]);
-                fclose($open);
-            }
-            materials::truncate();
-            $materialsArr = $this->csvToArray($path);
-            $index = 0;
-            foreach ($materialsArr as $obj) {
-                $object = $this->formatSize($obj['size']);
-                if (str_contains($object, ':')) {
-                    $start = strtok($object, ':');
-                    $end = str_replace($start . ':', '', $object);
-                    
-                    $start=floatval($start);
-                    $end=floatval($end);
-                    while ($start <= $end) {
-                        
-                        materials::Create([
-                            'id' => (int) ($obj['id']) + $index,
-                            'name' => $obj['name'],
-                            'size' => floatval($start) ,
-                            'wholesale_price' => $obj['wholesale_price'],
-                            'retail_price' => $obj['retail_price'],
+                    // Remove header row
+                    $headers = array_shift($data);
+
+                    foreach ($data as $row) {
+                        materials::create([
+                            'name' => $row[0],
+                            'size' => $row[1],
+                            'wholesale_price' => $row[2],
+                            'retail_price' => $row[3]
                         ]);
-                        if($start<$end){
-                            $index++;
-                            
-                        }
-                        $start = $start + 0.10;
-                        
                     }
-                    if(floatval($end)==20.00){
-                            // 
-                            materials::Create([
-                            'id' => (int) ($obj['id']) + $index,
-                            'name' => $obj['name'],
-                            'size' => floatval($end) ,
-                            'wholesale_price' => $obj['wholesale_price'],
-                            'retail_price' => $obj['retail_price'],
-                        ]);
-                       // $index++;
-                        }
-                        if(floatval($end)==30.00){
-                            // 
-                            materials::Create([
-                            'id' => (int) ($obj['id']) + $index,
-                            'name' => $obj['name'],
-                            'size' => floatval($end) ,
-                            'wholesale_price' => $obj['wholesale_price'],
-                            'retail_price' => $obj['retail_price'],
-                        ]);
-                       // $index++;
-                        }
                 } else {
-                    error_log($index);
-                    materials::Create([
-                            'id' => (int)($obj['id']) + $index,
-                            'name' => $obj['name'],
-                            'size' => $object ,
-                            'wholesale_price' => $obj['wholesale_price'],
-                            'retail_price' => $obj['retail_price'],
-                        ]);
-                        $index++;
+                    // Handle Excel files (xlsx, xls)
+                    Excel::import(new SteelPricesImport, $file);
                 }
-                error_log($index);
+
+                return back()
+                    ->with('success', 'تم رفع ملف أسعار الخامات بنجاح');
+            } catch (\Exception $e) {
+                return back()
+                    ->with('error', 'حدث خطأ أثناء معالجة الملف: ' . $e->getMessage());
             }
-            // error_log(array_get($materialsArr[0], 'id'));
-            return back()
-                            ->with('success', 'تم رفع الملف بنجاح')
-                            ->with('file', $materialsArr);
         }
     }
 
@@ -214,6 +173,67 @@ class materialsController extends Controller {
         ]);
         Session::put('orderqnty', $order->quantity);
         return redirect()->back();
+    }
+
+    public function downloadSample()
+    {
+        $headers = [
+            'Content-Type' => 'application/vnd.ms-excel',
+            'Content-Disposition' => 'attachment; filename="materials_sample.xlsx"'
+        ];
+
+        // Create a new spreadsheet
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Add headers
+        $sheet->setCellValue('A1', 'name');
+        $sheet->setCellValue('B1', 'size');
+        $sheet->setCellValue('C1', 'wholesale_price');
+        $sheet->setCellValue('D1', 'retail_price');
+
+        // Add a sample row
+        $sheet->setCellValue('A2', 'حديد مسطح');
+        $sheet->setCellValue('B2', '10×100');
+        $sheet->setCellValue('C2', '1000');
+        $sheet->setCellValue('D2', '1200');
+
+        // Create the Excel file
+        $writer = new Xlsx($spreadsheet);
+
+        // Save to a temporary file
+        $temp_file = tempnam(sys_get_temp_dir(), 'materials_sample');
+        $writer->save($temp_file);
+
+        return response()->download($temp_file, 'materials_sample.xlsx', $headers)->deleteFileAfter();
+    }
+
+    public function downloadSampleCSV()
+    {
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="materials_sample.csv"',
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0'
+        ];
+
+        $callback = function() {
+            $file = fopen('php://output', 'w');
+
+            // Add UTF-8 BOM for proper Arabic display in Excel
+            fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
+
+            // Add headers
+            fputcsv($file, ['name', 'size', 'wholesale_price', 'retail_price']);
+
+            // Add sample data
+            fputcsv($file, ['حديد مسطح', '10×100', '1000', '1200']);
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
     }
 
 }

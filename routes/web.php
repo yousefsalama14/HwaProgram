@@ -10,6 +10,7 @@ use App\Http\Controllers\User\Cutting\cuttingController;
 use App\Http\Controllers\User\foldcontroller;
 use App\Http\Controllers\User\materials\materialsController;
 use App\Http\Controllers\User\perforation\perforationController;
+use App\Http\Controllers\Admin\materialsController as AdminMaterialsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -95,3 +96,7 @@ Route::controller(materialsController::class)->group(function () {
         Route::post('/user/folding/otherornaments', 'foldingotherornamentsorder')->name('user.foldingotherornaments.order');
     });
 });
+
+Route::get('/materials/sample-download', [AdminMaterialsController::class, 'downloadSample'])->name('materials.sample-download');
+Route::get('/materials/sample-download/excel', [materialsController::class, 'downloadSample'])->name('materials.sample-download.excel');
+Route::get('/materials/sample-download/csv', [materialsController::class, 'downloadSampleCSV'])->name('materials.sample-download.csv');
