@@ -43,8 +43,8 @@
                                                    class="col-sm-4 col-form-label text-end">اختيار السمك</label>
                                             <div class="col-sm-8 d-flex align-items-center">
                                                 <select  class="form-select" onchange="getDiameter();getPrice();"  id="thickness" name="size">
-                                                    
-                                             
+
+
                                                 </select>
                                             </div>
                                         </div>
@@ -66,12 +66,12 @@
                                                    class="col-sm-4 col-form-label text-end"> السعر</label>
                                             <div class="col-sm-8 d-flex align-items-center">
                                                 <input class="form-control" id="price" name="price">
-                                                    
+
                                                 </input>
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="row">
                                     <div class="col-12 d-flex">
@@ -187,46 +187,46 @@
     getDiameter() ;
     getPrice();
          function getThickness() {
-             debugger;
-             var x = document.getElementById("thickness");  
+            //  debugger;
+             var x = document.getElementById("thickness");
              var count=x.length;
              while (x.length > 0) {
                     x.remove(0);
             }
-                
+
              $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
             }
         });
              var formData = {
-            
+
             };
             $.ajax({
                type:'POST',
                url:'/HwaProgram/public/getThickness',
                data:formData,
                success:function(data) {
-                debugger;
+                // debugger;
                 jQuery('#thickness').append('<option value="select">select</select>');
                    var value=data;
                    for (var i=0;i<value.length;i++) {
                         var option='<option  value="'+value[i].value+'">' +value[i].name+'</option>';
                         jQuery('#thickness').append(option);
                     }
-                   
+
                  // $("#thickness").html(data.msg);
                }
             });
          }
          function getDiameter() {
-             debugger;
-             var x = document.getElementById("diameter");  
+            //  debugger;
+             var x = document.getElementById("diameter");
              var count=x.length;
              while (x.length > 0) {
                     x.remove(0);
             }
-                
+
              $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -246,19 +246,19 @@
                         var option='<option  value="'+value[i].diameter+'">' +value[i].diameter+'</option>';
                         jQuery('#diameter').append(option);
                     }
-                   
+
                  // $("#thickness").html(data.msg);
                }
             });
          }
          function getPrice() {
-             debugger;
-             var x = document.getElementById("price");  
+            //  debugger;
+             var x = document.getElementById("price");
              var count=x.length;
              while (x.length > 0) {
                     x.remove(0);
             }
-                
+
              $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -280,7 +280,7 @@
                         var option=value[i].price;
                         jQuery('#price').val(option);
                     }
-                   
+
                  // $("#thickness").html(data.msg);
                }
             });

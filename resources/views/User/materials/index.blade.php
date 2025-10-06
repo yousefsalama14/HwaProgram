@@ -44,7 +44,7 @@
                                                     <option  value="null"> اختر الصنف</option>
                                                     @if ($materials_type)
                                                     @foreach ( $materials_type as $type)
-                                                    
+
                                                     <option  value="{{$type->name}}"> {{$type->name}}</option>
                                                     @endforeach
                                                     @endif
@@ -165,10 +165,10 @@
                                             {{-- <p class="mb-0 fw-semibold">120 مم</p> --}}
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="col-sm-6 col-lg-4">
-                                   
+
                                     <div class="mb-3 row">
                                         <label for="example-number-input"
                                                class="col-sm-4 col-form-label text-end">الوزن
@@ -179,12 +179,12 @@
                                             {{-- <p class="mb-0 fw-semibold">120 مم</p> --}}
                                         </div>
                                     </div>
-                                  
+
                                 </div>
-                                
+
                                 <div class="col-sm-6 col-lg-4">
-                                   
-                                 
+
+
                                     <div class="mb-3 row">
                                         <label for="example-number-input"
                                                class="col-sm-4 col-form-label text-end">السمك
@@ -196,7 +196,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-sm-4">
                                     </div>
                                     <div class="mb-3 row">
@@ -238,7 +238,7 @@
                                     </div>
                                 </div>
 
-                            
+
                             <div class="row">
                                 <div class="col-12 d-flex">
                                     <div class="btn-group ms-auto">
@@ -352,13 +352,13 @@
 @section('scripts')
 <script>
          function getMessage() {
-             debugger;
-             var x = document.getElementById("thickness");  
+            //  debugger;
+             var x = document.getElementById("thickness");
              var count=x.length;
              while (x.length > 0) {
                     x.remove(0);
             }
-                
+
              $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -377,7 +377,7 @@
                         var option='<option  value="'+value[i].size+'">' +value[i].size+'</option>';
                         jQuery('#thickness').append(option);
                     }
-                   
+
                  // $("#thickness").html(data.msg);
                }
             });
