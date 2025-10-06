@@ -15,22 +15,15 @@
                             <img src="{{asset('assets/images/users/user.jpg')}}" alt="profile-user"
                                 class="rounded-circle me-2 thumb-sm" />
                             <div>
-                                <small class="d-none d-md-block font-11">الأدمن</small>
-                                <span class="d-none d-md-block fw-semibold font-12">
-                                    <!-- <i class="mdi mdi-chevron-down"></i> -->
-                                </span>
+                                <small class="d-none d-md-block font-11">المستخدم</small>
+                                <span class="d-none d-md-block fw-semibold font-12">{{ Auth::guard('Admin')->check() ? Auth::guard('Admin')->user()->name : (Auth::check() ? Auth::user()->name : 'ضيف') }}</span>
                             </div>
                         </div>
                     </a>
-                    <!-- <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item" href="#"><i class="ti ti-user font-16 me-1 align-text-bottom"></i>
-                            Profile</a>
-                        <a class="dropdown-item" href="#"><i class="ti ti-settings font-16 me-1 align-text-bottom"></i>
-                            Settings</a>
-                        <div class="dropdown-divider mb-0"></div>
-                        <a class="dropdown-item" href="#"><i class="ti ti-power font-16 me-1 align-text-bottom"></i>
-                            Logout</a>
-                    </div> -->
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <a class="dropdown-item d-flex align-items-center" href="{{route('logout')}}"><i class="ti ti-power font-16 me-1 align-text-bottom"></i>
+                            تسجيل خروج</a>
+                    </div>
                 </li>
                 <!--end topbar-profile-->
 
