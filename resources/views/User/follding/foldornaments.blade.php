@@ -284,7 +284,7 @@
                                </div>
 
                            </div>
-                           <div class="row">
+                           <!-- <div class="row">
                                <div class="col-12 d-flex">
                                    <div class="btn-group ms-auto">
                                        <a type="submit" class="btn btn-primary" href="{{route('user.deleteOrderDetailes',$detailes->id)}}"
@@ -293,7 +293,7 @@
                                                class="mdi mdi-cart-plus me-1"></i> اضافة الي السلة</a> --}}
                                    </div>
                                </div>
-                           </div>
+                           </div> -->
                        </div>
                        <!--end card-body-->
                    </div>
@@ -399,7 +399,7 @@
                                </div>
 
                            </div>
-                           <div class="row">
+                           <!-- <div class="row">
                                <div class="col-12 d-flex">
                                    <div class="btn-group ms-auto">
                                        <a type="submit" class="btn btn-primary" href="{{route('user.deleteOrderDetailes',$detailes->id)}}"
@@ -408,7 +408,7 @@
                                                class="mdi mdi-cart-plus me-1"></i> اضافة الي السلة</a> --}}
                                    </div>
                                </div>
-                           </div>
+                           </div> -->
                        </div>
                        <!--end card-body-->
                    </div>
