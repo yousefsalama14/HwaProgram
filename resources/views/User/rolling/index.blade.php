@@ -128,7 +128,7 @@
                                     <div class="btn-group ms-auto">
                                         <button type="submit" class="btn btn-primary"
                                             onclick="showCol()"><i class="mdi mdi-gesture-double-tap me-1"></i>تأكيد</button>
-                                        <button type="submit" class="btn btn-secondary ms-1"><i class="mdi mdi-pencil-outline me-1"></i>تعديل</button>
+                                        <!-- <button type="submit" class="btn btn-secondary ms-1"><i class="mdi mdi-pencil-outline me-1"></i>تعديل</button> -->
                                     </div>
                                 </div>
                             </div>
@@ -263,14 +263,14 @@
                                 </div>
 
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-12 d-flex">
                                     <div class="btn-group ms-auto">
                                         <a type="submit" class="btn btn-danger" href="{{route('user.deleteOrderDetailes',$detailes->id)}}"><i class="mdi mdi-cancel me-1"></i>الغاء</a>
                                         <a href="#" class="btn btn-secondary ms-1"><i class="mdi mdi-cart-plus me-1"></i>اضافة الي السلة</a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <!--end card-body-->
                     </div>
