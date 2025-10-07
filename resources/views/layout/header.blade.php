@@ -21,8 +21,13 @@
                         </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
+                        @if(Auth::guard('Admin')->check())
+                        <a class="dropdown-item d-flex align-items-center" href="{{route('Admin.logout')}}"><i class="ti ti-power font-16 me-1 align-text-bottom"></i>
+                            تسجيل خروج</a>
+                        @else
                         <a class="dropdown-item d-flex align-items-center" href="{{route('logout')}}"><i class="ti ti-power font-16 me-1 align-text-bottom"></i>
                             تسجيل خروج</a>
+                        @endif
                     </div>
                 </li>
                 <!--end topbar-profile-->

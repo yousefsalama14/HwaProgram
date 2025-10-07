@@ -28,7 +28,7 @@ Route::get('/', function () {
 
 
 Route::controller(AuthController::class)->group(function () {
-    Route::get('/login', 'login')->name('login');
+    Route::get('/user/login', 'login')->name('login');
     Route::Post('/user/login', 'Submitlogin')->name('user.login');
 
     Route::get('/logout', 'logout')->name('logout');

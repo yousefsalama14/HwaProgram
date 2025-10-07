@@ -24,13 +24,13 @@ class AuthController extends Controller
         if (Auth::guard('web')->attempt($credentials)) {
             return view('User.home.index');
         }
-        return redirect("/login")->with('error', 'Login details are not valid');
+        return redirect()->route('login')->with('error', 'Login details are not valid');
     }
 
     public function logout()
     {
         Session::flush();
         Auth::logout();
-        return view('User.Auth.login');
+        return redirect()->route('login');
     }
 }

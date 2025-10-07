@@ -8,7 +8,11 @@
     <script>
         function showCol() {
             var element = document.getElementById("orderDetailsCol");
+            if (!element) {
+                return true;
+            }
             element.classList.remove("d-none");
+            return true;
         }
     </script>
 </body>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\Session;
 class AuthController extends Controller
 {
     //
@@ -21,6 +22,13 @@ class AuthController extends Controller
             //dd('true');
             return view('Admin.dashboard.index');
         }
-        return redirect("/Admin/login")->with('error','Login details are not valid');
+        return redirect()->route('adminLogin')->with('error','Login details are not valid');
+    }
+
+    public function logout()
+    {
+        Session::flush();
+        Auth::guard('Admin')->logout();
+        return redirect()->route('adminLogin');
     }
 }

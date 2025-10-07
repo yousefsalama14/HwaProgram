@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\perforationController;
 Route::controller(AuthController::class)->group(function () {
     Route::get('/Admin/login','login')->name('adminLogin');
     Route::Post('/Admin/login','Submitlogin')->name('Admin.login');
+    Route::get('/Admin/logout','logout')->name('Admin.logout');
 });
 Route::middleware('AdminAuth')->group(function(){
     Route::resource('weldingwires', weldingwireController::class);
