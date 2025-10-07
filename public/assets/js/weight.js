@@ -1,13 +1,13 @@
 function weightCalc(num, decimals) {
-    debugger;
+    // debugger;
     return Math.round(num * Math.pow(10, decimals)) / Math.pow(10, decimals);
 }
 
 $(function () {
-    debugger;
+    // debugger;
     var content = $('#thickness').val();
     $('#thickness').change(function () {
-        debugger
+        // debugger
         content = $('#thickness').val();
         var thickness = $("#thickness").val();
         var length = $("#length").val();
@@ -65,7 +65,7 @@ $(function () {
         $("#weight").val(total);
     });
     $('#diameter').keyup(function () {
-        debugger;
+        // debugger;
         var diameter = $("#diameter").val();
         var width = $("#diameter").val() * 3.14;
         width = weightCalc(width, 3);
@@ -84,7 +84,7 @@ $(function () {
     });
     var content = $('#foldThickness').val();
     $('#foldThickness').change(function () {
-        debugger
+        // debugger
         content = $('#foldThickness').val();
         var thickness = $("#foldThickness").val();
         var length = $("#foldLength").val() * 100;
