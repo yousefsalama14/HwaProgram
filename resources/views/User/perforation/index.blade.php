@@ -392,5 +392,21 @@
 
 <script src="{{asset('assets/js/jquery.min.js')}}"></script>
 <script src="{{asset('assets/js/weight.js')}}"></script>
+<script>
+    function showCol() { return true; }
+</script>
+@if (session('error'))
+<script>
+    if (typeof Swal !== 'undefined') {
+        Swal.fire({
+            icon: 'error',
+            title: 'تنبيه',
+            text: @json(session('error')),
+        });
+    } else {
+        alert(@json(session('error')));
+    }
+</script>
+@endif
 @endsection
 
