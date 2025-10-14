@@ -44,21 +44,23 @@
                     </div>
                     @endif
                     <div class="alert alert-info">
-                        <strong>ملاحظة:</strong> يجب أن يكون الملف بصيغة Excel (.xlsx, .xls)
+                        <strong>ملاحظة:</strong> يمكن رفع ملف Excel واحد يحتوي ورقتين (normal, standard) أو رفع ملفين منفصلين.
+                    </div>
+                    <div class="custom-file mb-2">
+                        <input type="file" name="file" class="custom-file-input border p-3" id="chooseFile">
                     </div>
                     <div class="custom-file">
-                        <input type="file" name="file" class="custom-file-input border p-3" id="chooseFile">
-                        <!-- <label class="custom-file-label" for="chooseFile">اختر الملف</label> -->
+                        <input type="file" name="files[]" multiple class="custom-file-input border p-3" id="chooseFiles">
                     </div>
                     <button type="submit" name="submit" class="btn btn-primary btn-block mt-4">
                         رفع الملف
                     </button>
                 </form>
-                <div class="card">
+                <div class="card"></div>
                     <div class="card-header">
-                        <h4 class="card-title">قائمة أسعار الخامات الحالية</h4>
+                        <h4 class="card-title">قائمة اسعار خامات الحديد العاديه</h4>
                     </div>
-                    <div class="card-body" style="height: 500px;overflow: auto;">
+                    <div class="card-body" style="height: 300px;overflow: auto;">
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
@@ -67,23 +69,57 @@
                                         <th>المقاس</th>
                                         <th>سعر الجملة</th>
                                         <th>سعر التجزئة</th>
-                                        <th>آخر تحديث</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if($materials && count($materials) > 0)
-                                        @foreach($materials as $material)
+                                    @if(isset($materials_normal) && count($materials_normal) > 0)
+                                        @foreach($materials_normal as $material)
                                         <tr>
                                             <td>{{ $material->name }}</td>
                                             <td>{{ $material->size }}</td>
                                             <td>{{ number_format($material->wholesale_price, 2) }}</td>
                                             <td>{{ number_format($material->retail_price, 2) }}</td>
-                                            <td>{{ $material->updated_at ? $material->updated_at->format('Y-m-d H:i') : 'N/A' }}</td>
                                         </tr>
                                         @endforeach
                                     @else
                                         <tr>
-                                            <td colspan="5" class="text-center">لا توجد بيانات متاحة</td>
+                                            <td colspan="4" class="text-center">لا توجد بيانات متاحة</td>
+                                        </tr>
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h4 class="card-title">قائمة اسعار خامات الحديد الاستاندرد</h4>
+                    </div>
+                    <div class="card-body" style="height: 300px;overflow: auto;">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>نوع الخامة</th>
+                                        <th>المقاس</th>
+                                        <th>سعر الجملة</th>
+                                        <th>سعر التجزئة</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if(isset($materials_standard) && count($materials_standard) > 0)
+                                        @foreach($materials_standard as $material)
+                                        <tr>
+                                            <td>{{ $material->name }}</td>
+                                            <td>{{ $material->size }}</td>
+                                            <td>{{ number_format($material->wholesale_price, 2) }}</td>
+                                            <td>{{ number_format($material->retail_price, 2) }}</td>
+                                        </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td colspan="4" class="text-center">لا توجد بيانات متاحة</td>
                                         </tr>
                                     @endif
                                 </tbody>

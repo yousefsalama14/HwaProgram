@@ -46,8 +46,12 @@ Route::middleware('auth')->group(function () {
 
 Route::controller(materialsController::class)->group(function () {
         Route::get('/user/materials', 'index')->name('user.materials');
+        Route::get('/user/materials/normal', 'normalMaterials')->name('user.materials.normal');
+        Route::get('/user/materials/standard', 'standardMaterials')->name('user.materials.standard');
         Route::post('/user/materials', 'materialsorder')->name('materials.order');
+        Route::post('/user/materials/standard', 'materialsStandardOrder')->name('materials.standard.order');
         Route::post('/getSize','getSize');
+        Route::get('/getMaterialPrices', 'getMaterialPrices')->name('materials.prices');
     });
 
     Route::controller(CartController::class)->group(function () {
@@ -95,6 +99,16 @@ Route::controller(materialsController::class)->group(function () {
 
         Route::post('/user/folding/otherornaments', 'foldingotherornamentsorder')->name('user.foldingotherornaments.order');
     });
+});
+
+// Admin Routes
+Route::controller(AdminMaterialsController::class)->group(function () {
+    Route::get('/admin/materials', 'index')->name('materials.index');
+    Route::get('/admin/materials/normal', 'normalMaterials')->name('materials.normal');
+    Route::get('/admin/materials/standard', 'standardMaterials')->name('materials.standard');
+    Route::post('/admin/materials', 'fileUpload')->name('materials.upload');
+    Route::post('/admin/materials/normal', 'fileUpload')->name('materials.normal.upload');
+    Route::post('/admin/materials/standard', 'fileUpload')->name('materials.standard.upload');
 });
 
 Route::get('/materials/sample-download', [AdminMaterialsController::class, 'downloadSample'])->name('materials.sample-download');

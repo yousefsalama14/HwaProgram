@@ -8,6 +8,12 @@
 <div class="page-wrapper">
     <div class="page-content-tab">
         <div class="container-fluid">
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{ session('success') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <div class="row justify-content-center">
                 <div class="col-10 mt-4">
                     <div id="Receipt" class="well">
@@ -122,9 +128,14 @@
                 </div>
                 <div class="col-10 mt-4">
                     <div class="well">
-                        <button id="print" onclick="printContent('Receipt');" class="btn btn-success btn-lg text-justify btn-block">
-                            Print <span class="fas fa-print"></span>
-                        </button>
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ route('user.cart') }}" class="btn btn-secondary btn-lg">
+                                <i class="mdi mdi-arrow-left me-1"></i> العودة للسلة
+                            </a>
+                            <button id="print" onclick="printContent('Receipt');" class="btn btn-success btn-lg text-justify btn-block">
+                                Print <span class="fas fa-print"></span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

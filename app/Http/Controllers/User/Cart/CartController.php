@@ -31,10 +31,10 @@ class CartController extends Controller
           'status'=>'paied'
         ]);
         Session::put('orderqnty',0);
-        return redirect()->back();
+        return redirect()->route('user.print')->with('success', 'تم الدفع بنجاح');
     }
     public function print(){
-        $order=Order::with(['orderdetailes.operation','orderdetailes.operationdetailes'])->where('user_id',Auth::user()->id)->where('status','unpaid')->first();
+        $order=Order::with(['orderdetailes.operation','orderdetailes.operationdetailes'])->where('user_id',Auth::user()->id)->where('status','paied')->orderBy('updated_at', 'desc')->first();
         $totalprcie=0;
         if($order!=null){
             foreach($order->orderdetailes as $detailes){

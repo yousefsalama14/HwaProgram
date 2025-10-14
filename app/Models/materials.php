@@ -13,9 +13,13 @@ class materials extends Model
         'id',
         'name',
         'size',
+        'min_thickness',
+        'max_thickness',
+        'category',
         'wholesale_price',
-        'retail_price'
+        'retail_price',
+        'updated_by'
     ];
-    public $timestamps = false;
+    public $timestamps = true;
 
 }

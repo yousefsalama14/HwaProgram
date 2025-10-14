@@ -87,8 +87,8 @@
                                     <div class="btn-group ms-auto">
                                         <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
                                             data-bs-target="">دفع</button>
-                                        {{-- <button type=" submit" class="btn btn-secondary ms-1">اضافة عملية
-                                            أخري</button> --}}
+                                        <a type="submit" class="btn btn-info ms-1" href="{{route('user.print')}}"> <i
+                                                class="mdi mdi-printer me-1"></i> طباعة الإيصال</a>
                                     </div>
                                 </div>
                             </div>
@@ -102,33 +102,23 @@
                 <!--end col-->
             </div>
               @else
-              <div class="row justify-content-center">
-                <div class="col-12">
-                    <div class="total-payment p-3 mt-4">
-                        <!-- <h4 class="header-title">السعر الكلي</h4> -->
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td class="border-bottom-0">المجموع الكلي :</td>
-                                    <td class="text-dark border-bottom-0"><strong>EGP
-                                            {{$totalprcie}}</strong></td>
-                                </tr>
-                            </tbody>
-                        </table>
+              <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center py-5">
+                            <h4 class="text-muted">السلة فارغة</h4>
+                            <p class="text-muted">لا توجد عناصر في السلة</p>
+                        </div>
                     </div>
                 </div>
-                <!--end col-->
-            </div>
+              </div>
                 @endif
 
             <!--end row-->
 
         </div><!-- container -->
-<div class="btn-group ms-auto">
-                    <a type="submit" class="btn btn-info" href="{{route('user.print')}}"> <i
-                            class="mdi mdi-printer me-1"></i> طباعة
-                        الإيصال</a>
-                </div>
+
+        <!--Start Footer-->
 
 
         <!--Start Footer-->
@@ -146,3 +136,40 @@
 </div>
 
 @endsection
+
+<style>
+.btn.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if cart is empty
+    const orderExists = @json($order ? true : false);
+    const totalPrice = @json($totalprcie ?? 0);
+
+    if (!orderExists || totalPrice <= 0) {
+        // Disable pay button
+        const payButton = document.querySelector('button[type="submit"]');
+        if (payButton) {
+            payButton.disabled = true;
+            payButton.classList.add('disabled');
+        }
+
+        // Hide print button
+        const printButton = document.querySelector('a[href*="print"]');
+        if (printButton) {
+            printButton.style.display = 'none';
+        }
+    } else {
+        // Show print button only when cart has items
+        const printButton = document.querySelector('a[href*="print"]');
+        if (printButton) {
+            printButton.style.display = 'inline-block';
+        }
+    }
+});
+</script>

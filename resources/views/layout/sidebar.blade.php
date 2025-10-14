@@ -78,7 +78,10 @@
                                     <a class="nav-link" href="#">الدهان</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{route('materials.index')}}">الخامات</a>
+                                    <a class="nav-link" href="{{route('materials.normal')}}">خامات عادية</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('materials.standard')}}">خامات استاندرد</a>
                                 </li>
                                 <!--end nav-item-->
                                 <li class="nav-item">

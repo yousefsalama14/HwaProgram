@@ -91,7 +91,21 @@
                             <a class="nav-link" href="#"><i class="ti ti-paint menu-icon"></i><span>الدهان</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('user.materials')}}"><i class="ti ti-box menu-icon"></i><span>الخامات</span></a>
+                            <a class="nav-link" href="#materials" data-bs-toggle="collapse" role="button"
+                                aria-expanded="false" aria-controls="materials"><i class="ti ti-box menu-icon"></i><span>الخامات</span></a>
+                            <div class="collapse " id="materials">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{route('user.materials.normal')}}">خامات عادية</a>
+                                    </li>
+                                    <!--end nav-item-->
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{route('user.materials.standard')}}">خامات استاندرد</a>
+                                    </li>
+                                    <!--end nav-item-->
+                                </ul>
+                                <!--end nav-->
+                            </div>
                         </li>
                         <!--end nav-item-->
                         <li class="nav-item">

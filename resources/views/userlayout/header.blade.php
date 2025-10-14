@@ -32,11 +32,14 @@
                     <a href="{{route('user.cart')}}" class="nav-link nav-icon position-relative">
                         <i class="mdi mdi-medical-bag"></i>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            @if (Session::get('orderqnty'))
-                               {{Session::get('orderqnty')}}
-                            @else
-                                0
-                            @endif
+                            @php
+                                $cartCount = 0;
+                                $order = \App\Models\Order::where('user_id', Auth::user()->id)->where('status', 'unpaid')->first();
+                                if ($order && $order->orderdetailes) {
+                                    $cartCount = $order->orderdetailes->count();
+                                }
+                            @endphp
+                            {{ $cartCount }}
                             <span class="visually-hidden">uncompleted products</span>
                         </span>
                     </a>
