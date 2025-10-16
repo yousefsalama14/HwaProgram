@@ -25,10 +25,7 @@
             </div>
             <!-- end page title end breadcrumb -->
             <div class="row">
-                @if ($order)
-                <form action="{{route('user.paied')}}" method="post">
-                @csrf
-                <input type="hidden" name="id" value="{{$order->id}}">
+                @if ($order && $order->orderdetailes->count() > 0)
                 <div class="col-lg-12">
                     <div class="card">
 
@@ -37,27 +34,38 @@
                                 <table class="table mb-0">
                                     <thead class="thead-light">
                                         <tr>
+                                            <th>
+                                                <input type="checkbox" id="selectAll" class="form-check-input">
+                                            </th>
                                             <th>العملية</th>
                                             <th>الكمية</th>
+                                            <th>الوزن</th>
                                             <th>السعر</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($order->orderdetailes as $detailes)
+                                        @foreach ($order->orderdetailes as $d)
                                             <tr>
                                                 <td>
-                                                    <h5 class="mt-0 mb-1 font-14">{{$detailes->opreationname}}</h5>
+                                                    <input type="checkbox" class="form-check-input item-checkbox" value="{{$d->id}}">
                                                 </td>
-
                                                 <td>
-                                                    <input class="form-control w-25" type="number" value="{{$detailes->operationdetailes->quantity}}"
-                                                        id="example-number-input1">
+                                                    <h5 class="m-0 font-14">
+                                                        @if($d->opreationname === 'خامات' || $d->opreationname === 'خامات استاندرد')
+                                                            {{$d->material_name ?? $d->opreationname}}
+                                                        @else
+                                                            {{$d->opreationname}}
+                                                        @endif
+                                                    </h5>
                                                 </td>
-                                                <td>EGP {{$detailes->price}}</td>
+                                                <td class="font-14">{{$d->operationdetailes->quantity ?? 0}}</td>
+                                                <td class="font-14">{{number_format($d->weight ?? 0, 3)}} كجم</td>
+                                                <td class="font-14">{{$d->price}} جنيه</td>
                                                 <td>
-                                                    <a href="{{route('user.deleteOrderDetailes',$detailes->id)}}" class="text-dark"><i
-                                                            class="mdi mdi-close-circle-outline font-18"></i></a>
+                                                    <a href="{{route('user.deleteOrderDetailes',$d->id)}}" class="text-danger" title="حذف">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -72,8 +80,8 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="border-bottom-0">المجموع الكلي :</td>
-                                                    <td class="text-dark border-bottom-0"><strong>EGP
-                                                            {{$totalprcie}}</strong></td>
+                                                    <td class="text-dark border-bottom-0"><strong>
+                                                            {{$totalprcie}} جنيه</strong></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -85,14 +93,16 @@
                             <div class="row mt-3">
                                 <div class="col-12 d-flex">
                                     <div class="btn-group ms-auto">
-                                        <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="">دفع</button>
-                                        <a type="submit" class="btn btn-info ms-1" href="{{route('user.print')}}"> <i
-                                                class="mdi mdi-printer me-1"></i> طباعة الإيصال</a>
+                                        <button type="button" id="deleteSelectedBtn" class="btn btn-danger" disabled>
+                                            <i class="fas fa-trash-alt me-1"></i> حذف المحدد
+                                        </button>
+                                        <a href="{{route('user.checkout', $order->id)}}" class="btn btn-primary">
+                                            <i class="fas fa-check me-1"></i> إتمام الطلب
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                            <form>
+
                             <!--end row-->
                         </div>
                         <!--end card-->
@@ -149,14 +159,15 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Check if cart is empty
     const orderExists = @json($order ? true : false);
+    const hasItems = @json($order && $order->orderdetailes->count() > 0 ? true : false);
     const totalPrice = @json($totalprcie ?? 0);
 
-    if (!orderExists || totalPrice <= 0) {
-        // Disable pay button
-        const payButton = document.querySelector('button[type="submit"]');
-        if (payButton) {
-            payButton.disabled = true;
-            payButton.classList.add('disabled');
+    if (!orderExists || !hasItems || totalPrice <= 0) {
+        // Disable checkout button
+        const checkoutButton = document.querySelector('a[href*="checkout"]');
+        if (checkoutButton) {
+            checkoutButton.classList.add('disabled');
+            checkoutButton.style.pointerEvents = 'none';
         }
 
         // Hide print button
@@ -164,12 +175,83 @@ document.addEventListener('DOMContentLoaded', function() {
         if (printButton) {
             printButton.style.display = 'none';
         }
-    } else {
-        // Show print button only when cart has items
-        const printButton = document.querySelector('a[href*="print"]');
-        if (printButton) {
-            printButton.style.display = 'inline-block';
-        }
     }
+
+    // Bulk delete functionality
+    const selectAllCheckbox = document.getElementById('selectAll');
+    const itemCheckboxes = document.querySelectorAll('.item-checkbox');
+    const deleteSelectedBtn = document.getElementById('deleteSelectedBtn');
+
+    // Select all functionality
+    selectAllCheckbox.addEventListener('change', function() {
+        itemCheckboxes.forEach(checkbox => {
+            checkbox.checked = this.checked;
+        });
+        updateDeleteButton();
+    });
+
+    // Individual checkbox change
+    itemCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            updateSelectAllState();
+            updateDeleteButton();
+        });
+    });
+
+    function updateSelectAllState() {
+        const checkedCount = document.querySelectorAll('.item-checkbox:checked').length;
+        selectAllCheckbox.checked = checkedCount === itemCheckboxes.length;
+        selectAllCheckbox.indeterminate = checkedCount > 0 && checkedCount < itemCheckboxes.length;
+    }
+
+    function updateDeleteButton() {
+        const checkedCount = document.querySelectorAll('.item-checkbox:checked').length;
+        deleteSelectedBtn.disabled = checkedCount === 0;
+    }
+
+    // Delete selected items
+    deleteSelectedBtn.addEventListener('click', function() {
+        const checkedItems = document.querySelectorAll('.item-checkbox:checked');
+        if (checkedItems.length === 0) return;
+
+        const confirmMessage = `هل أنت متأكد من حذف ${checkedItems.length} عنصر؟`;
+        if (confirm(confirmMessage)) {
+            const selectedIds = Array.from(checkedItems).map(checkbox => checkbox.value);
+
+            fetch('{{ route("user.bulkDeleteOrderDetailes") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({
+                    ids: selectedIds
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Show success message
+                    alert(data.message);
+                    // Check if cart is now empty
+                    if (data.count === 0) {
+                        // Redirect to show empty cart
+                        window.location.href = '{{ route("user.cart") }}';
+                    } else {
+                        // Reload the page to reflect changes
+                        location.reload();
+                    }
+                } else {
+                    alert(data.message || 'حدث خطأ أثناء حذف العناصر');
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting items:', error);
+                alert('حدث خطأ أثناء حذف العناصر');
+            });
+        }
+    });
 });
 </script>

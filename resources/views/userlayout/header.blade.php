@@ -31,15 +31,8 @@
                 <li>
                     <a href="{{route('user.cart')}}" class="nav-link nav-icon position-relative">
                         <i class="mdi mdi-medical-bag"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            @php
-                                $cartCount = 0;
-                                $order = \App\Models\Order::where('user_id', Auth::user()->id)->where('status', 'unpaid')->first();
-                                if ($order && $order->orderdetailes) {
-                                    $cartCount = $order->orderdetailes->count();
-                                }
-                            @endphp
-                            {{ $cartCount }}
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: none;">
+                            0
                             <span class="visually-hidden">uncompleted products</span>
                         </span>
                     </a>

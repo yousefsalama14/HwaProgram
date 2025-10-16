@@ -11,6 +11,7 @@ use App\Models\Operation;
 use App\Models\Operationdetailes;
 use App\Models\perforationprice;
 use App\Models\perforation_diameter_price;
+use App\Http\Controllers\User\Cart\CartController;
 use Auth;
 use Session;
 class perforationController extends Controller
@@ -142,7 +143,8 @@ class perforationController extends Controller
                 'quantity'=>1,
             ]);
         }
-      Session::put('orderqnty',$order->quantity);
+      $order->load('orderdetailes');
+      Session::put('orderqnty', CartController::getGroupedCartCount($order));
         $Operationdetailes=Operationdetailes::create([
             'operation_id'=>6,
             'thickness'=>$request->thickness,
@@ -171,7 +173,8 @@ class perforationController extends Controller
           $order->update([
             'quantity'=>$order->quantity-1,
          ]);
-          Session::put('orderqnty',$order->quantity);
+          $order->load('orderdetailes');
+          Session::put('orderqnty', $order->orderdetailes->count());
           return redirect()->back();
     }
 }

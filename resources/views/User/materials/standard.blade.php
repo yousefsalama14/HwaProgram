@@ -229,6 +229,22 @@ $(function() {
     loadMaterialPrices();
     calculatePrice();
 });
+
+// Listen for success alerts and dispatch cartUpdated event
+document.addEventListener('DOMContentLoaded', function() {
+    const successAlert = document.querySelector('.alert-success');
+    if (successAlert) {
+        // Dispatch cartUpdated event after a short delay
+        setTimeout(() => {
+            document.dispatchEvent(new CustomEvent('cartUpdated'));
+        }, 500);
+
+        // Auto-hide alert after 3 seconds
+        setTimeout(() => {
+            successAlert.remove();
+        }, 3000);
+    }
+});
 </script>
 
 <script src="{{asset('assets/plugins/sweet-alert2/sweetalert2.min.js')}}"></script>

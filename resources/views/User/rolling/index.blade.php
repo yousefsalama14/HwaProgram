@@ -7,6 +7,13 @@
     <div class="page-content-tab">
 
         <div class="container-fluid">
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="mdi mdi-check-circle me-2"></i>
+                    <strong>{{ session('success') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <!-- Page-Title -->
             <div class="row">
                 <div class="col-sm-12">
@@ -54,7 +61,6 @@
                                     <div class="mb-3 row">
                                         <label for="example-number-input"
                                             class="col-sm-4 col-form-label text-end">سمك
-                                            اللوح بالمم:</label>
                                             اللوح بالمم:</label>
                                         <div class="col-sm-8 d-flex align-items-center">
                                             <input class="form-control " id="thickness" name="thickness" type="text"
@@ -306,8 +312,21 @@
 @section('scripts')
 <script src="{{asset('assets/js/jquery.min.js')}}"></script>
 <script src="{{asset('assets/js/weight.js')}}"></script>
-@endsection
-@section('scripts')
-<script src="{{asset('assets/js/jquery.min.js')}}"></script>
-<script src="{{asset('assets/js/weight.js')}}"></script>
+<script>
+    // Update cart counter when success message is shown
+    document.addEventListener('DOMContentLoaded', function() {
+        const successAlert = document.querySelector('.alert-success');
+        if (successAlert) {
+            // Trigger cart update event
+            document.dispatchEvent(new CustomEvent('cartUpdated'));
+
+            // Auto-hide success alert after 3 seconds
+            setTimeout(() => {
+                if (successAlert.parentNode) {
+                    successAlert.remove();
+                }
+            }, 3000);
+        }
+    });
+</script>
 @endsection

@@ -9,6 +9,7 @@ use App\Models\rolleingdetaile;
 use App\Models\Order;
 use App\Models\Orderdetailes;
 use App\Models\Operationdetailes;
+use App\Http\Controllers\User\Cart\CartController;
 use Session;
 use Auth;
 
@@ -72,14 +73,15 @@ class rollingController extends Controller
                       'quantity'=>1,
                    ]);
               }
-              Session::put('orderqnty',$order->quantity);
+              $order->load('orderdetailes');
+              Session::put('orderqnty', $order->orderdetailes->count());
              $Operationdetailes=Operationdetailes::create([
                 'operation_id'=>2,
                 'thickness'=>$request->thickness,
                 'length'=>$request->length,
                 'width'=>$request->width,
                 'weight'=>$weight,
-                'quantity'=>$request->quantity,  
+                'quantity'=>$request->quantity,
             ]);
             $Orderdetailes=Orderdetailes::create([
                 'order_id'=>$order->id,
@@ -90,7 +92,7 @@ class rollingController extends Controller
                 'weight'=>$weight,
                 'opreationname'=>$opreationname,
               ]);
-              return redirect()->back();
+              return redirect()->back()->with('success', 'تم إضافة الطلب للسلة بنجاح');
        }
     #EndReigon
 }

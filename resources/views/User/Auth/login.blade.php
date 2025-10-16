@@ -55,8 +55,13 @@
 
                                         <div class="form-group mb-2">
                                             <label class="form-label" for="userpassword">كلمة المرور</label>
-                                            <input type="password" class="form-control" name="password"
-                                                id="userpassword" placeholder="أدخل كلمة المرور">
+                                            <div class="input-group">
+                                                <input type="password" class="form-control" name="password"
+                                                    id="userpassword" placeholder="أدخل كلمة المرور">
+                                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                                    <i class="fas fa-eye" id="toggleIcon"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                         <!--end form-group-->
 
@@ -74,7 +79,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-check form-switch form-switch-success">
                                                     <input class="form-check-input" type="checkbox"
-                                                        id="customSwitchSuccess">
+                                                        id="customSwitchSuccess" name="remember">
                                                     <label class="form-check-label"
                                                         for="customSwitchSuccess">تذكرني</label>
                                                 </div>
@@ -87,13 +92,10 @@
                                         <div class="form-group mb-0 row">
                                             <div class="col-12">
                                                 <div class="d-grid mt-3">
-
-                                                     <button type="submit" class="btn btn-primary"> <li  class="fas fa-sign-in-alt ms-1" >  تسجيل الدخول</li></button>
-                                                    {{-- <input type="submit" class="btn btn-primary" value="تسجيل الدخول">
-
-                                                    <a href="index.html" class="btn btn-primary" type="submit">تسجيل الدخول <i
-                                                            class="fas fa-sign-in-alt ms-1"
-                                                            style="transform: rotate(180deg);"></i></a> --}}
+                                                     <button type="submit" class="btn btn-primary">
+                                                        تسجيل الدخول
+                                                         <i  class="fas fa-sign-in-alt ms-1"></i>
+                                                    </button>
                                                 </div>
                                             </div>
                                             <!--end col-->
@@ -121,6 +123,22 @@
     <!-- Javascript  -->
     <!-- App js -->
     <script src="{{asset('assets/js/app.js')}}"></script>
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordField = document.getElementById('userpassword');
+            const toggleIcon = document.getElementById('toggleIcon');
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordField.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        });
+    </script>
 </body>
 
 </html>

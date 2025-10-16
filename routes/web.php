@@ -26,6 +26,11 @@ Route::get('/', function () {
     return redirect()->route('user.home');
 });
 
+// Convenience redirects for users trying static-like paths
+Route::redirect('/user', '/user/home');
+Route::get('/user/index', function () { return redirect()->route('user.home'); });
+Route::get('/user/index.html', function () { return redirect()->route('user.home'); });
+
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('/user/login', 'login')->name('login');
@@ -56,8 +61,12 @@ Route::controller(materialsController::class)->group(function () {
 
     Route::controller(CartController::class)->group(function () {
         Route::get('/user/cart', 'index')->name('user.cart');
-        Route::post('/user/paied', 'paied')->name('user.paied');
-        Route::get('/user/print', 'print')->name('user.print');
+        Route::get('/user/checkout/{order}', 'checkout')->name('user.checkout');
+        Route::post('/user/pay/{order}', 'pay')->name('user.pay');
+        Route::post('/user/customer/{order}', 'updateCustomer')->name('user.customer.update');
+        Route::get('/user/print/{order?}', 'printById')->name('user.print');
+        Route::get('/user/cart/count', 'getCartCount')->name('user.cart.count');
+        Route::post('/user/orderdetailes/bulk-delete', 'bulkDeleteOrderDetailes')->name('user.bulkDeleteOrderDetailes');
     });
 
 

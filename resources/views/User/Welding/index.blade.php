@@ -40,7 +40,6 @@
                                         <label for="example-number-input"
                                             class="col-sm-4 col-form-label text-end">سمك
                                             اللوح مم:</label>
-                                            اللوح مم:</label>
                                         <div class="col-sm-8 d-flex align-items-center">
                                             <input class="form-control" required name="thickness" id="thickness" type="text"
                                                 placeholder="مثال : 1234" id="example-number-input">
@@ -167,7 +166,6 @@
                                     <label for="example-number-input"
                                         class="col-sm-4 col-form-label text-end">سمك
                                         اللوح مم:</label>
-                                        اللوح مم:</label>
                                     <div class="col-sm-8 d-flex align-items-center">
                                         <input class="form-control" name="thickness" type="text"
                                             placeholder="مثال : 1234" id="example-number-input" value="{{$detailes->operationdetailes->thickness}}" disabled>
@@ -272,17 +270,6 @@
                                                         </div>
                                                     </td>
                                                 </tr> -->
-
-                                                <tr>
-                                                    <td><label for="example-number-input"
-                                                            class="col-12 col-form-label d-flex">الوزن
-                                                            :</label>
-                                                    </td>
-                                                    <td>
-                                                        <p class="mb-0">{{$detailes->weight}} كيلو</p>
-                                                    </td>
-                                                </tr>
-
 
                                                 <tr>
                                                     <td><label for="example-number-input"

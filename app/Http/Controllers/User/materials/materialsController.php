@@ -9,6 +9,7 @@ use App\Models\Orderdetailes;
 use App\Models\Operation;
 use App\Models\Operationdetailes;
 use App\Models\materials;
+use App\Http\Controllers\User\Cart\CartController;
 use Auth;
 use Session;
 
@@ -43,7 +44,7 @@ class materialsController extends Controller {
         $materials_type = materials::select('name')->where('category', 'standard')->orderBy('id', 'ASC')->groupBy('name')->get();
         $materials_size = materials::select('size')->where('category', 'standard')->groupBy('size')->get();
         $order = Order::with(['orderdetailes.operationdetailes', 'orderdetailes' => function ($q) {
-                        $q->where('operation_id', '=', 6); // Only standard materials
+                        $q->where('operation_id', '=', 7); // Only standard materials
                     }])->where('user_id', Auth::user()->id)->where('status', '=', 'unpaid')->first();
         return view('User.materials.standard', compact('materials_type', 'materials_size', 'order'));
     }
@@ -111,7 +112,8 @@ class materialsController extends Controller {
                         'quantity' => 1,
             ]);
         }
-        Session::put('orderqnty', $order->quantity);
+        $order->load('orderdetailes');
+        Session::put('orderqnty', $order->orderdetailes->count());
         // Extract numeric thickness from size text
         $thickness = $request->size;
         if (is_string($thickness)) {
@@ -173,10 +175,11 @@ class materialsController extends Controller {
                 'quantity' => 1,
             ]);
         }
-        Session::put('orderqnty', $order->quantity);
+        $order->load('orderdetailes');
+        Session::put('orderqnty', $order->orderdetailes->count());
 
         $operationDetails = Operationdetailes::create([
-            'operation_id' => 6, // Different operation_id for standard materials
+            'operation_id' => 7, // Standard materials operation ID
             'thickness' => 0, // Standard materials don't have thickness
             'weight' => $request->weight,
             'quantity' => $request->quantity,
@@ -184,7 +187,7 @@ class materialsController extends Controller {
 
         Orderdetailes::create([
             'order_id' => $order->id,
-            'operation_id' => 6, // Different operation_id for standard materials
+            'operation_id' => 7, // Standard materials operation ID
             'quantity' => $request->quantity,
             'operationdetailes_id' => $operationDetails->id,
             'price' => $totalPrice,
@@ -204,7 +207,8 @@ class materialsController extends Controller {
         $order->update([
             'quantity' => $order->quantity - 1,
         ]);
-        Session::put('orderqnty', $order->quantity);
+        $order->load('orderdetailes');
+        Session::put('orderqnty', $order->orderdetailes->count());
         return redirect()->back();
     }
 

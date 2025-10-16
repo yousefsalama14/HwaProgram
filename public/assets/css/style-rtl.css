@@ -81,3 +81,20 @@ p {
 .card .card-header i {
     font-size: 1.53125rem !important;
 }
+
+.table tbody tr:hover {
+    box-shadow: none;
+}
+
+@media print {
+    .form-control {
+        padding: 0;
+        background-color: transparent;
+        border: 0;
+    }
+}
+
+.btn-outline-secondary {
+    color: #8d93a1;
+    border-color: #e8ebf3;
+}

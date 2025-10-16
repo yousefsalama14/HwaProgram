@@ -2,7 +2,7 @@
     <div class="left-sidebar">
         <!-- LOGO -->
         <div class="brand">
-            <a href="index.html" class="logo">
+            <a href="{{route('user.home')}}" class="logo">
                 <span>
                     <img src="{{asset('assets/images/logos/logo.png')}}" alt="logo-small" class="logo-sm">
                 </span>
@@ -18,7 +18,7 @@
                     <!-- Navigation -->
                     <ul class="navbar-nav tab-pane active" id="Main" role="tabpanel">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html"><i
+                            <a class="nav-link" href="{{route('user.home')}}"><i
                                     class="ti ti-home-2 menu-icon"></i><span>الرئيسية</span></a>
                         </li>
                         <!--end nav-item-->
