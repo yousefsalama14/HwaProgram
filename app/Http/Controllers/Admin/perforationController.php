@@ -32,7 +32,13 @@ class perforationController extends Controller
     }
 
     public function getThickness(Request $request) {
-        $size = perforationprice::select('value','name')->get();
+        $size = perforationprice::select('value','name')
+            ->whereIn('id', function($query) {
+                $query->selectRaw('MIN(id)')
+                      ->from('perforationprices')
+                      ->groupBy('name');
+            })
+            ->get();
         return $size;
     }
 
