@@ -23,20 +23,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-
-            @if($order && $order->status === 'unpaid')
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <i class="mdi mdi-information me-2"></i>
-                    <strong>فاتورة للمراجعة</strong> - هذا الطلب لم يتم دفعه بعد
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @elseif($order && $order->status === 'paied')
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <i class="mdi mdi-check-circle me-2"></i>
-                    <strong>فاتورة مدفوعة</strong> - تم إتمام الدفع بنجاح
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
             <div class="row justify-content-center">
                 <div class="col-10 mt-4">
                     <div id="Receipt" class="well">
