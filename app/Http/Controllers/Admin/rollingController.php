@@ -29,6 +29,6 @@ class rollingController extends Controller
              'lesspriceweight'=>$request->lesspriceweight,
              'smallweight'=>$request->smallweight,
         ]);
-       return redirect()->back();
+       return redirect()->back()->with('success','تم تحديث بيانات الدرفلة بنجاح');
     }
 }

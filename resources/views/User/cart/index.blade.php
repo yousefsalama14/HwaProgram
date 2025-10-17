@@ -63,7 +63,7 @@
                                                 <td class="font-14">{{number_format($d->weight ?? 0, 3)}} كجم</td>
                                                 <td class="font-14">{{$d->price}} جنيه</td>
                                                 <td>
-                                                    <a href="{{route('user.deleteOrderDetailes',$d->id)}}" class="text-danger" title="حذف">
+                                                    <a href="{{route('user.deleteOrderDetailes',$d->id)}}" class="text-danger delete-single-item" title="حذف" data-id="{{$d->id}}">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </a>
                                                 </td>
@@ -215,43 +215,98 @@ document.addEventListener('DOMContentLoaded', function() {
         if (checkedItems.length === 0) return;
 
         const confirmMessage = `هل أنت متأكد من حذف ${checkedItems.length} عنصر؟`;
-        if (confirm(confirmMessage)) {
-            const selectedIds = Array.from(checkedItems).map(checkbox => checkbox.value);
 
-            fetch('{{ route("user.bulkDeleteOrderDetailes") }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'Accept': 'application/json',
-                },
-                body: JSON.stringify({
-                    ids: selectedIds
+        Swal.fire({
+            title: 'تأكيد الحذف',
+            text: confirmMessage,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'نعم، احذف',
+            cancelButtonText: 'إلغاء',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const selectedIds = Array.from(checkedItems).map(checkbox => checkbox.value);
+
+                fetch('{{ route("user.bulkDeleteOrderDetailes") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        ids: selectedIds
+                    })
                 })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Show success message
-                    alert(data.message);
-                    // Check if cart is now empty
-                    if (data.count === 0) {
-                        // Redirect to show empty cart
-                        window.location.href = '{{ route("user.cart") }}';
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Show success message
+                        Swal.fire({
+                            title: 'تم الحذف!',
+                            text: data.message,
+                            icon: 'success',
+                            confirmButtonText: 'حسناً'
+                        }).then(() => {
+                            // Check if cart is now empty
+                            if (data.count === 0) {
+                                // Redirect to show empty cart
+                                window.location.href = '{{ route("user.cart") }}';
+                            } else {
+                                // Reload the page to reflect changes
+                                location.reload();
+                            }
+                        });
                     } else {
-                        // Reload the page to reflect changes
-                        location.reload();
+                        Swal.fire({
+                            title: 'خطأ!',
+                            text: data.message || 'حدث خطأ أثناء حذف العناصر',
+                            icon: 'error',
+                            confirmButtonText: 'حسناً'
+                        });
                     }
-                } else {
-                    alert(data.message || 'حدث خطأ أثناء حذف العناصر');
+                })
+                .catch(error => {
+                    console.error('Error deleting items:', error);
+                    Swal.fire({
+                        title: 'خطأ!',
+                        text: 'حدث خطأ أثناء حذف العناصر',
+                        icon: 'error',
+                        confirmButtonText: 'حسناً'
+                    });
+                });
+            }
+        });
+    });
+
+    // Single item delete functionality
+    const deleteLinks = document.querySelectorAll('.delete-single-item');
+    deleteLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const deleteUrl = this.getAttribute('href');
+
+            Swal.fire({
+                title: 'تأكيد الحذف',
+                text: 'هل أنت متأكد من حذف هذا العنصر؟',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'نعم، احذف',
+                cancelButtonText: 'إلغاء',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to delete route
+                    window.location.href = deleteUrl;
                 }
-            })
-            .catch(error => {
-                console.error('Error deleting items:', error);
-                alert('حدث خطأ أثناء حذف العناصر');
             });
-        }
+        });
     });
 });
 </script>

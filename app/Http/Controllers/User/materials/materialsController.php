@@ -83,7 +83,9 @@ class materialsController extends Controller {
             'item' => 'required',
             'size' => 'required',
             'priceType' => 'required',
-            'weight' => 'required',
+            'length' => 'required',
+            'width' => 'required',
+            'quantity' => 'required',
         ]);
         // if($request->thickness>12){
         //   return redirect()->back();
@@ -98,7 +100,13 @@ class materialsController extends Controller {
             $price = $price[0]->retail_price;
         }
         error_log($price . "");
-        //     $weight=$this->weight($request->thickness,$request->length,$request->width,$request->quantity);
+        // Calculate weight dynamically
+        $thickness = $request->size;
+        if (is_string($thickness)) {
+            preg_match('/(\d+\.?\d*)/', $thickness, $matches);
+            $thickness = isset($matches[1]) ? floatval($matches[1]) : 0;
+        }
+        $weight = $this->weight($thickness, $request->length, $request->width, $request->quantity);
         $order = Order::with('orderdetailes')->where('user_id', Auth::user()->id)->where('status', '=', 'unpaid')->first();
         if ($order != null) {
             $order->update([
@@ -124,7 +132,7 @@ class materialsController extends Controller {
         $Operationdetailes = Operationdetailes::create([
                     'operation_id' => 5,
                     'thickness' => $thickness,
-                    'weight' => $request->weight,
+                    'weight' => $weight,
                     'quantity' => 1,
         ]);
         $Orderdetailes = Orderdetailes::create([
@@ -132,13 +140,13 @@ class materialsController extends Controller {
                     'operation_id' => 5,
                     'quantity' => 1,
                     'operationdetailes_id' => $Operationdetailes->id,
-                    'price' => $price*$request->weight,
-                    'weight' => $request->weight,
+                    'price' => $price*$weight,
+                    'weight' => $weight,
                     'opreationname' => 'خامات',
                     'material_id' => $material_id->id,
                     'material_name' => $material_id->name
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('success', 'تم إضافة الطلب بنجاح');
     }
 
     public function materialsStandardOrder(Request $request)

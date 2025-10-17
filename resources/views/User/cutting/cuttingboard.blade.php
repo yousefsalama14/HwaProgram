@@ -7,6 +7,32 @@
     <div class="page-content-tab">
 
         <div class="container-fluid">
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="mdi mdi-check-circle me-2"></i>
+                    <strong>{{ session('success') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="mdi mdi-alert-circle me-2"></i>
+                    <strong>{{ session('error') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            @if($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="mdi mdi-alert-circle me-2"></i>
+                    <strong>يرجى تصحيح الأخطاء التالية:</strong>
+                    <ul class="mb-0 mt-2">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <!-- Page-Title -->
             <div class="row">
                 <div class="col-sm-12">
@@ -80,7 +106,7 @@
                                         <label for="example-number-input" class="col-sm-4 col-form-label text-end">عدد
                                             النزلات لكل لوح :</label>
                                         <div class="col-sm-8 d-flex align-items-center">
-                                            <input class="form-control" name="cuttingqnty" type="number" placeholder="مثال : 5 نزلات"
+                                            <input class="form-control" name="cuttingqnty" id="cuttingqnty" type="number" placeholder="مثال : 5 نزلات"
                                                 id="example-number-input">
                                             <p class="mb-0 fw-semibold d-none">5 نزلات</p>
                                         </div>
@@ -149,7 +175,7 @@
                             <div class="row btns-row">
                                 <div class="col-12 d-flex">
                                     <div class="btn-group ms-auto">
-                                        <button type="submit" class="btn btn-primary" onclick="showCol()"> <i
+                                        <button type="submit" class="btn btn-primary" id="confirmBtn" disabled onclick="showCol()"> <i
                                                 class="mdi mdi-gesture-double-tap me-1"></i> تأكيد</button>
                                     </div>
                                 </div>
@@ -366,4 +392,5 @@
 @section('scripts')
 <script src="{{asset('assets/js/jquery.min.js')}}"></script>
 <script src="{{asset('assets/js/weight.js')}}"></script>
+<script src="{{asset('assets/js/alerts.js')}}"></script>
 @endsection

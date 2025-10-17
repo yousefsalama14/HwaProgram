@@ -48,6 +48,6 @@ class foldcontroller extends Controller
                 'price'=>$request->meter
             ]);;
           }
-          return redirect()->back();
+          return redirect()->back()->with('success','تم تحديث أسعار التناية بنجاح');
     }
 }

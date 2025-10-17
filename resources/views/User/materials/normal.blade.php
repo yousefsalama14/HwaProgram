@@ -7,6 +7,32 @@
     <div class="page-content-tab">
 
         <div class="container-fluid">
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="mdi mdi-check-circle me-2"></i>
+                    <strong>{{ session('success') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="mdi mdi-alert-circle me-2"></i>
+                    <strong>{{ session('error') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            @if($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="mdi mdi-alert-circle me-2"></i>
+                    <strong>يرجى تصحيح الأخطاء التالية:</strong>
+                    <ul class="mb-0 mt-2">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <!-- Page-Title -->
             <div class="row">
                 <div class="col-sm-12">
@@ -45,7 +71,7 @@
                                                     @if ($materials_type)
                                                     @foreach ( $materials_type as $type)
 
-                                                    <option  value="{{$type->name}}"> {{$type->name}}</option>
+                                                    <option  value="{{$type->name}}" {{ old('item') == $type->name ? 'selected' : '' }}> {{$type->name}}</option>
                                                     @endforeach
                                                     @endif
                                                 </select>
@@ -58,6 +84,9 @@
                                                    class="col-sm-4 col-form-label text-end">اختيار السمك</label>
                                             <div class="col-sm-8 d-flex align-items-center">
                                                 <select class="form-select" id="thickness" name="size">
+                                                    @if(old('size'))
+                                                        <option value="{{ old('size') }}" selected>{{ old('size') }}</option>
+                                                    @endif
                                                 </select>
                                             </div>
                                         </div>
@@ -68,8 +97,8 @@
                                                    class="col-sm-4 col-form-label text-end">اختيار السعر</label>
                                             <div class="col-sm-8 d-flex align-items-center">
                                                 <select class="form-select" name="priceType">
-                                                    <option value="0">تجاري</option>
-                                                    <option value="1">قطاعي</option>
+                                                    <option value="0" {{ old('priceType') == '0' ? 'selected' : '' }}>تجاري</option>
+                                                    <option value="1" {{ old('priceType') == '1' ? 'selected' : '' }}>قطاعي</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -81,7 +110,7 @@
                                             اللوح بالسنتي:</label>
                                         <div class="col-sm-8 d-flex align-items-center">
                                             <input class="form-control" name="length" id="length" type="text" placeholder="مثال : 1234"
-                                                id="length">
+                                                id="length" value="{{ old('length') }}">
                                             <p class="mb-0 fw-semibold d-none">120 مم</p>
                                         </div>
                                     </div>
@@ -93,7 +122,7 @@
                                             class="col-sm-4 col-form-label text-end">عرض اللوح بالسنتي:</label>
                                         <div class="col-sm-8 d-flex align-items-center">
                                             <input class="form-control" name="width" id="width" type="text" placeholder="مثال : 1234"
-                                                id="example-number-input">
+                                                id="example-number-input" value="{{ old('width') }}">
                                             <p class="mb-0 fw-semibold d-none">120 مم</p>
                                         </div>
                                     </div>
@@ -107,7 +136,7 @@
                                             الكلي :</label>
                                         <div class="col-sm-8 d-flex align-items-center">
                                             <input class="form-control" name="quantity"  type="number" placeholder="مثال : 1234"
-                                                id="quantity">
+                                                id="quantity" value="{{ old('quantity') }}">
                                             <p class="mb-0 fw-semibold d-none">120 مم</p>
                                         </div>
                                     </div>
@@ -117,7 +146,7 @@
                                             <label for="example-number-input"
                                                    class="col-sm-4 col-form-label text-end"> الوزن</label>
                                             <div class="col-sm-8 d-flex align-items-center">
-                                                <input class="form-control" type="text" placeholder="1234" id="weight" name="weight">
+                                                <input class="form-control" type="text" placeholder="1234" id="weight" name="weight" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -126,7 +155,7 @@
                                 <div class="row">
                                     <div class="col-12 d-flex">
                                         <div class="btn-group ms-auto">
-                                            <button type="submit" class="btn btn-primary" onclick="showCol();"> <i
+                                            <button type="submit" class="btn btn-primary" id="confirmBtn" disabled onclick="showCol();"> <i
                                                     class="mdi mdi-gesture-double-tap me-1"></i> تأكيد</button>
                                         </div>
                                     </div>
@@ -285,6 +314,6 @@
 <script src="{{asset('assets/pages/sweet-alert.init.js')}}"></script>
 <script src="{{asset('assets/js/jquery.min.js')}}"></script>
 <script src="{{asset('assets/js/weight.js')}}"></script>
+<script src="{{asset('assets/js/alerts.js')}}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
 @endsection

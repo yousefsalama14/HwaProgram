@@ -82,8 +82,7 @@ class foldcontroller extends Controller
             'price'=>$price,
             'opreationname'=>'تنايه الواح'
           ]);
-          Alert::success('Success', 'تم اجاء العمليه بنجاح');
-          return redirect()->back();
+          return redirect()->back()->with('success', 'تم إضافة الطلب بنجاح');
     }
 
 
@@ -426,8 +425,7 @@ class foldcontroller extends Controller
                 'price'=>$price,
                 'opreationname'=>'تنايه بلتات'
                 ]);
-                Alert::success('Success Title', 'تم اجاء العمليه بنجاح');
-                return redirect()->back();
+                return redirect()->back()->with('success', 'تم إضافة الطلب بنجاح');
         }else{
             return redirect()->back();
         }
@@ -489,8 +487,7 @@ class foldcontroller extends Controller
                 'price'=>$price,
                 'opreationname'=>'مجرة المطر المجلفنة'
                 ]);
-                Alert::success('Success Title', 'تم اجاء العمليه بنجاح');
-                return redirect()->back();
+                return redirect()->back()->with('success', 'تم إضافة الطلب بنجاح');
            }
 
 
@@ -530,8 +527,7 @@ class foldcontroller extends Controller
     'opreationname'=>'حليات الايكون',
     'weight'=>$foldWeight,
     ]);
-    Alert::success('Success Title', 'تم اجراء العمليه بنجاح');
-    return redirect()->back();
+    return redirect()->back()->with('success', 'تم إضافة الطلب بنجاح');
 
     }
 

@@ -76,8 +76,7 @@ class cuttingController extends Controller
             'weight'=>$weight,
             'opreationname'=>'تقطيع الواح'
           ]);
-          Alert::success('Success', 'تم اجاء العمليه بنجاح');
-          return redirect()->back();
+          return redirect()->back()->with('success', 'تم إضافة الطلب بنجاح');
     }
     public function indexbulbs(){
         $order=Order::with(['orderdetailes.operationdetailes','orderdetailes'=>function($q){
@@ -149,8 +148,7 @@ class cuttingController extends Controller
            'opreationname'=>'تقطيع لمبه',
            'weight'=> $weight
          ]);
-         Alert::success('Success Title', 'تم اجاء العمليه بنجاح');
-         return redirect()->back();
+         return redirect()->back()->with('success', 'تم إضافة الطلب بنجاح');
     }
     public function indexpallet(){
         $order=Order::with(['orderdetailes.operationdetailes','orderdetailes'=>function($q){
@@ -247,7 +245,6 @@ class cuttingController extends Controller
            'weight'=>$weight,
            'opreationname'=>'تقطيع بلتات'
          ]);
-         Alert::success('Success Title', 'تم اجاء العمليه بنجاح');
-         return redirect()->back();
+         return redirect()->back()->with('success', 'تم إضافة الطلب بنجاح');
     }
 }

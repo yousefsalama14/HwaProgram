@@ -27,8 +27,8 @@ class perforationController extends Controller
                 'price'=>$request->price
              ]);
         }
-        
-        return redirect()->back();
+
+        return redirect()->back()->with('success','تم تحديث سعر التخريم بنجاح');
     }
 
     public function getThickness(Request $request) {
@@ -46,5 +46,5 @@ class perforationController extends Controller
         return $size;
     }
 
-    
+
 }

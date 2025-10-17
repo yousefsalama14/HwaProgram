@@ -7,10 +7,29 @@
     <div class="page-content-tab">
 
         <div class="container-fluid">
-            @if(session('success'))
+        @if(session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <i class="mdi mdi-check-circle me-2"></i>
                     <strong>{{ session('success') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="mdi mdi-alert-circle me-2"></i>
+                    <strong>{{ session('error') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            @if($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="mdi mdi-alert-circle me-2"></i>
+                    <strong>يرجى تصحيح الأخطاء التالية:</strong>
+                    <ul class="mb-0 mt-2">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
@@ -47,7 +66,7 @@
                                         <label for="example-number-input"
                                             class="col-sm-4 col-form-label text-end">نوع العملية :</label>
                                         <div class="col-sm-8 d-flex align-items-center">
-                                            <select name="rollingname" id="inputState" class="form-select">
+                                            <select name="rollingname" id="rollingname" class="form-select">
                                                 {{-- <option selected>اختار نوع العملية ...</option> --}}
                                                 @foreach ($rolleingnames as $rolleingname)
                                                  <option value="{{$rolleingname->id}}">{{$rolleingname->name}}</option>
@@ -132,7 +151,7 @@
                             <div class="row">
                                 <div class="col-12 d-flex">
                                     <div class="btn-group ms-auto">
-                                        <button type="submit" class="btn btn-primary"
+                                        <button type="submit" class="btn btn-primary" id="confirmBtn" disabled
                                             onclick="showCol()"><i class="mdi mdi-gesture-double-tap me-1"></i>تأكيد</button>
                                         <!-- <button type="submit" class="btn btn-secondary ms-1"><i class="mdi mdi-pencil-outline me-1"></i>تعديل</button> -->
                                     </div>
@@ -312,21 +331,5 @@
 @section('scripts')
 <script src="{{asset('assets/js/jquery.min.js')}}"></script>
 <script src="{{asset('assets/js/weight.js')}}"></script>
-<script>
-    // Update cart counter when success message is shown
-    document.addEventListener('DOMContentLoaded', function() {
-        const successAlert = document.querySelector('.alert-success');
-        if (successAlert) {
-            // Trigger cart update event
-            document.dispatchEvent(new CustomEvent('cartUpdated'));
-
-            // Auto-hide success alert after 3 seconds
-            setTimeout(() => {
-                if (successAlert.parentNode) {
-                    successAlert.remove();
-                }
-            }, 3000);
-        }
-    });
-</script>
+<script src="{{asset('assets/js/alerts.js')}}"></script>
 @endsection

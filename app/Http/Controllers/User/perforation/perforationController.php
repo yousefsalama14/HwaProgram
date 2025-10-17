@@ -164,7 +164,7 @@ class perforationController extends Controller
           'weight'=>$weight,
           'opreationname'=>'تخريم',
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('success', 'تم إضافة الطلب بنجاح');
     }
     public function deleteOrderDetailes($id){
           $Orderdetailes=Orderdetailes::with('operationdetailes')->find($id);

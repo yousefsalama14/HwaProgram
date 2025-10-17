@@ -7,6 +7,32 @@
     <div class="page-content-tab">
 
         <div class="container-fluid">
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="mdi mdi-check-circle me-2"></i>
+                    <strong>{{ session('success') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="mdi mdi-alert-circle me-2"></i>
+                    <strong>{{ session('error') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            @if($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="mdi mdi-alert-circle me-2"></i>
+                    <strong>يرجى تصحيح الأخطاء التالية:</strong>
+                    <ul class="mb-0 mt-2">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <!-- Page-Title -->
             <div class="row">
                 <div class="col-sm-12">
@@ -18,7 +44,6 @@
                                 <li class="breadcrumb-item active">تناية بلتات</li>
                             </ol>
                         </div>
-                        <h4 class="page-title">تنايه بلتات</h4>
                         <h4 class="page-title">تنايه بلتات</h4>
                     </div>
                     <!--end page-title-box-->
@@ -186,7 +211,7 @@
                             <div class="row">
                                 <div class="col-12 d-flex">
                                     <div class="btn-group ms-auto">
-                                        <button type="submit" class="btn btn-primary" onclick="showCol()"> <i
+                                        <button type="submit" class="btn btn-primary" id="confirmBtn" disabled onclick="showCol()"> <i
                                                 class="mdi mdi-gesture-double-tap me-1"></i> تأكيد</button>
                                     </div>
                                 </div>
@@ -405,4 +430,5 @@
 @section('scripts')
 <script src="{{asset('assets/js/jquery.min.js')}}"></script>
 <script src="{{asset('assets/js/weight.js')}}"></script>
+<script src="{{asset('assets/js/alerts.js')}}"></script>
 @endsection

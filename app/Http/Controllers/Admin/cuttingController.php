@@ -41,6 +41,6 @@ class cuttingController extends Controller
                }
           }
 
-           return redirect()->back();
+           return redirect()->back()->with('success','تم تحديث أسعار التقطيع بنجاح');
     }
 }
