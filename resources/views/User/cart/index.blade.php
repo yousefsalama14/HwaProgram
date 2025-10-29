@@ -38,7 +38,7 @@
                                                 <input type="checkbox" id="selectAll" class="form-check-input">
                                             </th>
                                             <th>العملية</th>
-                                            <th>الكمية</th>
+                                            <th>العدد الكلي</th>
                                             <th>الوزن</th>
                                             <th>السعر</th>
                                             <th></th>
@@ -59,7 +59,18 @@
                                                         @endif
                                                     </h5>
                                                 </td>
-                                                <td class="font-14">{{$d->operationdetailes->quantity ?? 0}}</td>
+                                                @php
+                                                    $baseQty = (int)($d->operationdetailes->quantity ?? 0);
+                                                    $totalQty = $baseQty;
+                                                    $cuttingQnty = $d->operationdetailes->cuttingqnty ?? null;
+                                                    $operationName = $d->opreationname ?? '';
+                                                    // For cutting operations only, multiply by cutting quantity
+                                                    if (!is_null($cuttingQnty) && str_contains($operationName, 'تقطيع')) {
+                                                        $totalQty = $baseQty * (int)$cuttingQnty;
+                                                    }
+                                                    // For welding (لحام), use base quantity as-is (do not multiply by passes)
+                                                @endphp
+                                                <td class="font-14">{{$totalQty}}</td>
                                                 <td class="font-14">{{number_format($d->weight ?? 0, 3)}} كجم</td>
                                                 <td class="font-14">{{$d->price}} جنيه</td>
                                                 <td>

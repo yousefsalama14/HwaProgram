@@ -133,12 +133,12 @@ class materialsController extends Controller {
                     'operation_id' => 5,
                     'thickness' => $thickness,
                     'weight' => $weight,
-                    'quantity' => 1,
+                    'quantity' => $request->quantity,
         ]);
         $Orderdetailes = Orderdetailes::create([
                     'order_id' => $order->id,
                     'operation_id' => 5,
-                    'quantity' => 1,
+                    'quantity' => $request->quantity,
                     'operationdetailes_id' => $Operationdetailes->id,
                     'price' => $price*$weight,
                     'weight' => $weight,
