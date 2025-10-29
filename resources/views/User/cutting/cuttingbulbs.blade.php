@@ -67,8 +67,12 @@
                                         <label for="example-number-input" class="col-sm-4 col-form-label text-end">سمك
                                             اللوح بالمم:</label>
                                         <div class="col-sm-8 d-flex align-items-center">
-                                            <input class="form-control" type="text" name="thickness" id="thickness" placeholder="مثال : 120 مم"
-                                                >
+                                            <select class="form-select" name="thickness" id="thickness">
+                                                <option value="">اختر السمك</option>
+                                                @for ($i = 1; $i <= 12; $i++)
+                                                    <option value="{{$i}}">{{$i}}</option>
+                                                @endfor
+                                            </select>
                                             <p class="mb-0 fw-semibold d-none">120 مم</p>
                                         </div>
                                     </div>

@@ -97,10 +97,10 @@ class foldcontroller extends Controller
     public function foldingpalletorder(Request $request){
        // dd($request->all());
         $request->validate([
-            'length'=>'required',
-            'width'=>'required',
-            'thickness'=>'required',
-            'quantity'=>'required',
+            'length' => 'required',
+            'width' => 'required',
+            'thickness' => 'required|numeric|min:0|max:12',
+            'quantity' => 'required|integer|min:1',
 
         ]);
         $weight=$this->weight($request->thickness,$request->length,$request->width,$request->quantity);
@@ -387,7 +387,7 @@ class foldcontroller extends Controller
             }
             $price=$price * $request->quantity;
         }else{
-            dd('gfgf');
+            return redirect()->back()->with('error', 'قيمة السمك غير مدعومة لعملية تناية البلتات');
         }
 
         if($price>0){

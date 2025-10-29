@@ -219,10 +219,12 @@
                 <div class="col-lg-12 " id="orderDetailsCol">
                    <div class="card">
                        <div class="card-header">
-                           <h4>{{$detailes->opreationname}}</h4>
+                           <!-- <h4>{{$detailes->opreationname}}</h4> -->
                            <h4 class="card-title">تفاصيل الطلب</h4>
                        </div>
-                       <div class="row" >
+                       <!--end card-header-->
+                       <div class="card-body">
+                       <div class="row">
                        <div class="col-sm-6 col-lg-4">
                                 <div class="mb-3 row">
                                     <label for="example-number-input"
@@ -275,8 +277,6 @@
                             </div>
                        </div>
                        </div>
-                       <!--end card-header-->
-                       <div class="card-body">
                            <div class="row">
                                <div class="col-sm-4">
                                    <div class="mb-3 row">
@@ -335,10 +335,11 @@
                 <div class="col-lg-12 " id="orderDetailsCol">
                    <div class="card">
                        <div class="card-header">
-                           <h4>{{$detailes->opreationname}}</h4>
+                           <!-- <h4>{{$detailes->opreationname}}</h4> -->
                            <h4 class="card-title">تفاصيل الطلب</h4>
                        </div>
                        <!--end card-header-->
+                       <div class="card-body">
                        <div class="row" >
                        <div class="col-sm-6 col-lg-4">
                                 <div class="mb-3 row">
@@ -392,7 +393,6 @@
                             </div>
                        </div>
                        </div>
-                       <div class="card-body">
                            <div class="row">
                                <div class="col-sm-4">
                                    <div class="mb-3 row">

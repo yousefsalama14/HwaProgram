@@ -115,7 +115,12 @@
                                             class="col-sm-4 col-form-label text-end">
                                             قطر البنطة :</label>
                                         <div class="col-sm-8 d-flex align-items-center">
-                                            <input class="form-control" name="punchDiameter" id="punchDiameter" type="number" placeholder="مثال : 1234">
+                                            <select class="form-select" name="punchDiameter" id="punchDiameter">
+                                                <option value=""> اختر القطر</option>
+                                                @for ($i = 1; $i <= 40; $i++)
+                                                    <option value="{{$i}}">{{$i}}</option>
+                                                @endfor
+                                            </select>
                                             <p class="mb-0 fw-semibold d-none">120 مم</p>
                                         </div>
                                     </div>
