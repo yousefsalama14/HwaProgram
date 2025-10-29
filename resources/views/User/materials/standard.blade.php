@@ -155,17 +155,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6 col-lg-4">
-                                <div class="mb-3 row">
-                                    <label for="example-number-input"
-                                           class="col-sm-4 col-form-label text-end">السمك
-                                         :</label>
-                                    <div class="col-sm-8 d-flex align-items-center">
-                                        <input class="form-control" name="thickness" type="text"
-                                               placeholder="مثال : 1234" id="example-number-input" value="{{$detailes->operationdetailes->thickness}} مم  " disabled>
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class="col-sm-4">
                             </div>
                             <div class="mb-3 row">
