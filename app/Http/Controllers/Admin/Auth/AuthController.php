@@ -22,11 +22,19 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
         $credentials = $request->only('email', 'password');
+
         if (Auth::guard('Admin')->attempt($credentials)) {
-            //dd('true');
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['redirect' => route('Admin.dashboard')]);
+            }
             return redirect()->route('Admin.dashboard');
         }
-        return redirect()->route('adminLogin')->with('error','Login details are not valid');
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json(['message' => 'بيانات تسجيل الدخول غير صحيحة'], 401);
+        }
+
+        return back()->with('error', 'بيانات تسجيل الدخول غير صحيحة')->withInput();
     }
 
     public function logout()

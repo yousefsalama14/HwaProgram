@@ -26,9 +26,15 @@ class AuthController extends Controller
         ]);
         $credentials = $request->only('email', 'password');
         if (Auth::guard('web')->attempt($credentials)) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['redirect' => route('user.home')]);
+            }
             return redirect()->route('user.home');
         }
-        return redirect()->route('login')->with('error', 'Login details are not valid');
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json(['message' => 'بيانات تسجيل الدخول غير صحيحة'], 401);
+        }
+        return back()->with('error', 'بيانات تسجيل الدخول غير صحيحة')->withInput();
     }
 
     public function logout()

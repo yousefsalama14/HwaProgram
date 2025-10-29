@@ -42,12 +42,30 @@
                                     </div>
                                 </div>
                                 <div class="card-body pt-0">
-                                    <form class="my-4" action="{{route('Admin.login')}}" method="post">
+                                    {{-- session auth error --}}
+                                    @if (session('error'))
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ session('error') }}
+                                    </div>
+                                    @endif
+
+                                    {{-- validation errors --}}
+                                    @if ($errors->any())
+                                    <div class="alert alert-danger" role="alert">
+                                        <ul class="mb-0">
+                                            @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    @endif
+                                    <div id="loginError" class="alert alert-danger d-none" role="alert"></div>
+                                    <form id="adminLoginForm" class="my-4" action="{{route('Admin.login')}}" method="post">
                                         @csrf
                                         <div class="form-group mb-2">
                                             <label class="form-label" for="username">اسم المستخدم</label>
                                             <input type="text" class="form-control" id="username" name="email"
-                                                placeholder="أدخل اسم المستخدم">
+                                                value="{{ old('email') }}" placeholder="أدخل اسم المستخدم">
                                         </div>
                                         <!--end form-group-->
 
@@ -90,7 +108,7 @@
                                         <div class="form-group mb-0 row">
                                             <div class="col-12">
                                                 <div class="d-grid mt-3">
-                                                     <button type="submit" class="btn btn-primary">
+                                                     <button type="submit" id="adminLoginSubmit" class="btn btn-primary">
                                                         تسجيل الدخول
                                                          <i  class="fas fa-sign-in-alt ms-1"></i>
                                                     </button>
@@ -136,6 +154,67 @@
                 toggleIcon.classList.add('fa-eye');
             }
         });
+        (function(){
+            const form = document.getElementById('adminLoginForm');
+            if (!form) return;
+            const submitBtn = document.getElementById('adminLoginSubmit');
+            const errorBox = document.getElementById('loginError');
+            form.addEventListener('submit', async function(e){
+                e.preventDefault();
+                if (errorBox){
+                    errorBox.classList.add('d-none');
+                    errorBox.textContent = '';
+                }
+                if (submitBtn){
+                    submitBtn.disabled = true;
+                }
+                try{
+                    const formData = new FormData(form);
+                    const tokenInput = form.querySelector('input[name="_token"]');
+                    const res = await fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': tokenInput ? tokenInput.value : ''
+                        },
+                        body: formData
+                    });
+                    const contentType = res.headers.get('content-type') || '';
+                    let data = {};
+                    if (contentType.includes('application/json')){
+                        data = await res.json();
+                    } else {
+                        // Fallback to text for unexpected responses
+                        data = { message: await res.text() };
+                    }
+                    if (res.ok && data.redirect){
+                        window.location.href = data.redirect;
+                        return;
+                    }
+                    // Show validation or auth errors
+                    let message = data.message || 'حدث خطأ غير متوقع. حاول مرة أخرى.';
+                    if (data.errors){
+                        const all = Object.values(data.errors).flat();
+                        if (all.length){
+                            message = all.join('\n');
+                        }
+                    }
+                    if (errorBox){
+                        errorBox.textContent = message;
+                        errorBox.classList.remove('d-none');
+                    }
+                }catch(err){
+                    if (errorBox){
+                        errorBox.textContent = 'تعذر الاتصال بالخادم. حاول مرة أخرى.';
+                        errorBox.classList.remove('d-none');
+                    }
+                } finally {
+                    if (submitBtn){
+                        submitBtn.disabled = false;
+                    }
+                }
+            });
+        })();
     </script>
 </body>
 
