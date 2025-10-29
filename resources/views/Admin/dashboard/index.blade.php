@@ -30,10 +30,9 @@
                             <div class="row">
                                 <div class="col align-self-center">
                                     <div class="media">
-                                        <img src="../assets/images/logos/money-beg.png" alt=""
-                                            class="align-self-center" height="40">
+                                    <i class="las la-money-bill font-36 text-muted align-self-center"></i>
                                         <div class="media-body align-self-center ms-3">
-                                            <h6 class="m-0 font-24 fw-bold">جنيه 24,500</h6>
+                                            <h6 class="m-0 font-24 fw-bold">جنيه {{ number_format($totalRevenue ?? 0, 0) }}</h6>
                                             <p class="text-muted mb-0">إجمالي الإيرادات</p>
                                         </div>
                                         <!--end media body-->
@@ -41,10 +40,31 @@
                                     <!--end media-->
                                 </div>
                                 <!--end col-->
-                                <div class="col-auto align-self-center">
+                                <!-- <div class="col-auto align-self-center">
                                     <div class="">
                                         <div id="Revenu_Status_bar" class="apex-charts mb-n4"></div>
                                     </div>
+                                </div> -->
+                                <!--end col-->
+                            </div>
+                            <!--end row-->
+                        </div>
+                        <!--end card-body-->
+                    </div>
+                    <!--end card-->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col align-self-center">
+                                    <div class="media">
+                                        <i class="las la-shopping-cart font-36 text-muted align-self-center"></i>
+                                        <div class="media-body align-self-center ms-3">
+                                            <h6 class="m-0 font-24 fw-bold">{{ $totalOrdersCount ?? 0 }}</h6>
+                                            <p class="text-muted mb-0">إجمالي الأوردرات</p>
+                                        </div>
+                                        <!--end media body-->
+                                    </div>
+                                    <!--end media-->
                                 </div>
                                 <!--end col-->
                             </div>
@@ -59,7 +79,7 @@
                                 <div class="card-body">
                                     <div class="row align-items-center">
                                         <div class="col text-center">
-                                            <span class="h5  fw-bold">جنيه 1850</span>
+                                            <span class="h5  fw-bold">جنيه {{ number_format($todayRevenue ?? 0, 0) }}</span>
                                             <h6 class="text-uppercase text-muted mt-2 m-0 font-11">إيرادات اليوم
                                             </h6>
                                         </div>
@@ -76,7 +96,7 @@
                                 <div class="card-body">
                                     <div class="row align-items-center">
                                         <div class="col text-center">
-                                            <span class="h5  fw-bold">520</span>
+                                            <span class="h5  fw-bold">{{ $todayOrdersCount ?? 0 }}</span>
                                             <h6 class="text-uppercase text-muted mt-2 m-0 font-11">اوردرات اليوم
                                             </h6>
                                         </div>
@@ -88,7 +108,6 @@
                             <!--end card-body-->
                         </div>
                         <!--end col-->
-
                     </div>
                     <!--end row-->
                     <div class="card">
@@ -193,50 +212,18 @@
                                         <!--end tr-->
                                     </thead>
                                     <tbody>
+                                        @forelse($dailyProfits ?? [] as $day)
                                         <tr>
-                                            <td>01 يناير</td>
-                                            <td>50</td>
-                                            <td>جنيه 15,000</td>
+                                            <td>{{ $day['date'] }}</td>
+                                            <td>{{ $day['orders_count'] }}</td>
+                                            <td>جنيه {{ number_format($day['revenue'], 0) }}</td>
                                         </tr>
                                         <!--end tr-->
+                                        @empty
                                         <tr>
-                                            <td>02 يناير</td>
-                                            <td>25</td>
-                                            <td>جنيه 9,500</td>
-
+                                            <td colspan="3" class="text-center">لا توجد بيانات متاحة</td>
                                         </tr>
-                                        <!--end tr-->
-                                        <tr>
-                                            <td>03 يناير</td>
-                                            <td>65</td>
-                                            <td>جنيه 35,000</td>
-
-                                        </tr>
-                                        <!--end tr-->
-                                        <tr>
-                                            <td>04 يناير</td>
-                                            <td>20</td>
-                                            <td>جنيه 8,500</td>
-                                        </tr>
-                                        <!--end tr-->
-                                        <tr>
-                                            <td>05 يناير</td>
-                                            <td>40</td>
-                                            <td>جنيه 12,000</td>
-                                        </tr>
-                                        <!--end tr-->
-                                        <tr>
-                                            <td>06 يناير</td>
-                                            <td>45</td>
-                                            <td>جنيه 13,500</td>
-                                        </tr>
-                                        <!--end tr-->
-                                        <tr>
-                                            <td>07 يناير</td>
-                                            <td>30</td>
-                                            <td>جنيه 14,500</td>
-                                        </tr>
-                                        <!--end tr-->
+                                        @endforelse
                                     </tbody>
                                 </table>
                                 <!--end table-->
@@ -268,5 +255,5 @@
         <!--end footer-->
     </div>
     <!-- end page content -->
-</div>  
+</div>
 @endsection

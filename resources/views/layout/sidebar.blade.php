@@ -1,9 +1,9 @@
 <div class="left-sidebar">
     <!-- LOGO -->
     <div class="brand">
-        <a href="index.html" class="logo">
+        <a href="{{route('Admin.dashboard')}}" class="logo">
             <span>
-                <img src="../assets/images/logos/logo.png" alt="logo-small" class="logo-sm">
+                <img src="{{asset('assets/images/logos/logo.png')}}" alt="logo-small" class="logo-sm">
             </span>
         </a>
     </div>

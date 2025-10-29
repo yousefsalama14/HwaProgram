@@ -12,6 +12,10 @@ class AuthController extends Controller
     //
     public function login()
     {
+        // If user is already authenticated, redirect to home
+        if (Auth::guard('web')->check()) {
+            return redirect()->route('user.home');
+        }
         return view('User.Auth.login');
     }
     public function Submitlogin(Request $request)
@@ -22,7 +26,7 @@ class AuthController extends Controller
         ]);
         $credentials = $request->only('email', 'password');
         if (Auth::guard('web')->attempt($credentials)) {
-            return view('User.home.index');
+            return redirect()->route('user.home');
         }
         return redirect()->route('login')->with('error', 'Login details are not valid');
     }

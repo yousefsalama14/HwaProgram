@@ -11,6 +11,7 @@
                     <div class="page-title-box">
                         <div class="float-end">
                             <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{route('Admin.dashboard')}}">الرئيسية</a></li>
                                 <li class="breadcrumb-item"><a href="#">قائمة الأسعار</a></li>
                                 <li class="breadcrumb-item active">الدرفلة</li>
                             </ol>

@@ -10,6 +10,10 @@ class AuthController extends Controller
 {
     //
     public function login(){
+        // If user is already authenticated, redirect to dashboard
+        if (Auth::guard('Admin')->check()) {
+            return redirect()->route('Admin.dashboard');
+        }
         return view('Admin.Auth.login');
     }
     public function Submitlogin(Request $request){
@@ -20,7 +24,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         if (Auth::guard('Admin')->attempt($credentials)) {
             //dd('true');
-            return view('Admin.dashboard.index');
+            return redirect()->route('Admin.dashboard');
         }
         return redirect()->route('adminLogin')->with('error','Login details are not valid');
     }
