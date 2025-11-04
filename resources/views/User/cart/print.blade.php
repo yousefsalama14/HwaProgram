@@ -25,7 +25,7 @@
             @endif
             <div class="row justify-content-center">
                 <div class="col-10 mt-4">
-                    <div id="Receipt" class="well">
+                    <div id="Receipt" class="well receipt-container">
                         <div class="row">
                             @if($order->user->id ==11 || $order->user->id ==12)
                             <div class="col-xs-6 col-sm-6 col-md-6">
@@ -85,23 +85,24 @@
                             <div class="col-xs-6 col-sm-6 col-md-6 text-right">
                                 <form action="{{ route('user.customer.update', $order->id) }}" method="post" id="printCustomerForm">
                                     @csrf
-                                    <p>
-                                        <em>اسم العميل: </em><input type="text" name="customer_name" value="{{ old('customer_name', $order->customer_name ?? '') }}">
+                                    <p class="mb-2">
+                                        <em>اسم العميل: </em>
+                                        <input type="text" name="customer_name" class="form-control d-inline-block w-auto invoice-input" value="{{ old('customer_name', $order->customer_name ?? '') }}" placeholder="أدخل اسم العميل">
                                     </p>
-                                    <p>
-                                        <em> رقم التليفون:</em><input type="text" name="customer_phone" value="{{ old('customer_phone', $order->customer_phone ?? '') }}">
+                                    <p class="mb-2">
+                                        <em>رقم التليفون: </em>
+                                        <input type="text" name="customer_phone" class="form-control d-inline-block w-auto invoice-input" value="{{ old('customer_phone', $order->customer_phone ?? '') }}" placeholder="أدخل رقم التليفون">
                                     </p>
                                     <input type="hidden" name="notes" value="{{ old('notes', request('notes','')) }}">
                                 </form>
                                 </div>
                         </div>
                         <div class="row">
-                            <div class="text-center">
-                                <h2>فاتورة </h2>
+                            <div class="text-center invoice-title">
+                                <h2>فاتورة</h2>
+                                <hr class="invoice-sep">
                             </div>
-
-                            </span>
-                            <table class="table mb-0">
+                            <table class="table mb-0 invoice-table">
                                 <thead>
                                     <tr>
                                         <th>العملية</th>
@@ -112,6 +113,12 @@
                                 </thead>
                                 <tbody>
                                 @foreach ($order->orderdetailes as $d)
+                                    @php
+                                        $quantity = $d->operationdetailes->quantity ?? 0;
+                                        // Skip items with zero quantity unless they have a price (service fee)
+                                        $shouldShow = ($quantity > 0) || ($d->price > 0 && $quantity == 0);
+                                    @endphp
+                                    @if($shouldShow)
                                     <tr>
                                         <td><h5 class="mt-0 mb-1 font-14">
                                             @if($d->opreationname === 'خامات' || $d->opreationname === 'خامات استاندرد')
@@ -121,9 +128,10 @@
                                             @endif
                                         </h5></td>
                                         <td><h5 class="mt-0 mb-1 font-14">{{number_format($d->weight ?? 0, 3)}} كجم</h5></td>
-                                        <td class="form-control w-25" style="text-align: center"> {{$d->operationdetailes->quantity ?? 0}}</td>
-                                        <td>{{$d->price}} جنيه</td>
+                                        <td class="text-center invoice-qty">{{number_format($quantity, 0)}}</td>
+                                        <td class="text-center">{{number_format($d->price, 2)}} جنيه</td>
                                     </tr>
+                                    @endif
                                 @endforeach
 
                                     <tr>
@@ -133,7 +141,7 @@
                                             <h4><strong>المجموع الكلي : </strong></h4>
                                         </td>
                                         <td class="text-center text-danger">
-                                            <h4><strong>{{$totalprcie}} جنيه</strong></h4>
+                                            <h4><strong>{{number_format($totalprcie, 2)}} جنيه</strong></h4>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -203,23 +211,20 @@
             // Add print-specific styles
             printcontent.find('.btn').remove(); // Remove buttons from print
             printcontent.find('.alert').remove(); // Remove alerts from print
+            printcontent.find('input[type="text"]').each(function() {
+                // Convert input fields to plain text for printing
+                var value = $(this).val() || '';
+                $(this).replaceWith('<span style="font-weight: 500;">' + value + '</span>');
+            });
+            // Remove any URLs or links
+            printcontent.find('a').each(function() {
+                var text = $(this).text();
+                $(this).replaceWith(text);
+            });
 
             $('body').empty().html(printcontent);
 
-            // Add print styles
-            $('head').append(`
-                <style>
-                    @media print {
-                        body { font-family: Arial, sans-serif; }
-                        .well { border: 1px solid #ddd; padding: 20px; }
-                        table { width: 100%; border-collapse: collapse; }
-                        th, td { border: 1px solid #ddd; padding: 8px; text-align: right; }
-                        th { background-color: #f5f5f5; }
-                        .text-center { text-align: center; }
-                        .text-right { text-align: right; }
-                    }
-                </style>
-            `);
+            // Styles are now in assets/css/invoice.css (no inline styles appended)
 
             window.print();
 

@@ -24,6 +24,7 @@
     <link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/css/app-rtl.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/css/style-rtl.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/css/invoice.css')}}" rel="stylesheet" type="text/css" />
 
 </head>
 

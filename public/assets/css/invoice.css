@@ -1,0 +1,94 @@
+/* Invoice styles (shared + print) */
+
+.receipt-container {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+.invoice-title {
+    margin: 20px 0;
+}
+
+.invoice-title h2 {
+    font-weight: bold;
+    color: #333;
+}
+
+.invoice-sep {
+    border-top: 2px solid #333;
+    margin: 10px auto;
+    width: 50%;
+}
+
+.invoice-table {
+    margin-top: 20px;
+}
+
+.invoice-qty {
+    padding: 12px;
+}
+
+.invoice-input {
+    min-width: 150px;
+}
+
+/* Print-only rules */
+@media print {
+    @page {
+        size: A4;
+        margin: 15mm;
+    }
+
+    body {
+        font-family: 'Arial', 'Tahoma', sans-serif;
+        font-size: 12pt;
+        color: #000;
+    }
+
+    .well {
+        border: 1px solid #ddd;
+        padding: 20px;
+        background: #fff !important;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+    }
+
+    th,
+    td {
+        border: 1px solid #ddd;
+        padding: 10px 8px;
+        text-align: right;
+    }
+
+    th {
+        background-color: #f5f5f5;
+        font-weight: bold;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    address {
+        line-height: 1.6;
+    }
+
+    /* Hide interactive elements while printing */
+    .btn,
+    .alert,
+    input,
+    form {
+        display: none !important;
+    }
+}
