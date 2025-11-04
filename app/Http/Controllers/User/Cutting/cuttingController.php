@@ -28,7 +28,7 @@ class cuttingController extends Controller
         $request->validate([
             'length'=>'required',
             'width'=>'required',
-            'thickness'=>'required',
+            'thickness'=>'required|numeric|min:4|max:12',
         ]);
          $thickness=$request->thickness;
          $weight=$this->weight($request->thickness,$request->length,$request->width,$request->quantity);

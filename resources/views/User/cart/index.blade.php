@@ -64,11 +64,11 @@
                                                     $totalQty = $baseQty;
                                                     $cuttingQnty = $d->operationdetailes->cuttingqnty ?? null;
                                                     $operationName = $d->opreationname ?? '';
-                                                    // For cutting operations only, multiply by cutting quantity
-                                                    if (!is_null($cuttingQnty) && str_contains($operationName, 'تقطيع')) {
+                                                    // Only multiply by cutting passes for cutting operations EXCEPT board cutting
+                                                    if (!is_null($cuttingQnty) && str_contains($operationName, 'تقطيع') && $operationName !== 'تقطيع الواح') {
                                                         $totalQty = $baseQty * (int)$cuttingQnty;
                                                     }
-                                                    // For welding (لحام), use base quantity as-is (do not multiply by passes)
+                                                    // For welding (لحام) and board cutting, use base quantity as-is
                                                 @endphp
                                                 <td class="font-14">{{$totalQty}}</td>
                                                 <td class="font-14">{{number_format($d->weight ?? 0, 3)}} كجم</td>

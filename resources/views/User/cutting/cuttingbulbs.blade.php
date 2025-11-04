@@ -67,13 +67,10 @@
                                         <label for="example-number-input" class="col-sm-4 col-form-label text-end">سمك
                                             اللوح بالمم:</label>
                                         <div class="col-sm-8 d-flex align-items-center">
-                                            <select class="form-select" name="thickness" id="thickness">
-                                                <option value="">اختر السمك</option>
-                                                @for ($i = 1; $i <= 12; $i++)
-                                                    <option value="{{$i}}">{{$i}}</option>
-                                                @endfor
-                                            </select>
-                                            <p class="mb-0 fw-semibold d-none">120 مم</p>
+                                            <input class="form-control" type="number" name="thickness" id="thickness" min="12" max="100" step="0.1" value="{{ old('thickness') }}" placeholder="مثال : 12.5 مم" onblur="if (this.value) { const v = parseFloat(this.value); if (v > 100) { this.value = 100; this.setCustomValidity('القيمة يجب ألا تزيد عن 100'); } else if (v < 12) { this.value = 12; this.setCustomValidity('القيمة يجب ألا تقل عن 12'); } else { this.setCustomValidity(''); } }">
+                                            @error('thickness')
+                                            <div class="invalid-feedback d-block mt-2">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>

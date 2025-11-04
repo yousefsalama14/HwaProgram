@@ -71,14 +71,12 @@
                                             class="col-sm-4 col-form-label text-end">سمك
                                             اللوح بالمم:</label>
                                         <div class="col-sm-8 d-flex align-items-center">
-                                            <select class="form-select" name="thickness" id="thickness">
-                                                <option value="">اختر السمك</option>
-                                                @for ($i = 1; $i <= 12; $i++)
-                                                    <option value="{{$i}}">{{$i}}</option>
-                                                @endfor
-                                            </select>
-                                            <p class="mb-0 fw-semibold d-none">120 مم</p>
+                                            <input class="form-control" type="number" name="thickness" id="thickness" min="4" max="12" step="0.1" value="{{ old('thickness') }}" placeholder="من 4مم الي 12 مم" oninput="if (this.value && parseFloat(this.value) < 4) { this.value = 4; } if (this.value && parseFloat(this.value) > 12) { this.value = 12; }">
+                                            @error('thickness')
+                                            <div class="invalid-feedback d-block mt-2">{{ $message }}</div>
+                                            @enderror
                                         </div>
+
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-lg-4">
