@@ -28,11 +28,11 @@
                         <div class="collapse " id="processSetup">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="invoices-manage.html">إدارة الفواتير</a>
+                                    <a class="nav-link" href="#">إدارة الفواتير</a>
                                 </li>
                                 <!--end nav-item-->
                                 <li class="nav-item">
-                                    <a class="nav-link" href="invoices-refund.html">الفواتير المرتجعة</a>
+                                    <a class="nav-link" href="#">الفواتير المرتجعة</a>
                                 </li>
                                 <!--end nav-item-->
                             </ul>

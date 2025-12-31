@@ -70,9 +70,7 @@
                                     @foreach ($foldpanelsprices as $foldpanelsprice)
                                     <div class="col-sm-6 col-lg-4">
                                         <div class="row">
-                                            <label for="example-number-input" class="col-sm-4 col-form-label text-end">{{$foldpanelsprice->name}}
-                                                مم
-                                                </label>
+                                            <label for="example-number-input" class="col-sm-4 col-form-label text-end">{{$foldpanelsprice->name}}</label>
                                             <div class="col-sm-8 d-flex align-items-center">
                                                 <input class="form-control" type="text" name='price[]' value='{{$foldpanelsprice->price}}' placeholder="مثال : 10 جنيه"
                                                     id="example-number-input">

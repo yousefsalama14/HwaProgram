@@ -15,13 +15,39 @@
                                 <li class="breadcrumb-item active">الرئيسية</li>
                             </ol>
                         </div>
-                        <h4 class="page-title">الرئيسية</h4>
+                        <h4 class="page-title">مرحبًا بك {{ \Illuminate\Support\Facades\Auth::guard('Admin')->user()->name ?? '' }}</h4>
                     </div>
                     <!--end page-title-box-->
                 </div>
                 <!--end col-->
             </div>
             <!-- end page title end breadcrumb -->
+            
+            @php
+                $adminName = \Illuminate\Support\Facades\Auth::guard('Admin')->check() ? strtolower(trim(\Illuminate\Support\Facades\Auth::guard('Admin')->user()->name ?? '')) : '';
+                $showResetButton = $adminName === 'cost.accounting' || $adminName === 'cost accounting' || str_contains($adminName, 'cost.accounting');
+            @endphp
+            {{-- Debug: Admin name is: {{ \Illuminate\Support\Facades\Auth::guard('Admin')->check() ? \Illuminate\Support\Facades\Auth::guard('Admin')->user()->name : 'Not logged in' }} --}}
+            @if(\Illuminate\Support\Facades\Auth::guard('Admin')->check() && $showResetButton)
+            <div class="row mb-3">
+                <div class="col-12">
+                    <div class="alert alert-warning">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="ti ti-alert-triangle me-2"></i>
+                                <strong>إعادة تعيين أرقام الطلبات</strong>
+                                <p class="mb-0 mt-1 text-muted">سيتم حذف جميع الطلبات وإعادة تعيين الأرقام ليبدأ من 1</p>
+                            </div>
+                            <button type="button" class="btn btn-danger" id="resetOrderNumbersBtn">
+                                <i class="ti ti-refresh me-1"></i>
+                                إعادة تعيين الأرقام
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
+            
             <div class="row">
 
                 <div class="col-lg-4">
@@ -256,4 +282,97 @@
     </div>
     <!-- end page content -->
 </div>
+
+@if(\Illuminate\Support\Facades\Auth::guard('Admin')->check() && $showResetButton)
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const resetBtn = document.getElementById('resetOrderNumbersBtn');
+    
+    if (!resetBtn) {
+        return;
+    }
+    
+    resetBtn.addEventListener('click', function() {
+        Swal.fire({
+            title: 'هل أنت متأكد؟',
+            text: 'سيتم حذف جميع الطلبات الحالية! هذا الإجراء لا يمكن التراجع عنه!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'نعم، تأكيد',
+            cancelButtonText: 'إلغاء',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Disable button and show loading
+                resetBtn.disabled = true;
+                const originalText = resetBtn.innerHTML;
+                resetBtn.innerHTML = '<i class="ti ti-loader me-1"></i> جاري المعالجة...';
+                
+                // Show loading alert
+                Swal.fire({
+                    title: 'جاري المعالجة...',
+                    text: 'يرجى الانتظار',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    showConfirmButton: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+                
+                // Send request
+                fetch('{{ route("admin.reset-order-numbers") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            title: 'نجح!',
+                            text: data.message,
+                            icon: 'success',
+                            confirmButtonText: 'حسناً',
+                            timer: 2000,
+                            timerProgressBar: true
+                        }).then(() => {
+                            window.location.reload();
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'خطأ!',
+                            text: data.message,
+                            icon: 'error',
+                            confirmButtonText: 'حسناً'
+                        });
+                        resetBtn.disabled = false;
+                        resetBtn.innerHTML = originalText;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        title: 'خطأ!',
+                        text: 'حدث خطأ أثناء المعالجة',
+                        icon: 'error',
+                        confirmButtonText: 'حسناً'
+                    });
+                    resetBtn.disabled = false;
+                    resetBtn.innerHTML = originalText;
+                });
+            }
+        });
+    });
+});
+</script>
+@endsection
+@endif
+
 @endsection

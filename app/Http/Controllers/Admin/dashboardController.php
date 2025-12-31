@@ -39,11 +39,13 @@ class dashboardController extends Controller
                     return $order->orderdetailes->sum('price');
                 }) ?? 0;
 
-            // Count total orders
-            $totalOrdersCount = Order::count() ?? 0;
+            // Count total orders (only paid orders)
+            $totalOrdersCount = Order::where('status', 'paied')
+                ->count() ?? 0;
 
-            // Count today's orders
-            $todayOrdersCount = Order::whereDate('created_at', Carbon::today())
+            // Count today's orders (only paid orders)
+            $todayOrdersCount = Order::where('status', 'paied')
+                ->whereDate('paid_at', Carbon::today())
                 ->count() ?? 0;
 
             // Get recent orders for the reports table
@@ -65,7 +67,9 @@ class dashboardController extends Controller
                         return $order->orderdetailes->sum('price');
                     }) ?? 0;
 
-                $dayOrdersCount = Order::whereDate('created_at', $date)->count() ?? 0;
+                $dayOrdersCount = Order::where('status', 'paied')
+                    ->whereDate('paid_at', $date)
+                    ->count() ?? 0;
 
                 $dailyProfits[] = [
                     'date' => $date->format('d M'),

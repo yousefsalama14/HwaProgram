@@ -38,7 +38,16 @@ class foldcontroller extends Controller
         ]);
          $thickness=$request->thickness;
          $weight=$this->weight($request->thickness,$request->length,$request->width,$request->quantity);
-         if($thickness>=1 && $thickness<=9){
+         if($thickness < 1){
+            // استخدام سعر السمك 1 للقيم أقل من 1 مم
+            $price=Foldprice::where('value', 1)->first();
+            if($price) {
+                $price=$price->price*$request->quantity*$request->foldqnty;
+            } else {
+                return redirect()->back()->with('error', 'لم يتم العثور على السعر المناسب');
+            }
+         }
+         elseif($thickness>=1 && $thickness<=9){
            $price=Foldprice::where('value',round($thickness))->first();
            $price=$price->price*$request->quantity*$request->foldqnty;
          }

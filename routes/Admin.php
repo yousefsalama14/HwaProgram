@@ -44,5 +44,60 @@ Route::middleware('AdminAuth')->group(function(){
         Route::post('/getPrice','getPrice');
         Route::post('/updatePrice','updatePrice')->name('perforation.updatePrice');
     });
+
+    // Reset order numbers route (only for cost.accounting admin)
+    Route::post('/Admin/reset-order-numbers', function () {
+        // Check if admin is cost.accounting (case-insensitive)
+        $adminName = strtolower(trim(\Illuminate\Support\Facades\Auth::guard('Admin')->user()->name ?? ''));
+        $allowedNames = ['cost.accounting', 'cost accounting'];
+        
+        if (!in_array($adminName, $allowedNames) && !str_contains($adminName, 'cost.accounting')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'غير مصرح لك بهذا الإجراء'
+            ], 403);
+        }
+
+        try {
+            // Check if there are existing orders
+            $orderCount = \Illuminate\Support\Facades\DB::table('orders')->count();
+            
+            if ($orderCount > 0) {
+                // Disable foreign key checks temporarily
+                \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+                
+                // Delete all orderdetailes first
+                \Illuminate\Support\Facades\DB::table('orderdetailes')->delete();
+                
+                // Delete all orders
+                \Illuminate\Support\Facades\DB::table('orders')->delete();
+                
+                // Re-enable foreign key checks
+                \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+            }
+            
+            // Reset AUTO_INCREMENT to 1
+            $tableName = \Illuminate\Support\Facades\DB::getTablePrefix() . 'orders';
+            \Illuminate\Support\Facades\DB::statement("ALTER TABLE `{$tableName}` AUTO_INCREMENT = 1");
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'تم إعادة تعيين أرقام الطلبات بنجاح! سيبدأ رقم الطلب التالي من 1.',
+                'deleted_orders' => $orderCount
+            ]);
+        } catch (\Exception $e) {
+            // Make sure to re-enable foreign key checks even if there's an error
+            try {
+                \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+            } catch (\Exception $e2) {
+                // Ignore
+            }
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'حدث خطأ: ' . $e->getMessage()
+            ], 500);
+        }
+    })->name('admin.reset-order-numbers');
 });
 

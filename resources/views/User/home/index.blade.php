@@ -16,7 +16,7 @@
                                 <li class="breadcrumb-item active">الرئيسية</li>
                             </ol>
                         </div>
-                        <h4 class="page-title">مرحبًا بك</h4>
+                        <h4 class="page-title">مرحبًا بك {{ auth()->user()->name ?? '' }}</h4>
                     </div>
                     <!--end page-title-box-->
                 </div>
